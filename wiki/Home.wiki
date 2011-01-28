@@ -1,0 +1,229 @@
+{{citation style|date=February 2010}}
+[[Image:twixtboard185132.jpg|thumb|right|A computer-generated image of a game of TwixT, as played on littlegolem.net.]]
+
+'''TwixT''' is a two-player [[abstract strategy game]] invented by [[Alex Randolph]]. It is a member of the [[connection game]] family, along with games such as [[Hex (game)|Hex]], [[Havannah (game)|Havannah]], [[Y (game)|Y]], [[PÜNCT]] and [[*Star]].
+
+[[3M]] originally published TwixT as part of its [[3M bookshelf game series|Bookshelf Games]] line; [[Avalon Hill]] took over publication at a later date.  TwixT is no longer produced in the [[United States|United States of America]], although [[Schmidt Spiele]] produced copies of the game in [[Germany]], and [[Kosmos (game publisher)|Kosmos]] published a version of the game in 1998. [[Hasbro]] owns the rights to Twixt since it acquired Avalon Hill, but it hasn't published the game.
+
+Twixt is played on board with a 24&times;24 grid of holes, with the four corners missing.  The rows around the four edges of the board are called border rows. In the 3M edition, the two players are Red and Black. Different sets may use different colors. The topmost and bottommost rows belong to the lighter color, and the leftmost and rightmost rows belong to the darker color. 
+
+== Rules ==
+
+*The players take turns placing pegs of their respective colors on the board, one peg per turn.
+*The player with the lighter color makes the first move.
+*A player may '''not''' place a peg on their opponent's border rows.
+*To counteract first-move advantage, the [[pie rule]] is suggested. After the first peg is placed, the second player has the option to swap sides. This is typically indicated by turning the pieces box end for end, or swapping boxes if they are separate. If the second player chooses not to swap immediately after the first peg is placed, then sides may not be swapped later in that game. (This "one-move equalization" was added by Randolph after 3M published his game. It is present in the Schmidt Spiele edition and all later editions.)
+*After placing a peg, you may ''link'' one or more pairs of pegs on the board which are all your own colour.  The links can only go between two pegs a [[Knight (chess)|knight's move]] away from each other, and cannot cross another link; they block other links, most importantly the opponent's. As part of your move, you may remove your own links (but not your opponent's) in order to rearrange the sequence of links on the board.  ''(Variant for [[Pencil and paper game|pencil and paper]] play:  you may cross your own links but not your opponent's. See below.)''
+*The object is to make a continuous chain of linked pegs connecting your border rows. If neither side can achieve this, the game is a draw.
+
+== Basic Patterns ==
+
+Despite such a large grid, games are frequently over before both sides have each made 25 moves. The tactics are very sharp and unforgiving. A knowledge of the most common peg patterns can help guide your eye towards the best move choices.
+
+[[Image:Twixtsetups.png|frame|The five setups.]]
+
+A '''setup''' is a pattern of two pegs of the same color which can connect to each other in a single move in two different ways. The gap between these pegs is generally difficult for the opponent to attack, since if one connection is blocked then the other is usually still available. There are five setups, each characterized by a name and by two numbers which represent the horizontal and vertical distances between these pegs. The larger value is listed first.
+
+The yellow holes indicate where a third peg of the same color would form a double link connection. The red holes indicate possible points of attack for the opponent. For example, against white's beam setup in the top left, black could play at F7 which would link to H8. Placing a linked peg adjacent to a lone opposing peg this way is called a '''hammer attack'''. Black threatens to cut past E7 on one side or the other. In the top right, white could attack black's 3-3 tilt setup by linking to T8, threatening R9 or S10. Of course white would also be threatening in other directions, but our concern for the moment is just with setups and how to attack them. In the bottom right, black could launch a hammer attack with a link to S17, threatening Q16 or R15. Against the remaining two setups, the 2-0 mesh and the 1-1 short, a simple hammer attack will not work, because the two double linking paths are too widely separated. That does not mean that those setups are completely invulnerable, however.
+
+There are plenty of other ways to place two pegs of the same color so that the gap between them is difficult to attack. The next diagram shows a few of them. The 5-2 gap is particularly strong. These two pegs can be connected in two moves in a variety of ways, usually too many for the opponent to block them all. The 5-0 gap is slightly more vulnerable. For example, if the O7 peg is unlinked, white might be able to attack at Q7. Then if black plays R6 threatening P5 or Q8, white could play O8, threatening N6 or R5.
+
+{{Clr}} 
+[[Image:Twixtotherpatterns.png|left]]
+
+The 3-0 gap involves some very tricky tactics. For example, if black tries to attack with an unlinked peg at O15, white could respond with N16 which threatens to double link at P15.
+
+The 4-2 gap is technically not a setup, because there is only one way to connect these pegs in one move. But without a nearby peg, it may be difficult for black to attack this pattern anyway. If black plays L20, white could respond at K20 or at M20, forming a combination of a coign setup and a short setup. Since the short setup is so difficult to attack, white will probably manage to connect J21 to N19, albeit in three moves rather than one. White might also respond to L20 with either K21 or M19, which is much more complicated.
+
+It's '''usually good enough''' to play close to the peg you want to connect to, since the most important thing is to '''block your opponent.''' You'll probably be able to complete the connection later in the game. For example, in the 4-3 gap, if white attacks with H14 black might respond with H15, which is a 2-2 gap from F17. This is four knight's moves away, but physically the pegs are close. If white continues the attack with G16 then black has H16 which threatens to double link at J15.
+
+{{Clr}}
+[[Image:Twixtmorepatterns.png|right]]
+Here are a few more useful gaps to know. This is by no means an exhaustive list. The 6-1 gap can be vulnerable to attack like the 5-0 gap in the previous plate. With a white peg on H8 as shown, White could attack at H4, with the idea that black J4* would be answered by white F5*. In general, the "skinnier" the pattern of connecting holes is, such as with the 6-1 and 5-4 gaps, the more easily this gap could be attacked if the opponent has a peg close enough. But if there is no nearby opposing peg, such a pattern might be preferred because it crosses a large gap in few moves. An extreme example of this would be to extend a straight line of knight's moves by playing a 6-3 gap or 8-4 etc. If by making such a move you are also making another threat in another direction, this could be the most efficient possible use of the board. There are of course lots of gaps which would take three or more moves to connect. Shown here is the 7-3. Here black threatens to turn this into a "beam-tilt combination" by playing in either green hole (N15 or M18), or black might link to either blue hole (L16* or O17*) which would reduce this to a 5-2 gap.
+
+The following diagrams use '''diagonal guide lines''' which emanate from the four corners of the common playing area. They are intended as a frame of reference on this huge grid of holes. They can help you see which side is going to win a corner battle.
+
+The moves for each battle are numbered. One player makes the odd numbered moves, and the other player makes the even numbered moves. The notation shows an asterisk * for each link added to the peg that was just placed.
+
+{{Clr}} 
+[[Image:Twixtattackdefense1.png|left]]
+
+In the top left, black can hammer white with 1.G6*. If white responds with 2.D7* then after 3.E5* 4.C5* 5.C4* black has reached the crucial diagonal leading to B2. The top right shows the result of a similar fight with colors reversed, except here the hammer attack at T7 did not work because black was one row closer to the black border row, and black gained the crucial diagonal.
+
+In a local battle, it is often a good idea to play where your opponent would like to play. In the bottom right, white has played 1.U21 which is a 2-1 block, or '''linking block,''' of the opponent and also forms a beam setup with U17. There are generally two ways to attack such a block, either a coign attack with 2.V21, or a short hammer attack with 2.T21. Neither attack works here. After 1.U21 2.V21 3.W20* 4.T22** 5.V22* white gains the corner. The bottom left is a mirror image, and shows the result after 1.D21 2.E21 3.F22* which threatens to cut through black's short setup with a double link at E20.
+
+{{Clr}} 
+[[Image:Twixtattackdefense2.png|right]]
+
+In the top left of this next diagram, white has another type of hammer attack. 1.G6 is called a mesh hammer. This works here because the white border row is so close that white can cut past black with either F4* or H4*, and also the 2-0 mesh setup between G6 and G8 is invulnerable to a simple hammer counterattack by black. The top right is a mirror image, and shows the result after 1.R6 2.Q6* 3.S4* 4.S7* 5.T7**.
+
+The bottom left shows one way to defeat the mesh hammer attack. Black's "net" cannot be pierced by white in this instance. After 1.G20 2.H20** black threatens to cut through white's mesh setup with F19**. The bottom right is a mirror image which shows the point of black's defense.
+
+Perhaps the best way to become familiar with tactics is to work through some puzzles. Many are available at http://www.ibiblio.org/twixtpuzzles/ in an interactive format. If you prefer not to allow Javascript, that same page has a link to download the puzzles, or most of the same puzzles are at http://www.gamerz.net/pbmserv/Twixt/puzzles.html
+
+{{Clr}}
+
+== Sample Game ==
+
+Here is an 18x18 game played on the K2z real time server. The actual moves of the game are in boldface, and variations are in plain text.
+
+'''1.G3''' Black has the option at this point to swap sides, but decides not to. '''2.H8''' This and the following two moves are straightforward attempts to block the opponent's previous peg. '''3.L9 4.L11''' Now white has no easy way to block L11. He must play the whole board, and try to find a move which makes as many threats as possible, or blocks as many of the opponent's threats as possible, depending on how you look at it. '''5.F10'''
+
+[[Image:Twixtafter5F10.png|left]]
+
+The point of F10 is that it makes two threats to reach the top, either straight up with something like D5, or through the center with J10*. The assumptions behind this plan are that F10 has a good chance of reaching the bottom border row, and L9 has a good chance of reaching the top. '''6.G6*'''
+{{Clr}}
+[[Image:Twixtafter6G6.png|left]]
+
+Black tries to block both threats in one move. Now getting past G6 on the left looks very unlikely for white. At the same time, black threatens to cut straight across the top with L6, or through the center with i10*. '''7.N10*'''
+
+{{Clr}}
+[[Image:Twixtafter7N10.png|left]]
+
+White played on the left side with F10, then black responded along the top with G6*, and now white plays on the right side with N10*. Such a clockwise (or counterclockwise) sequence of moves is called "windmilling" and seems to crop up often in the opening phase, especially on the standard 24x24 grid. Black might continue the windmill at this point with M13* or L15, but instead chooses to attack along the top. '''8.M5'''
+
+{{Clr}}
+[[Image:Twixtafter8M5.png|left]]
+
+White now has a couple of tempting choices which lose. 9.M6 might be called a coign hammer attack, which sometimes works, but not here. 10.L7* 11.L8* 12.K9** and black wins.
+
+{{Clr}}
+[[Image:Twixtvariation9M6.png|left]]
+
+Instead of 9.M6, a much more subtle losing move is 9.K7*.
+
+{{Clr}}
+[[Image:Twixtvariation9K7.png|left]]
+White threatens M6* so black has to play 10.K4* and then white has the clever idea 11.F5*
+{{Clr}}
+[[Image:Twixtvariation9K711F5.png|left]]
+
+E7* or H6* is white's double threat here. But black has a surprising resource: 12.F9*!
+
+{{Clr}}
+[[Image:Twixtvariation9K712F9.png|left]]
+
+Now after 13.H6* 14.M13*
+
+{{Clr}}
+[[Image:Twixtvar9K714M14.png|left]]
+
+M13 cannot be prevented from reaching the right side, and on the left, black can use the threat of connecting to the H8 group. Here are three possible variations:
+
+15.J10* 16.H13 17.H11** 18.F14* 19.Q13 20.P15 21.P16 22.O17* 23.Q14* 24.Q16* black wins,
+
+{{Clr}}
+[[Image:Twixtvar9K724Q16.png|left]]
+
+or 15.D9* 16.G11* 17.G12* 18.E5* 19.i11* 20.i8 21.H9* 22.G9* 23.D4* 24.C4* 25.J8* 26.J6** 27.F7 trying to draw 28.J7 black must not remove his i8/J6 link yet 29.L5* now black can play at i5, remove the i8/J6 link, and add the chain of three links H8/J7/i5/K4. The notation for this is 30.i5-i8/J6+H8/J7/i5/K4 black wins.
+
+{{Clr}}
+[[Image:Twixtvar9K730i5.png|left]]
+
+Another variation is 15.i11 16.J12* 17.D9* 18.H13* 19.G12** 20.F14* 21.B14 22.D14 23.D15* 24.E16** 25.C12* 26.C17* black wins.
+
+{{Clr}}
+[[Image:Twixtvar9K726C17.png|left]]
+
+So 9.K7* Loses for white. But white did not play 9.K7*, he played '''9.K6'''
+
+{{Clr}}
+[[Image:Twixtafter9K6.png|left]]
+
+What should the outcome of this position be? Let's do the battle on the bottom half first. If black can win across the bottom, there will be no need to bother with the top. What follows is a variation, though, not what black actually played. 
+
+10.K13* does not work because white has 11.O12*, for example 12.O16 13.L15
+
+
+{{Clr}}
+[[Image:Twixtvar10K13.png|left]]
+
+White connects to the bottom easily.
+Instead of 10.K13* black has 10.L15 11.J10* 12.G14 13.i14 14.J14* 15.E14 16.H13* 17.E12* 18.J9*!
+
+{{Clr}}
+[[Image:Twixtvar10L1518J9.png|left]]
+
+J9 threatens i11** and at the same time supports black's attack across the top. Continuing this variation, 19.H11** 20.J4 21.J3 22.L5* 23.i5** 24.K7**
+
+{{Clr}}
+[[Image:Twixtvar10L1524K7.png|left]]
+
+Black wins. It looks like 10.L15 would have won for black.
+
+Returning to the game: '''10.J4 11.J3 12.L5* 13.i5**'''
+
+{{Clr}}
+[[Image:Twixtafter13i5.png|left]]
+
+It's still not too late for black to win with 14.L15, but instead:
+
+'''14.K9*''' This hands the win over to white.
+
+'''15.J8** 16.M14 17.H9** 18.G14 19.J14 20.H12* 21.K12*'''
+
+{{Clr}}
+[[Image:Twixtgameend.png|left]]
+
+Black resigned.
+
+Questions or comments about the variations seen here, can be directed to a help email, located at twixt@cstone.net.
+{{Clr}}
+
+== Variants ==
+
+[[Image:PPrules.png|left|thumb|250px]]
+
+Perhaps the most popular variant is called '''Twixt PP''' where PP means paper and pencil. The rules are almost identical to standard Twixt. The only difference is with regard to link removal. When you play with paper and pencil, links are never removed, but your '''own''' links are allowed to cross each other. This means, for example, that a winning path might loop across itself. Crossed links are not inherently connected to each other. In other words, the object is still to form a sequence of pegs of your color, each directly linked to the next, which connects your border rows.
+
+In terms of game outcome, for the vast majority of games, this rules change makes no difference. On the [[Little Golem]] turn-based server, thousands of games have been played, all using the PP ruleset. Of those, only a handful—less than 0.1%—can be pointed to as reasonably clear examples of games that probably would have ended differently under standard rules. Most of those are games which would have been a draw under standard rules instead of a win for one side. But one game almost certainly would have been a win for one side instead of the other.
+
+A contrived example of such a situation on a smaller board is illustrated at the left.  Under PP rules, black to move has an easy win with F9, linking to both E11 and H8. But under standard rules, black would have to first remove the F8/G10 link in order to place F9/H8, and that would allow white to then play at E9, double linking to D11 and G8. White is also threatening to play either i9, which is a triple link, or H10, which is unstoppably connected to the bottom. There is no way for black to effectively block all these threats.
+
+Some players might argue that PP rules are cleaner than standard rules: for one thing, the incidence of draws is reduced. But draws are already quite rare under standard rules, and others believe the extra complications that result from link removal add depth and beauty to the game. In the Randolph series of puzzles, link removal is an essential part of several of those puzzles, and they would not be particularly interesting or challenging positions under PP rules.
+
+'''Row handicapping''' is another variant which offers a way for players of different strengths to both enjoy a challenging game together. The simplest handicap is to eliminate the pie rule. Beyond that, one dimension of the grid is reduced. The weaker player moves first and also has less distance to cross. On a physical board, this might be implemented with two extra pieces of neutral color which look nothing like pegs but which fit in the holes. These are placed in the two new corners of the board, which are out of play, to indicate the new location of one of the weaker player's border rows. Six rows plus move might be a reasonable handicap between an experienced player and a beginner. The idea is to find a handicap where each player wins about half the time. Of course there is no pie rule for any handicap game.
+
+[[Image:Diagtwixt.png|right|thumb|250px]]
+
+'''Different size grids''' from the standard 24×24 could be regarded as variants. The 12×12 board shown here leads to a very short game. It might be useful for development of computer programs which play the game, but between humans it is not very interesting. Even on the 24×24 grid, tactical considerations tend to predominate. The opening phase is over quickly, and the rest of the game is spent attempting to tactically justify the plan which you are now stuck with. By comparison, Hex, which has a very similar game object, may have more monotonous tactics, but strategical considerations are much more important. In this sense, Hex is more like Go than Twixt is, since a single move is generally less committal, and mistakes may not be punished as quickly. Since most commercial sets  use boards which are made from four "quadrants" which either clip together or are hinged, a 36×36 grid could be cobbled together from three sets of the same size. In Europe, there briefly appeared a Twixt knock-off called "Imuri" which used a 30×30 grid. The board had no holes, and lines were drawn to indicate where the links could be placed. But the manufacturing quality was not so great; for example, link paths were drawn at each corner between adjacent border rows (A2 to C1 etc.) This edition was removed from shelves after Mr. Randolph threatened suit.
+
+Mark Thompson's variant '''Diagonal Twixt''' has the same rules as standard Twixt, but the border lines no longer run parallel to the square grid of holes. Mark's idea was for border lines which run at a 45 degree angle to the grid ([http://home.flash.net/~markthom/html/twixt.html]). David Bush's version has the border lines running parallel to link paths. These variants result in many different tactical patterns. They feel like completely new games in this respect.
+
+== Champions ==
+The official world championships were held as part of the [[Mind Sports Olympiad]] in 1997, 1998 and 1999.<ref>Mind Sports Olympiad TwixT Results http://www.boardability.com/result.php?id=twixt 10 July 2010</ref> Since 2000 Twixt has still had a major international tournament as part of the MSO but there has been no official World Championships. 
+
+* 1997: [[Image:Icons-flag-us.png|United States]] [[Alex Randolph]] (United States)
+* 1998: [[Image:Icons-flag-de.png|German]] Klaus Hussmanns (Germany)
+* 1999: [[Image:Icons-flag-de.png|German]] Klaus Hussmanns (Germany)
+
+== References ==
+*[http://senseis.xmp.net/?Twixt K2Z server] K2Z server: play TwixT online
+*[http://www.iggamecenter.com/ igGameCenter] play Twixt and many other abstracts online
+*[http://www.littlegolem.net/jsp/games/gamedetail.jsp?gtid=twixt Little Golem's TwixT Page] TwixT platform featuring tournaments and championships (turnbased server)
+*[http://twixt.wetpaint.com/ twixt.wetpaint.com] Strategy, tactics, existing computer programms and much more
+*[http://www.gamerz.net/pbmserv/twixt.html Twixt web page] on [[Richard's Play By Email Server|Richard Rognlie's Play-By-eMail Server]]
+*[http://www.msoworld.com/mindzine/news/proprietary/twixt/twixt1.html Intro to Twixt] on the [http://www.msoworld.com/ Mind Sports Olympiad website]. Besides the rules, there are example games, positions, and puzzles.
+*[http://www.gamerz.net/~pbmserv/Twixt/puzzles.html Twixt puzzles] created by [[Alex Randolph]]
+*{{bgg|949}}
+*[http://www.funagain.com/control/product/~product_id=005145 Funagain Games]
+*[http://www.johannes-schwagereit.de/twixt.html Information about computer-programs playing Twixt]
+*[http://senseis.xmp.net/?Twixt senseis wiki: twixt] More info about Twixt
+*[http://twixt.servegame.org/ interactive commentary on Little Golem games]
+*[http://www.ibiblio.org/twixtpuzzles/ puzzles in an interactive format]
+*[http://twixtlive.com/Play.aspx twixtlive.com] Play TwixT online
+{{Reflist}}
+
+{{3M bookshelf games}}
+
+[[Category:Abstract strategy games]]
+[[Category:Connection games]]
+[[Category:Alex Randolph games]]
+[[Category:Avalon Hill games]]
+[[Category:3M Bookshelf games]]
+[[Category:Kosmos games]]
+[[Category:Paper and pencil games]]
+
+[[de:TwixT]]
+[[fr:Twixt]]
+[[it:Twixt]]
