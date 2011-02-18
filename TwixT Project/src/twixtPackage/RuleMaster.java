@@ -99,12 +99,13 @@ public class RuleMaster {
 		Vector checkedHorizontalBridges = new Vector();
 		Tower tempTower;
 		for(int i=0;i<24;i++){
-			if(tempTower=mBoard.getTower(i,0)!=null)
+			tempTower=mBoard.getTower(i,0);
+			if(tempTower!=null)
 			{
 				
 			}
-			
-			if(tempTower=mBoard.getTower(i,24)!=null)
+			tempTower=mBoard.getTower(i,24)
+			if(tempTower!=null)
 			{
 			
 			}
