@@ -6,22 +6,21 @@ package twixtPackage;
 
 	    // Variables declarations
 	    private int playerId;
-	    private int[][] board;
 	    private int xCoordinate;
 	    private int yCoordinate;
 
 
+	    // Default Constructor
 	    Tower()
 	    {
-
-	    // Variable definitions
-
+	    	playerId = xCoordinate = yCoordinate = 0;
 	    }
 
+	    // Generic Constructor which takes parameters
 	    Tower(int x, int y, int owner)
 	    {
 	    	xCoordinate = x;
-	    	xCoordinate = x;
+	    	yCoordinate = y;
 	    	playerId = owner;
 	    }
 	    
@@ -30,6 +29,18 @@ package twixtPackage;
 	    int getPlayerId()
 	    {
 	        return playerId;
+	    }
+	    
+	    int getX()
+	    {
+	        return xCoordinate;
+	    }
+	    
+	    int getY()
+	    {
+	        return yCoordinate;
+	    }
+	    
 	        /*
 	        moveCount = moveCount + 1;                  // initial move count starts count at 0
 	         * int playerID = 0;
@@ -58,6 +69,7 @@ package twixtPackage;
 	    }
 	*/
 	    }
+	    /*
 	    Boolean canPlaceTower(int xCoordinate, int yCoordinate)
 	    {
 	        boolean canPlace = false;
@@ -70,7 +82,8 @@ package twixtPackage;
 
 
 	    }
-
+	    */
+/*
 	    void placeTower(int playerID, int xCoordinate, int yCoordinate)
 	    {
 
@@ -84,7 +97,8 @@ package twixtPackage;
 
 
 	    }
-
+*/
+	    /*
 	    void placeBridge(int playerID, int x1Coordinate, int y1Coordinate, int x2Coordinate, int y2Coordinate){
 
 
@@ -97,4 +111,4 @@ package twixtPackage;
 
 
 	}
-}
+	*/
