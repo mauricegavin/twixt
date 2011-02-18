@@ -41,6 +41,18 @@ package twixtPackage;
 	        return yCoordinate;
 	    }
 	    
+	    void setX(int x){
+	    	xCoordinate = x;
+	    }
+	    
+	    void setY(int y){
+	    	yCoordinate = y;
+	    }
+	    
+	    void setPlayerID(int id){
+	    	playerId = id;
+	    }
+	    
 	        /*
 	        moveCount = moveCount + 1;                  // initial move count starts count at 0
 	         * int playerID = 0;
