@@ -18,8 +18,15 @@ package twixtPackage;
 
 	    }
 
+	    Tower(int x, int y, int owner)
+	    {
+	    	xCoordinate = x;
+	    	xCoordinate = x;
+	    	playerId = owner;
+	    }
+	    
 	    // Functions
-
+	   
 	    int getPlayerId()
 	    {
 	        return playerId;
