@@ -3,40 +3,38 @@ package twixtPackage;
 public class Bridge {
 	
 	private int playerId;
-	private Tower T1;
-	private Tower T2;
-    
-    
+	private Tower tower1;
+	private Tower tower2;
+       
 	
 	Bridge(){
 		
 		playerId = 0;
-		T1 = T2 = null; 
+		tower1 = tower2 = null; 
 		
 	}
 
-	Bridge(Tower Start, Tower End,  int owner){
-		
-		T1 = Start;
-		T2 = End; 
-    	playerId = owner;
-		
+	Bridge(Tower start, Tower end,  int owner)
+	{	
+		tower1 = start;
+		tower2 = end; 
+    	playerId = owner;	
 	}
 	
 	Tower getStart(){
-		return T1;
+		return tower1;
 	}
 	Tower getEnd(){
-		return T2;
+		return tower2;
 	}
 	int getID(){
 		return playerId;
 	}
 	void setStart(Tower T){
-		T1 = T;
+		tower1 = T;
 	}
 	void setEnd(Tower T){
-		T2 = T;
+		tower2 = T;
 		}
 	void setPlayerID(int id){
 		assert(id>0&&id<3): "Error: value must be between 1 and 2 ";
