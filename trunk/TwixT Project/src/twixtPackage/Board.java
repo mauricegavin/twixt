@@ -110,7 +110,37 @@ public class Board {
 		}
 	}
 	*/
-	
+	/**
+	 * getBridge function which returns a bridge object regardless of player id.
+	 * If the bridge doesn't exist then returns null.
+	 * @param x1 The x coordinate of the first tower
+	 * @param y1 The y coordinate of the first tower
+	 * @param x2 The x coordinate of the second tower
+	 * @param y2 The y coordinate of the second tower
+	 */
+	public Bridge getBridge(int x1, int x2, int y1, int y2)
+	{
+		int i = 0;//counter
+		Bridge currentBridge;
+		Tower start;//one end of the bridge
+		Tower end;//the other end of the bridge
+		while(i!=bridgeList.size()){//iterate thru the list and check all the bridges against the one we're looking for
+			currentBridge=(Bridge) bridgeList.elementAt(i);
+			start = currentBridge.getStart();
+			if((start.getX()==x1)&&(start.getY()==y1)){//if the start of the bridge matches one of the xy pairs...
+				end = currentBridge.getEnd();
+				if(end.getX()==x2&&end.getY()==y2){//...check the end of the bridge against the xy pair
+					return currentBridge;
+				}
+			}else if(start.getX()==x2&&start.getY()==y2){//if the start of the bridge matches one of the xy pairs...
+				end = currentBridge.getEnd();
+				if(end.getX()==x1&&end.getY()==y1){//...check the end of the bridge against the xy pair
+					return currentBridge;
+				}
+			}
+		}
+		return null;
+	}
 	/**
 	 * getBridge function returns a bridge between 2 sets of coordinates.<br>
 	 * If the Tower doesn't exist then <code>null</code> is returned.<br>
