@@ -8,7 +8,14 @@ import java.util.Vector;
  *
  */
 public class RuleMaster {
+	/**
+	 * Contructor
+	 * @param iBoard board to be tested on
+	 */
 	public Board mBoard;
+	public RuleMaster(Board iBoard){
+		mBoard = iBoard;
+	}
 	/**
 	 * Returns true if a tower can be placed at the specified location
 	 * @param x x position of tower
@@ -33,13 +40,16 @@ public class RuleMaster {
 	public boolean canPlaceBridge(int x1, int y1, int x2, int y2, int playerNumber){//not working yet
 		Tower tower1=mBoard.getTower(x1,y1);
 		Tower tower2=mBoard.getTower(x2,y2);
+		System.out.println("Testing bridge move...");
 		if((tower1!=null)&&(tower2!=null)&&(tower1.getPlayerId()==playerNumber)&&(tower2.getPlayerId()==playerNumber)&&(mBoard.getBridge(x1,y1,x2,y2)==null))//checks to make sure the towers exist and are of the correct player, and that a bridge does not already exist at this position
 		{
+			System.out.println("the towers exist and are of the correct player, and that a bridge does not already exist at this position");
 			int dx = x1-x2;
 			int dy = y1-y2;
 			//Use dx and dy to work out the orientation of the bridge
 			if(Math.abs(dx)==1&&Math.abs(dy)==2)//Bridge is vertically oriented, ie two spaces high and one across
 			{
+				System.out.println("Bridge is vertical");
 				dy=dy/2;//use dy/2 for computation purposes of co-ordinates
 				//now check for collisions in all the possible locations
 				if(mBoard.getBridge(x2,y1+dy,x1,y1-dy)==null){//1
@@ -63,6 +73,7 @@ public class RuleMaster {
 				}
 			}else if(Math.abs(dx)==2&&Math.abs(dy)==1)//Bridge is horizontally oriented, ie is two spaces across and one high
 			{
+				System.out.println("Bridge is horizontal");
 				dx=dx/2;//use dx/2 for computation purposes of co-ordinates
 				//now check for collisions in all the possible locations
 				if(mBoard.getBridge(x2,y1+dy,x2+dx,y2)==null){//1
@@ -85,6 +96,21 @@ public class RuleMaster {
 					}
 				}
 			}//if neither of the above statements are true then the bridge is not a knights move across, and is not a legal move.
+		}else{
+			System.out.println("Bridge failed due to");
+			if(tower1==null){
+				System.out.println("tower 1 does not exist");
+			}else if(tower1.getPlayerId()!=playerNumber){
+				System.out.println("tower one is wrong colour");
+			}
+			if(tower2==null){
+				System.out.println("tower 2 does not exist");
+			}else if(tower2.getPlayerId()!=playerNumber){
+				System.out.println("tower 2 is wrong colour");
+			}
+			if(mBoard.getBridge(x1,y1,x2,y2)!=null){
+				System.out.println("a bridge is already placed here");
+			}
 		}
 		return false;
 	}
