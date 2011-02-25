@@ -53,23 +53,50 @@ public class RuleMaster {
 				dy=dy/2;//use dy/2 for computation purposes of co-ordinates
 				//now check for collisions in all the possible locations
 				if(mBoard.getBridge(x2,y1+dy,x1,y1-dy)==null){//1
+					//System.out.println("Test 1 failed -- Blocked by: "+(x2)+" "+(y1+dy)+" "+(x1)+" "+(y1-dy));
 					if(mBoard.getBridge(x2-dx,y1,x1,y1-dy)==null){//2
+						//System.out.println("Test 2 failed -- Blocked by: "+(x2-dx)+" "+(y1)+" "+(x1)+" "+(y1-dy));
 						if(mBoard.getBridge(x2,y1,x1+dx,y1-dy)==null){//3
+							//System.out.println("Test 3 failed -- Blocked by: "+(x2)+" "+(y1)+" "+(x1+dx)+" "+(y1-dy));
 							if(mBoard.getBridge(x2,y1,x1,y2)==null){//4
+								//System.out.println("Test 4 failed -- Blocked by: "+(x2)+" "+(y1)+" "+(x1)+" "+(y2));
 								if(mBoard.getBridge(x2-dx,y2+dy,x1,y2)==null){//5
+									//System.out.println("Test 5 failed -- Blocked by: "+(x2-dx)+" "+(y2+dy)+" "+(x1)+" "+(y2));
 									if(mBoard.getBridge(x2,y2+dy,x1+dx,y1)==null){//6
-										if(mBoard.getBridge(x2,y2+dy,x1,y2-dy)==null){//7
+										//System.out.println("Test 6 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1+dx)+" "+(y1));
+										if(mBoard.getBridge(x2,y2+dy,x1+dx,y2)==null){//7
+											//System.out.println("Test 7 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1+dx)+" "+(y2));
 											if(mBoard.getBridge(x2,y2+dy,x1,y2-dy)==null){//8
+												//System.out.println("Test 8 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1)+" "+(y2-dy));
 												if(mBoard.getBridge(x2-dx,y2,x1,y2+dy)==null){//9
+													//System.out.println("Test 9 failed -- Blocked by: "+(x2-dx)+" "+y2+" "+x1+" "+(y2+dy));
 													return true;//no bridges are colliding with the proposed bridge and return true
-												}	
+												}else{
+													System.out.println("Test 9 failed -- Blocked by: "+(x2-dx)+" "+y2+" "+x1+" "+(y2+dy));
+												}
+											}else{
+												System.out.println("Test 8 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1)+" "+(y2-dy));
 											}	
+										}else{
+											System.out.println("Test 7 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1+dx)+" "+(y2));
 										}	
+									}else{
+										System.out.println("Test 6 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1+dx)+" "+(y1));
 									}	
-								}	
+								}else{
+									System.out.println("Test 5 failed -- Blocked by: "+(x2-dx)+" "+(y2+dy)+" "+(x1)+" "+(y2));
+								}		
+							}else{
+								System.out.println("Test 4 failed -- Blocked by: "+(x2)+" "+(y1)+" "+(x1)+" "+(y2));
 							}	
+						}else{
+							System.out.println("Test 3 failed -- Blocked by: "+(x2)+" "+(y1)+" "+(x1+dx)+" "+(y1-dy));
 						}	
+					}else{
+						System.out.println("Test 2 failed -- Blocked by: "+(x2-dx)+" "+(y1)+" "+(x1)+" "+(y1-dy));
 					}
+				}else{
+					System.out.println("Test 1 failed -- Blocked by: "+(x2)+" "+(y1+dy)+" "+(x1)+" "+(y1-dy));
 				}
 			}else if(Math.abs(dx)==2&&Math.abs(dy)==1)//Bridge is horizontally oriented, ie is two spaces across and one high
 			{
@@ -78,22 +105,39 @@ public class RuleMaster {
 				//now check for collisions in all the possible locations
 				if(mBoard.getBridge(x2,y1+dy,x2+dx,y2)==null){//1
 					if(mBoard.getBridge(x2+dx,y1+dy,x1,y2)==null){//2
-						if(mBoard.getBridge(x1,y1+dy,x1,y2)==null){//3
+						if(mBoard.getBridge(x1,y1+dy,x2+dx,y2)==null){//3
 							if(mBoard.getBridge(x2-dx,y1,x2+dx,y2)==null){//4
-								if(mBoard.getBridge(x2,y1,x2+dx,y2)==null){//5
+								if(mBoard.getBridge(x2,y1,x2+dx,y2-dy)==null){//5
 									if(mBoard.getBridge(x2,y1,x1,y2)==null){//6
 										if(mBoard.getBridge(x2+dx,y1,x2,y2-dy)==null){//7
 											if(mBoard.getBridge(x2+dx,y1,x1,y2-dy)==null){//8
-												if(mBoard.getBridge(x2+dx,y1,x1+dx,y2)==null){//9
+												if(mBoard.getBridge(x2+dx,y1,x1+dx,y2)==null){//9	
 													return true;//no bridges are colliding with the proposed bridge and return true
-												}	
-											}	
-										}	
-									}	
-								}	
-							}	
-						}	
+												}else{
+													System.out.println("Test 9 failed:"+(x2+dx)+" "+(y1)+" "+(x1+dx)+" "+(y2));
+												}
+											}else{
+												System.out.println("Test 8 failed :"+(x2+dx)+" "+(y1)+" "+(x1)+" "+(y2-dy));
+											}
+										}else{
+											System.out.println("Test 7 failed :"+(x2+dx)+" "+(y1)+" "+(x2)+" "+(y2-dy));
+										}
+									}else{
+										System.out.println("Test 6 failed :"+(x2)+" "+(y1)+" "+(x1)+" "+(y2));
+									}
+								}else{
+									System.out.println("Test 5 failed :"+(x2)+" "+(y1)+" "+(x2+dx)+" "+(y2-dy));
+								}
+							}else{
+								System.out.println("Test 4 failed :"+(x2-dx)+" "+(y1)+" "+(x2+dx)+" "+(y2));
+							}
+						}else{
+							System.out.println("Test 3 failed :"+(x1)+" "+(y1+dy)+" "+(x2+dx)+" "+(y2));
+						}
+					}else{
+						System.out.println("Test 2 failed:"+(x2+dx)+" "+(y1+dy)+" "+(x1)+" "+(y2));
 					}
+					System.out.println("Test 1 failed :"+(x2)+" "+(y1+dy)+" "+(x2+dx)+" "+(y2));
 				}
 			}//if neither of the above statements are true then the bridge is not a knights move across, and is not a legal move.
 		}else{
