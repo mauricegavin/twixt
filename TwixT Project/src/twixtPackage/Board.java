@@ -14,8 +14,8 @@ public class Board {
 	static int BOARDSIZE = 24;
 	
 	Tower board[][];
-	RuleMaster boss = new RuleMaster();
-	Vector bridgeList = new Vector();
+	RuleMaster boss = new RuleMaster(this);
+	Vector<Bridge> bridgeList = new Vector<Bridge>();
 	
 	/**
 	 * Constructor for Board object<br>
@@ -41,10 +41,10 @@ public class Board {
 		board[x][y] = tower;
 	}
 	
-	public Boolean placeBridge(int x1, int y1, int x2, int y2, int owner)
+	public Boolean placeBridge(int x1, int y1, int x2, int y2, int owner)//TODO Board should not ask rulemaster, game object should
 	{
-		if ( boss.canPlaceBridge(x1, y1, x2, y2, owner) )
-		{
+//		if ( boss.canPlaceBridge(x1, y1, x2, y2, owner) )
+//		{
 			boolean add = bridgeList.add(new Bridge(getTower(x1, y1), getTower(x2, y2), owner));
 			if (add)
 				return true;
@@ -53,12 +53,12 @@ public class Board {
 				System.err.printf("Error: Cannot add Bridge (x1=%d y1=%d x2=%d y2=%d owner=%d) to bridgeList\n", x1,y1,x2,y2,owner);
 				return false;
 			}
-		}
-		else 
-		{
-			System.out.printf("Illegal Move: Cannot place Bridge (x1=%d y1=%d x2=%d y2=%d owner=%d\n)", x1,y1,x2,y2,owner);
-			return false;
-		}
+//		}
+//		else 
+//		{
+//			System.out.printf("Illegal Move: Cannot place Bridge (x1=%d y1=%d x2=%d y2=%d owner=%d\n)", x1,y1,x2,y2,owner);
+//			return false;
+//		}
 	}
 	
 	public void removeTower(int x, int y, int owner)
@@ -118,7 +118,7 @@ public class Board {
 	 * @param x2 The x coordinate of the second tower
 	 * @param y2 The y coordinate of the second tower
 	 */
-	public Bridge getBridge(int x1, int x2, int y1, int y2)
+	public Bridge getBridge(int x1, int y1, int x2, int y2)
 	{
 		int i = 0;//counter
 		Bridge currentBridge;
@@ -138,6 +138,7 @@ public class Board {
 					return currentBridge;
 				}
 			}
+			i++;
 		}
 		return null;
 	}
