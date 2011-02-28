@@ -5,12 +5,20 @@ import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -50,6 +58,7 @@ public class SetupView
 	Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize(); // Gets the resolution of the screen
     Dimension dimensionSuggested = new Dimension(800, 600); // Suggested window size
     Dimension dimensionMin = new Dimension(500, 280); // Minimum window size
+    Boolean local = null; // A Boolean which indicates whether the game is being played locally or over a network connection
 
 	/**
 	 * 
@@ -61,7 +70,7 @@ public class SetupView
 		//
 		setupFrame.setMinimumSize(dimensionMin); // Apply the minimum size to the frame
 		setupFrame.setSize(dimensionSuggested); // Apply the suggested size to the frame
-		setupFrame.setLocation((screenDimension.width - dimensionMin.width)/2, (screenDimension.height - dimensionMin.height)/4); // Set the location to the upper (Y), middle (X) portion of the screen.
+		setupFrame.setLocation((screenDimension.width - dimensionMin.width)/3, (screenDimension.height - dimensionMin.height)/4); // Set the location to the upper (Y), middle (X) portion of the screen.
 		
 		setupFrame.getContentPane().setLayout(new BorderLayout()); // Give the main frame a Border Layout  
 
@@ -98,7 +107,7 @@ public class SetupView
 		JLabel nspIpLabel = new JLabel("IP Address");
 		JLabel nspPortLabel = new JLabel("Port");
 		
-		// Radio Buttons.
+		// Radio Buttons
 		JRadioButton gtpgRadio1 = new JRadioButton();
 		JRadioButton gtpgRadio2 = new JRadioButton();
 		JRadioButton ptp1bRadio1 = new JRadioButton();
@@ -125,14 +134,56 @@ public class SetupView
 		
 		// Buttons
 		JButton startButton = new JButton("Start Game");
+		
+		// Button Groups
+		ButtonGroup gtpgGroup = new ButtonGroup();
+		gtpgGroup.add(gtpgRadio1);
+		gtpgGroup.add(gtpgRadio2);
+		
+		ButtonGroup ptp1Group = new ButtonGroup();
+		ptp1Group.add(ptp1bRadio1);
+		ptp1Group.add(ptp1bRadio2);
+		
+		ButtonGroup ptp2Group = new ButtonGroup();
+		ptp2Group.add(ptp2bRadio1);
+		ptp2Group.add(ptp2bRadio2);
+		
+		// Component Initial Values
+		ptp1bTextField.setText("Akatosh");
+		ptp2bTextField.setText("Zenithar");
+		
+		// Component Initial States
+		ptp1bRadio1.setEnabled(false);
+		ptp1bRadio2.setEnabled(false);
+		ptp2bRadio1.setEnabled(false);
+		ptp2bRadio2.setEnabled(false);
+		
+		ptp1bTextField.setEnabled(false);
+		ptp2bTextField.setEnabled(false);
+		nspIpField.setEnabled(false);
+		nspPortField.setEnabled(false);
 
+		ptp1bDifficultySlider.setEnabled(false);
+		ptp2bDifficultySlider.setEnabled(false);
+		
+		startButton.setEnabled(false);
+		//
+		// Formatting 
+		//
+		
+		// Variables
+		Color color = new Color(205, 11, 66);
+		Border border = BorderFactory.createMatteBorder(20, 10, 20, 10, color); // Give the frame a 20 x 10 border		
+		Font headingFont = new Font("Arial" , Font.BOLD, 14);
+		
+		// Apply Formatting
+		headingLabel1.setFont(headingFont);
+		headingLabel2.setFont(headingFont);
+		headingLabel3.setFont(headingFont);
+		
 		//
 		// Panels & Layout
 		//
-		
-		// Formatting Variables
-		Color color = new Color(205, 11, 66);
-		Border border = BorderFactory.createMatteBorder(20, 10, 20, 10, color); // Give the frame a 20 x 10 border		
 		
 		// This box will fill the frame for layout purposes.
 		Box setupViewBox = new Box(0);
@@ -160,7 +211,6 @@ public class SetupView
 		// Game Type Panel (gtp)
 		JPanel gtpHeading = new JPanel();
 		gtpHeading.setLayout(new FlowLayout());
-		//gtpHeading.setBorder(BorderFactory.createEmptyBorder(0, 0, -130, 0));
 		
 		JPanel gtpGames = new JPanel();
 		gtpGames.setLayout(new FlowLayout());
@@ -312,7 +362,33 @@ public class SetupView
 		//
 		// Listeners
 		//
-		
+		gtpgRadio1.addActionListener(new modeButtonListener(0, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
+		gtpgRadio2.addActionListener(new modeButtonListener(1, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
+		ptp1bRadio1.addActionListener(new modeButtonListener(2, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
+		ptp1bRadio2.addActionListener(new modeButtonListener(3, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
+		ptp2bRadio1.addActionListener(new modeButtonListener(4, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
+		ptp2bRadio2.addActionListener(new modeButtonListener(5, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
+		nspIpField.addKeyListener(new modeButtonListener(6, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
+		nspPortField.addKeyListener(new modeButtonListener(7, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
+		startButton.addKeyListener(new modeButtonListener(8, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, startButton));
 		
 		//
 		// End of main GUI Interface Configuration
@@ -324,6 +400,169 @@ public class SetupView
 		setupFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setupFrame.pack();
 		setupFrame.setVisible(true);
+	}
+	
+	//
+	// Listener Implementation
+	//
+	
+	
+	class modeButtonListener implements ActionListener, KeyListener
+	{
+		int mode = -1;
+		JRadioButton ptp1bRadio1;
+		JRadioButton ptp1bRadio2;
+		JTextField ptp1bTextField;
+		JSlider ptp1bDifficultySlider;
+		JRadioButton ptp2bRadio1;
+		JRadioButton ptp2bRadio2;
+		JTextField ptp2bTextField;
+		JSlider ptp2bDifficultySlider;
+		JTextField nspIpField;
+		JTextField nspPortField;
+		JButton startButton;
+		
+		public modeButtonListener(int _mode,	JRadioButton _ptp1bRadio1, JRadioButton _ptp1bRadio2, JTextField _ptp1bTextField, JSlider _ptp1bDifficultySlider, 
+												JRadioButton _ptp2bRadio1, JRadioButton _ptp2bRadio2, JTextField _ptp2bTextField, JSlider _ptp2bDifficultySlider,
+												JTextField _nspIpField, JTextField _nspPortField, JButton _startButton) {
+			mode = _mode;
+			ptp1bRadio1 = _ptp1bRadio1;
+			ptp1bRadio2 = _ptp1bRadio2;
+			ptp1bTextField = _ptp1bTextField;
+			ptp1bDifficultySlider = _ptp1bDifficultySlider;
+			ptp2bRadio1 = _ptp2bRadio1;
+			ptp2bRadio2 = _ptp2bRadio2;
+			ptp2bTextField = _ptp2bTextField;
+			ptp2bDifficultySlider = _ptp2bDifficultySlider;
+			nspIpField = _nspIpField;
+			nspPortField = _nspPortField;
+			startButton = _startButton;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			switch(mode)
+			{
+				case 0: // Case 0 is where the user has chosen to Play Locally
+					local = true; // Set the Play Local flag to true
+					
+					ptp1bRadio1.setEnabled(true); // Enable Player 1 configuration
+					ptp1bRadio2.setEnabled(true);
+					ptp2bRadio1.setEnabled(true); // Enable Player 2 configuration
+					ptp2bRadio2.setEnabled(true);
+					
+					if(ptp2bRadio1.isSelected()) // If the mode is being switched from online to local then re-enable player 2's status
+						ptp2bTextField.setEnabled(true);
+					if(ptp2bRadio2.isSelected())
+						ptp2bDifficultySlider.setEnabled(true);
+					
+					nspIpField.setEnabled(false); // These fields are never enabled in local play
+					nspPortField.setEnabled(false);
+					break;
+			
+				case 1: // Case 1 is where the user has chosen to Play Online
+					local = false; // Set the Play Local flag to false, i.e. Play online.
+					
+					ptp1bRadio1.setEnabled(true); // Enable Player 1 configuration
+					ptp1bRadio2.setEnabled(true);
+					ptp2bRadio1.setEnabled(false); // We must remove Player 2 as an option since we do not decide on them.
+					ptp2bRadio2.setEnabled(false);
+					
+					if(ptp1bRadio1.isSelected()) // If the mode is being switched from local to online make the player 1 selections carry over
+						ptp1bTextField.setEnabled(true);
+					if(ptp1bRadio2.isSelected())
+						ptp1bDifficultySlider.setEnabled(true);
+					ptp2bTextField.setEnabled(false); // This will always be disabled in online mode
+					ptp2bDifficultySlider.setEnabled(false); // This will always be disabled in online mode
+					
+					nspIpField.setEnabled(true); // It is necessary to configure the network in online mode
+					nspPortField.setEnabled(true); // Therefore we must enable these input fields
+					break;
+					
+				case 2:	// Case 2 is where the user has chosen Player 1 to be Human
+					ptp1bTextField.setEnabled(true);
+					ptp1bDifficultySlider.setEnabled(false);
+					break;
+				
+				case 3: // Case 3 is where the user has chosen Player 1 to be AI
+					ptp1bTextField.setEnabled(false);
+					ptp1bDifficultySlider.setEnabled(true);
+					break;
+					
+				case 4:	// Case 4 is where the user has chosen Player 2 to be Human
+					ptp2bTextField.setEnabled(true);
+					ptp2bDifficultySlider.setEnabled(false);
+					break;
+				
+				case 5: // Case 5 is where the user has chosen Player 2 to be AI
+					ptp2bTextField.setEnabled(false);
+					ptp2bDifficultySlider.setEnabled(true);
+					break;
+				
+				case 6: // Case 6 is on the IP address field, it is used to check the correct start button status below
+					break;
+					
+				case 7: // Case 7 is on the Port field, it is used to check the correct start button status below
+					break;
+					
+				case 8: // Case 8 is where the user has chosen to begin the game
+					// Any variables that need to be stored should be stored now.
+					
+					break;
+					
+				default:
+					break;		
+			}
+			
+			assertStartButtonState();
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0)
+		{
+			assertStartButtonState();	
+		}
+		
+		void assertStartButtonState()
+		{
+			if(local == true) // If we are playing locally
+			{
+				if ( (ptp1bRadio1.isSelected()) || (ptp1bRadio2.isSelected()) ) // and if player 1 has data
+				{
+					if ( (ptp2bRadio1.isSelected()) || (ptp2bRadio2.isSelected()) ) // and if player 2 has data
+					{
+						startButton.setEnabled(true); // Then allow the user to start the game
+						return;
+					}
+				}
+			}
+			else if (local == false)
+			{
+				if ( (ptp1bRadio1.isSelected()) || (ptp1bRadio2.isSelected()) ) // and if player 1 has data
+				{
+					if ( (nspIpField.getText().length() > 0) && (nspPortField.getText().length() > 0) ) // and if there is an IP and port
+					{
+						startButton.setEnabled(true); // Then allow the user to start the game
+						return;
+					}
+				}
+			}
+			
+			startButton.setEnabled(false); // If the above conditions are not satisfied then the game cannot be started
+			// And the user is not given the option to start the game.
+			return;
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+		}		
 	}
 	
 }
