@@ -1,12 +1,19 @@
 package twixtPackage;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.LayoutManager;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,8 +23,10 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 
 /**
  * The Interface Class is responsible for the creation of a primary Graphical User Interface.<br>
@@ -85,6 +94,10 @@ public class SetupView
 		JLabel ptp2bLabel1 = new JLabel("Human");
 		JLabel ptp2bLabel2 = new JLabel("AI   ");
 		
+		// Network Settings Labels
+		JLabel nspIpLabel = new JLabel("IP Address");
+		JLabel nspPortLabel = new JLabel("Port");
+		
 		// Radio Buttons.
 		JRadioButton gtpgRadio1 = new JRadioButton();
 		JRadioButton gtpgRadio2 = new JRadioButton();
@@ -96,6 +109,8 @@ public class SetupView
 		// Text Fields
 		JTextField ptp1bTextField = new JTextField(10);
 		JTextField ptp2bTextField = new JTextField(10);
+		JTextField nspIpField = new JTextField(15);
+		JTextField nspPortField = new JTextField(5);
 		
 		// Sliders
 		JSlider ptp1bDifficultySlider = new JSlider(0, 5, 0);
@@ -108,13 +123,21 @@ public class SetupView
 		ptp2bDifficultySlider.setPaintTicks(true);
 		ptp2bDifficultySlider.setSnapToTicks(true);
 		
+		// Buttons
+		JButton startButton = new JButton("Start Game");
+
 		//
 		// Panels & Layout
 		//
 		
+		// Formatting Variables
+		Color color = new Color(205, 11, 66);
+		Border border = BorderFactory.createMatteBorder(20, 10, 20, 10, color); // Give the frame a 20 x 10 border		
+		
 		// This box will fill the frame for layout purposes.
 		Box setupViewBox = new Box(0);
-
+		setupViewBox.setBorder(border);
+		
 		// The panel which holds the game type
 		JPanel gameTypePanel = new JPanel();
 		gameTypePanel.setLayout(new BoxLayout(gameTypePanel, BoxLayout.PAGE_AXIS));
@@ -132,15 +155,16 @@ public class SetupView
 
 		// The panel which holds the start game button
 		JPanel startGamePanel = new JPanel();
-		gameTypePanel.setLayout(new BorderLayout());
+		startGamePanel.setLayout(new FlowLayout());
 		
 		// Game Type Panel (gtp)
 		JPanel gtpHeading = new JPanel();
 		gtpHeading.setLayout(new FlowLayout());
+		//gtpHeading.setBorder(BorderFactory.createEmptyBorder(0, 0, -130, 0));
 		
 		JPanel gtpGames = new JPanel();
-		gtpGames.setLayout(new BoxLayout(gtpGames, BoxLayout.LINE_AXIS));
-			
+		gtpGames.setLayout(new FlowLayout());
+		
 			// Game Type Panel Games (gtpg)
 			JPanel gtpgLabels = new JPanel();
 			gtpgLabels.setLayout(new BoxLayout(gtpgLabels, BoxLayout.PAGE_AXIS));
@@ -185,6 +209,20 @@ public class SetupView
 				JPanel ptp2bOptions = new JPanel();
 				ptp2bOptions.setLayout(new BoxLayout(ptp2bOptions, BoxLayout.PAGE_AXIS));
 			
+		// Network Settings Panel (nsp)
+		JPanel nspHeading = new JPanel();
+		nspHeading.setLayout(new FlowLayout());
+			
+		JPanel nspBody = new JPanel();
+		nspBody.setLayout(new BoxLayout(nspBody, BoxLayout.PAGE_AXIS));
+			JPanel nspbIP = new JPanel();
+			nspbIP.setLayout(new FlowLayout());
+			JPanel nspbPort = new JPanel();
+			nspbPort.setLayout(new FlowLayout());
+				
+		// Start Panel (stp)
+		// No additional panels needed
+			
 		// Add Panels to the Frame
 
 		setupFrame.add(new JSeparator(SwingConstants.HORIZONTAL), BorderLayout.NORTH);
@@ -200,14 +238,14 @@ public class SetupView
 		setupViewBox.add(startGamePanel);
 		
 		gameTypePanel.add(gtpHeading);
-		gameTypePanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+		//gameTypePanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 		
 		gameTypePanel.add(gtpGames);
 			gtpGames.add(gtpgLabels);
 			gtpGames.add(gtpgRadio);
 			
 		playerTypePanel.add(ptpHeading);
-		playerTypePanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+		//playerTypePanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 		
 		playerTypePanel.add(ptpPlayer1);
 			ptpPlayer1.add(ptp1Heading);
@@ -215,7 +253,7 @@ public class SetupView
 				ptp1Body.add(ptp1bLabels);
 				ptp1Body.add(ptp1bRadio);
 				ptp1Body.add(ptp1bOptions);
-		playerTypePanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+		//playerTypePanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 				
 		playerTypePanel.add(ptpPlayer2);
 			ptpPlayer2.add(ptp2Heading);
@@ -224,6 +262,13 @@ public class SetupView
 				ptp2Body.add(ptp2bRadio);
 				ptp2Body.add(ptp2bOptions);
 		
+		networkSettingsPanel.add(nspHeading);
+		//networkSettingsPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+		
+		networkSettingsPanel.add(nspBody);
+			nspBody.add(nspbIP);
+			nspBody.add(nspbPort);
+			
 		// Add Components to Panels
 		
 		// Game Type Panel
@@ -253,18 +298,16 @@ public class SetupView
 		ptp2bOptions.add(ptp2bTextField);
 		ptp2bOptions.add(ptp2bDifficultySlider);		
 		
-		
-		// Network Options Panel
-		//subGameTypeHeadingPanel.add(headingLabiohel1);
-		//ptpPlayer1.add(gameTypeLabel1);
-		//ptpPlayer1.add(gameTypeOption1);
-		//ptpPlayer2.add(gameTypeLabel2);
-		//ptpPlayer2.add(gameTypeOption2);		
 		// Network Settings Panel
-		networkSettingsPanel.add(headingLabel3);
+		nspHeading.add(headingLabel3);
+		
+		nspbIP.add(nspIpLabel);
+		nspbIP.add(nspIpField);
+		nspbPort.add(nspPortLabel);
+		nspbPort.add(nspPortField);
 		
 		// Start Panel
-		
+		startGamePanel.add(startButton);
 		
 		//
 		// Listeners
