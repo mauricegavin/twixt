@@ -13,9 +13,9 @@ public class Board {
 	
 	static int BOARDSIZE = 24;
 	
-	Tower board[][];
-	RuleMaster boss = new RuleMaster(this);
-	Vector<Bridge> bridgeList = new Vector<Bridge>();
+	private Tower board[][];
+	private RuleMaster boss = new RuleMaster(this);
+	private Vector<Bridge> bridgeList = new Vector<Bridge>();
 	
 	/**
 	 * Constructor for Board object<br>
@@ -180,6 +180,13 @@ public class Board {
 			System.err.printf("Error: Unexpected index=%d in getBridge function\n", index);
 			return null;
 		}
+	}
+	/**
+	 * Method to return a copy of the current vector of Bridges
+	 * @return a Vector of Bridge Objects
+	 */
+	public Vector<Bridge> getBridgeList(){
+		return (Vector<Bridge>) this.bridgeList.clone();
 	}
 	
 }
