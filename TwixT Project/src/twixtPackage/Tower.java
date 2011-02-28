@@ -52,6 +52,14 @@ package twixtPackage;
 	    void setPlayerID(int id){
 	    	playerId = id;
 	    }
+	    /**
+	     * Method to check to see if two towers are equivalent, uses x and y values for both towers. Does not compare player id.
+	     * @param otherTower Tower to check against the current tower object
+	     * @return A boolean, true if the two are equivalent, false otherwise
+	     */
+		public boolean compare(Tower otherTower) {
+			return (otherTower.getX()==this.xCoordinate&&otherTower.getY()==this.yCoordinate);
+		}
 	    
 	        /*
 	        moveCount = moveCount + 1;                  // initial move count starts count at 0

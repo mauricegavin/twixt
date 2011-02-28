@@ -162,24 +162,98 @@ public class RuleMaster {
 	 * Checks to see if the game is over. Returns 0 if it is not, 1 if player 1 has won and 2 if player 2 has won.
 	 * @return an integer
 	 */
+	//For now this method assumes p1 is always playing left to right, and p2 bottom to top
 	public int detectEnd(){//does nothing yet
-		Vector verticalTowers = new Vector();
-		Vector horizontalTowers = new Vector();
-		Vector checkedVerticalBridges = new Vector();
-		Vector checkedHorizontalBridges = new Vector();
+		Vector<Tower> topTowers = new Vector<Tower>();
+		Vector<Tower> bottomTowers = new Vector<Tower>();
+		Vector<Tower> leftTowers = new Vector<Tower>();
+		Vector<Tower> rightTowers = new Vector<Tower>();
 		Tower tempTower;
 		for(int i=0;i<24;i++){
+			//checking bottom row for towers
 			tempTower=mBoard.getTower(i,0);
 			if(tempTower!=null)
 			{
-				
+				bottomTowers.add(tempTower);
 			}
-			tempTower=mBoard.getTower(i,24);
+			//checking top row for towers
+			tempTower=mBoard.getTower(i,23);
 			if(tempTower!=null)
 			{
-			
+				topTowers.add(tempTower);
+			}
+			//checking left row for towers
+			tempTower=mBoard.getTower(0,i);
+			if(tempTower!=null)
+			{
+				leftTowers.add(tempTower);
+			}
+			//checking right row for towers
+			tempTower=mBoard.getTower(23,i);
+			if(tempTower!=null)
+			{
+				rightTowers.add(tempTower);
 			}
 		}
+			
+		boolean foundConnection;
+		//check for vertical connections
+		if(!topTowers.isEmpty()){
+			//if(hasConnection(bottomTowers,topTowers))
+			//	return 2;
+			while(!bottomTowers.isEmpty()){
+				tempTower = bottomTowers.firstElement();
+				bottomTowers.remove(0);
+				foundConnection = hasConnection(tempTower,topTowers,mBoard.getBridgeList());
+				if(foundConnection){
+					return 2;
+				}
+			}
+		}
+		//check for horizontal connections
+		if(!rightTowers.isEmpty()){
+			//check to see of any of the towers in leftTowers link up to any of the Towers in rightTowers
+			while(!leftTowers.isEmpty()){//
+				tempTower = leftTowers.firstElement();//the tower to be checked
+				leftTowers.remove(0);//remove it form the list
+				foundConnection = hasConnection(tempTower,rightTowers,mBoard.getBridgeList());//returns true if tempTower is linked to any of the towrs in rightTower
+				if(foundConnection){
+					return 1;
+				}
+			}
+		}
+		
 		return 0;
+	}
+	/**
+	 * Recursive Method which returns true if the Tower start is connected to endList by the bridges listed in bridgeList
+	 * @param start This tower will be checked to see if it is linked to endList
+	 * @param endList A list of destination towers
+	 * @param bridgeList A list of the bridges which could connect start and endList
+	 * @return A boolean, true if there is a connection false otherwise
+	 */
+	private boolean hasConnection(Tower start, Vector<Tower> endList, Vector<Bridge> bridgeList){
+		if(endList.contains(start)){//If we have reached a destination tower 
+			return true;//then return true
+		}
+		Bridge currentBridge;
+		//otherwise keep looking
+		for(int i=0;i<=bridgeList.size();i++){//check all of the bridges
+			currentBridge = bridgeList.get(i);
+			if(currentBridge.getStart().compare(start)){//if the current bridge is connected to our source tower at one end
+				bridgeList.remove(i);//then remove it from the bridge List to avoid looping and redundancy
+				i--;//remove one from i to account for the removed element
+				if(hasConnection(currentBridge.getEnd(),endList,bridgeList)){//and continue from the other end of the bridge to look for connections
+					return true;
+				}
+			}else if(currentBridge.getEnd().compare(start)){//other wise check the other end to see if its connected to our source and start again
+				bridgeList.remove(i);
+				i--;
+				if(hasConnection(currentBridge.getEnd(),endList,bridgeList)){
+					return true;
+				}
+			}
+		}
+		return false;//After having checked all of the bridges and not returned true, return false
 	}
 }
