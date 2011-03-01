@@ -37,34 +37,43 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 /**
- * The Interface Class is responsible for the creation of a primary Graphical User Interface.<br>
+ * The SetupView Class is responsible for the setup screen for the game.<br>
  * <p>
- * From here the user plays the game. They can connect to or host a games.<br>
+ * From here the user configures the game.<br>
+ * They choose whether to play Locally or Online.<br>
+ * Give each player a type, be it Human or AI.<br>
+ * And enter network settings.<br>
  * 
  * @author Maurice
  */
 
 //The class is structured in the format:
-//Constructor for main GUI
-//Listeners for main GUI
-//MenuBar Constructor
-//Listeners for MenuBar
+// Global Class Variables
+// Constructor for GUI
+// Listeners for GUI
 public class SetupView
 {		
 	/**
-	 * The settings and game setup screen.<br>
+	 * Global settings and game setup screen.<br>
 	 */
-	JFrame setupFrame = new JFrame("Setup"); // Creates the main window
+	Game parentObject;
+	JFrame setupFrame = new JFrame("Game Setup"); // Creates the main window
 	Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize(); // Gets the resolution of the screen
     Dimension dimensionSuggested = new Dimension(800, 600); // Suggested window size
     Dimension dimensionMin = new Dimension(500, 280); // Minimum window size
     Boolean local = null; // A Boolean which indicates whether the game is being played locally or over a network connection
 
-	/**
-	 * 
-	 */
-	SetupView() // Constructor
+    /**
+     * The SetupView constructor displays the Game Setup window on screen.<br>
+     * <p>
+     * First it formats the window size, then creates some Components.<br>
+     * Next the frame is populated with panels for formatting.<br>
+     * Then the components are added to the relevant panels.<br>
+     * Listeners are added to components and the frame is made visible.<br>
+     */
+	SetupView(Game instance) // Constructor
 	{
+		parentObject = instance;
 		//
 		// Configuration of the Frame
 		//
@@ -83,7 +92,7 @@ public class SetupView
 		// Components
 		//
 		
-		// Create JLabels. Fields which store text.
+		// Create JLabels. Fields which display text.
 		
 		JLabel headingLabel1 = new JLabel("Game Type");
 		
@@ -126,11 +135,15 @@ public class SetupView
 		ptp1bDifficultySlider.setMajorTickSpacing(1);
 		ptp1bDifficultySlider.setPaintTicks(true);
 		ptp1bDifficultySlider.setSnapToTicks(true);
+		//ptp1bDifficultySlider.createStandardLabels(1); // Put numbers under the difficulty
+		//ptp1bDifficultySlider.setPaintLabels(true);
 		
 		JSlider ptp2bDifficultySlider = new JSlider(0, 5, 0);
 		ptp2bDifficultySlider.setMajorTickSpacing(1);
 		ptp2bDifficultySlider.setPaintTicks(true);
 		ptp2bDifficultySlider.setSnapToTicks(true);
+		//ptp2bDifficultySlider.createStandardLabels(1);
+		//ptp2bDifficultySlider.setPaintLabels(true);
 		
 		// Buttons
 		JButton startButton = new JButton("Start Game");
@@ -386,7 +399,7 @@ public class SetupView
 		nspPortField.addKeyListener(new modeButtonListener(7, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		startButton.addKeyListener(new modeButtonListener(8, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		startButton.addActionListener(new modeButtonListener(8, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
 		
@@ -508,8 +521,12 @@ public class SetupView
 					
 				case 8: // Case 8 is where the user has chosen to begin the game
 					// Any variables that need to be stored should be stored now.
-					
-					break;
+					System.out.println("Firing Start Button for Effect");
+
+					parentObject.createNewGameView(true);
+
+					setupFrame.dispose(); // Releases all of the screen resources used by this Window, any memory they consume will be returned to the OS. 
+					return;
 					
 				default:
 					break;		
