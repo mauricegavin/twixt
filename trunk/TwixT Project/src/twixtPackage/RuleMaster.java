@@ -22,8 +22,14 @@ public class RuleMaster {
 	 * @param y y position of tower
 	 * @return a boolean, true if a tower can be placed here
 	 */
-	public boolean canPlaceTower(int x, int y){
-		if(mBoard.getTower(x, y)!=null){
+	//For now this method assumes p1 is always playing left to right, and p2 bottom to top
+	public boolean canPlaceTower(int x, int y, int playerID){
+		if((playerID==1&&(y==0||y==23))||(playerID==2&&(x==0||x==23)))//the very top and bottom rows are reserved for the respective player, if the wrong player is trying to place a tower here return false; 
+		{
+			return false;
+		}
+		if((mBoard.getTower(x, y)!=null))
+		{
 			return false;
 		}else{
 		return true;
@@ -37,7 +43,7 @@ public class RuleMaster {
 	 * @param y2 y position of the end of the bridge
 	 * @return a boolean, true if a bridge can be placed here
 	 */
-	public boolean canPlaceBridge(int x1, int y1, int x2, int y2, int playerNumber){//not working yet
+	public boolean canPlaceBridge(int x1, int y1, int x2, int y2, int playerNumber){
 		Tower tower1=mBoard.getTower(x1,y1);
 		Tower tower2=mBoard.getTower(x2,y2);
 		System.out.println("Testing bridge move...");
@@ -159,6 +165,18 @@ public class RuleMaster {
 		return false;
 	}
 	/**
+	 * Method to check to see if the removal of a certain bridge is a legal move or not
+	 * @param x1 x position of the start of the bridge
+	 * @param y1 y position of the start of the bridge
+	 * @param x2 x position of the end of the bridge
+	 * @param y2 y position of the end of the bridge
+	 * @param plaerID an integer representing the player who wishes to do the move
+	 * @return a boolean, true if a bridge can be removed
+	 */
+	public boolean canRemoveBridge(int x1, int y1, int x2, int y2, int playerID){
+		return true;//as of now all the necessary checks i can think of already happen inside Board, we can update or remove this method later, i just added it to go with the design of the program
+	}
+	/**
 	 * Checks to see if the game is over. Returns 0 if it is not, 1 if player 1 has won and 2 if player 2 has won.
 	 * @return an integer
 	 */
@@ -238,7 +256,13 @@ public class RuleMaster {
 		}
 		Bridge currentBridge;
 		//otherwise keep looking
-		for(int i=0;i<=bridgeList.size();i++){//check all of the bridges
+		
+		int SIZEME;
+		
+		if(!bridgeList.isEmpty()){
+		for(int i=0;i<bridgeList.size();i++){//check all of the bridges
+			SIZEME=bridgeList.size();
+			System.out.println("i: "+i+"Size "+SIZEME);
 			currentBridge = bridgeList.get(i);
 			if(currentBridge.getStart().compare(start)){//if the current bridge is connected to our source tower at one end
 				bridgeList.remove(i);//then remove it from the bridge List to avoid looping and redundancy
@@ -253,6 +277,7 @@ public class RuleMaster {
 					return true;
 				}
 			}
+		}
 		}
 		return false;//After having checked all of the bridges and not returned true, return false
 	}

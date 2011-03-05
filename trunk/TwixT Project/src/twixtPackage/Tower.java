@@ -19,6 +19,7 @@ package twixtPackage;
 	    // Generic Constructor which takes parameters
 	    Tower(int x, int y, int owner)
 	    {
+	    	assert(xCoordinate>=0&&xCoordinate<=23&&yCoordinate>=0&&yCoordinate<=23&&playerId>=1&&playerId<=2): "Error:  x/y value must be between 0 and 23, and player id must be 1 or 2 ";
 	    	xCoordinate = x;
 	    	yCoordinate = y;
 	    	playerId = owner;
