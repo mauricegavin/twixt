@@ -14,7 +14,6 @@ public class Board {
 	static int BOARDSIZE = 24;
 	
 	private Tower board[][];
-	private RuleMaster boss = new RuleMaster(this);
 	private Vector<Bridge> bridgeList = new Vector<Bridge>();
 	
 	/**
@@ -36,9 +35,13 @@ public class Board {
 	}		
 	
 	public void placeTower(int x, int y, int owner)
-	{
-		Tower tower = new Tower(x, y, owner);
-		board[x][y] = tower;
+	{	
+		if(x<0||x>23||y<0||y>23||owner<1||owner>2){
+			System.err.println("Invalid input data for tower placement, board not updated");
+		}else{
+			Tower tower = new Tower(x, y, owner);
+			board[x][y] = tower;
+		}
 	}
 	
 	public Boolean placeBridge(int x1, int y1, int x2, int y2, int owner)//TODO Board should not ask rulemaster, game object should
@@ -61,20 +64,39 @@ public class Board {
 //		}
 	}
 	
-	public void removeTower(int x, int y, int owner)
+	public void removeTower(int x, int y, int owner)//we need this method? isn't this an illegal move?
 	{
-		board[x][y] = null;
+		if(x<0||x>23||y<0||y>23||owner<1||owner>2){
+			System.err.println("Invalid input data for tower removal, board not updated");
+		}else{
+			board[x][y] = null;
+		}
 	}
-	
+	/**
+	 * Removes the bridge specified by the input parameters from the board, does nothing if the bridge os not present on the board
+	 * @param x1 x coordinate of the start of the bridge
+	 * @param y1 y coordinate of the start of the bridge 
+	 * @param x2 x coordinate of the end of the bridge
+	 * @param y2 y coordinate of the end of the bridge
+	 * @param owner the player who owns the bridge
+	 */
 	public void removeBridge(int x1, int y1, int x2, int y2, int owner)
 	{
-		
-		
+		if(x1<0||x1>23||y1<0||y1>23||x2<0||x2>23||y2<0||y2>23||owner<1||owner>2){
+			System.err.println("Invalid input data for bridge removal, board not updated");
+		}else{
+			Bridge b = getBridge(x1, y1, x2, y2, owner);// b is the bridge to be removed
+			bridgeList.remove(b);//then remove b from the bridgeList
+		}
 	}
 	
 	public Tower getTower(int x, int y)
 	{
-		return board[x][y];
+		if(x<0||x>23||y<0||y>23){
+			return null;
+		}else{
+			return board[x][y];
+		}
 	}
 	/*
 	/**
@@ -118,7 +140,7 @@ public class Board {
 	 * @param x2 The x coordinate of the second tower
 	 * @param y2 The y coordinate of the second tower
 	 */
-	public Bridge getBridge(int x1, int y1, int x2, int y2)
+	public Bridge getBridge(int x1, int y1, int x2, int y2)//TODO try updating to make use of the compare method in tower
 	{
 		int i = 0;//counter
 		Bridge currentBridge;

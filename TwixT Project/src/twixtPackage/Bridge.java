@@ -16,6 +16,7 @@ public class Bridge {
 
 	Bridge(Tower start, Tower end,  int owner)
 	{	
+		assert(owner>0&&owner<3&&tower1!=null&&tower2!=null): "Error: Invalid player id or null tower";
 		tower1 = start;
 		tower2 = end; 
     	playerId = owner;	
