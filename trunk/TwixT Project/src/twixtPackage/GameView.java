@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -43,7 +45,7 @@ import twixtPackage.SetupView.modeButtonListener;
 //Listeners for main GUI
 //MenuBar Constructor
 //Listeners for MenuBar
-public class GameView
+public class GameView implements Observer
 {		
 	/**
 	 * The main Gui Interface.<br>
@@ -51,14 +53,17 @@ public class GameView
 	JFrame gameFrame = new JFrame("TwixT Extreme"); // Creates the main window
 	Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize(); // Gets the resolution of the screen
     Dimension dimensionSuggested = new Dimension(800, 600); // Suggested window size
-    Dimension dimensionMin = new Dimension(540, 600); // Minimum window size
-	BoardView boardGraphics = new BoardView(dimensionMin);
+    Dimension dimensionMin = new Dimension(540, 620); // Minimum window size
+	BoardView boardGraphics;
+	Board board;
 	
 	/**
 	 * 
 	 */
-	GameView() // Constructor
+	GameView(Board _board) // Constructor
 	{
+		board = _board;
+		boardGraphics = new BoardView(board, dimensionMin);
 		//
 		// Configuration of the Frame
 		//
@@ -137,6 +142,10 @@ public class GameView
 		gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		gameFrame.pack();
 		gameFrame.setVisible(true);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
 	}
 	
 }

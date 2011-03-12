@@ -523,7 +523,7 @@ public class SetupView
 					// Any variables that need to be stored should be stored now.
 					System.out.println("Firing Start Button for Effect");
 
-					parentObject.createNewGameView(true);
+					parentObject.createNewGame(true);
 
 					setupFrame.dispose(); // Releases all of the screen resources used by this Window, any memory they consume will be returned to the OS. 
 					return;

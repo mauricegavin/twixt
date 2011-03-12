@@ -17,15 +17,19 @@ public class Game extends Observable
 	
 	public Game()
 	{
-		setupFrame = new SetupView(this);
-		mBoard = new Board();
-		mRule = new RuleMaster(mBoard);
+		//setupFrame = new SetupView(this);
+		createNewGame(true);
 	}
 
-	public void createNewGameView(boolean state) 
+	public void createNewGame(boolean state) 
 	{
 		if (state)
-			gameFrame = new GameView();
+		{
+			mBoard = new Board();
+			mRule = new RuleMaster(mBoard);
+			gameFrame = new GameView(mBoard);
+			this.addObserver(gameFrame);
+		}
 		else
 			gameFrame = null;
 	}
