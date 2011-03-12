@@ -133,6 +133,20 @@ public class Board {
 	}
 	*/
 	/**
+	 * getBridge method which returns the bridge at the specified index
+	 * @param i the index of the bridge to be returned
+	 * @return A bridge object
+	 */
+	public Bridge getBridge(int i)
+	{
+		if(i<0||bridgeList.isEmpty()){
+			return null;
+		}else if(i<bridgeList.size()){
+			return bridgeList.get(i);
+		}
+		return null;
+	}
+	/**
 	 * getBridge function which returns a bridge object regardless of player id.
 	 * If the bridge doesn't exist then returns null.
 	 * @param x1 The x coordinate of the first tower
