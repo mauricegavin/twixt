@@ -139,4 +139,21 @@ public class Game extends Observable
 		}
 		return 0;
 	}
+	/**
+	 * Returns the tower specified by x and y, if no tower is present returns null
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public Tower getTower(int x, int y){
+		return mBoard.getTower(x, y);
+	}
+	/**
+	 * Returns the bridge at index i, if there is no bridge at i returns null
+	 * @param i
+	 * @return
+	 */
+	public Bridge getBridge(int i){
+		return mBoard.getBridge(i);
+	}
 }
