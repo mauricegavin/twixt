@@ -1,5 +1,7 @@
 package twixtPackage;
 
+import java.awt.Dimension;
+
 /**
  * Just a little class for testing purposes so i can muck about with what we have so far
  * @author Jack
@@ -13,9 +15,9 @@ public class TestMain {
 	public static void main(String[] args) {
 		Board b = new Board();
 		RuleMaster rm = new RuleMaster(b);
-		testPlaceTower(12,12,1,b);
-		testPlaceTower(13,14,1,b);
-		testPlaceTower(14,13,1,b);
+		//testPlaceTower(12,12,1,b);
+		//testPlaceTower(13,14,1,b);
+		//testPlaceTower(14,13,1,b);
 		testCanPlaceBridge(12,12,13,14,1,rm);
 		testCanPlaceBridge(12,12,14,13,1,rm);
 		System.out.println("Is over :"+rm.detectEnd());
@@ -50,6 +52,8 @@ public class TestMain {
 		testPlaceBridge(22,11,23,12,1,b);//12
 		testPlaceBridge(8,12,10,13,1,b);//loop bridge
 		testPlaceBridge(10,13,12,12,1,b);//loop bridge
+		
+		GameView gv = new GameView(b);
 		
 		System.out.println("Is over :"+rm.detectEnd());
 	}
