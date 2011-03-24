@@ -1,6 +1,7 @@
 package twixtPackage;
 
 import java.util.Observable;
+import java.util.Observer;
 
 public class Game extends Observable
 {
@@ -27,7 +28,7 @@ public class Game extends Observable
 		{
 			mBoard = new Board();
 			mRule = new RuleMaster(mBoard);
-			gameFrame = new GameView(mBoard);
+			gameFrame = new GameView(this, mBoard);
 			this.addObserver(gameFrame);
 		}
 		else
@@ -41,6 +42,59 @@ public class Game extends Observable
 	 * @param y2
 	 * @param playerNumber
 	 */
+	
+	/**
+	 * This function controls the mechanics of the current game.<br>
+	 * <p>
+	 *  It takes accepts moves from the current played and logs the end of turns.<br>
+	 */
+	public void gameInstance()
+	{
+		while(mRule.detectEnd() == 0)
+		{
+			if(playerTurn == 1) // Player 1's Turn
+			{
+				if(turnStage == 0) // PI Rule
+				{
+					
+				}
+				else if(turnStage == 1) // Remove Bridges
+				{
+					
+				}
+				else if(turnStage == 2) // Add Towers
+				{
+					
+				}
+				else if(turnStage == 3) // Add Bridges
+				{
+					
+				}
+			} // End of Player 1 Turn
+			else if(playerTurn == 2) // Player 2's Turn
+			{
+				if(turnStage == 0) // PI Rule
+				{
+					
+				}
+				else if(turnStage == 1) // Remove Bridges
+				{
+					
+				}
+				else if(turnStage == 2) // Add Towers
+				{
+					
+				}
+				else if(turnStage == 3) // Add Bridges
+				{
+					
+				}
+			} // End of Player 2 Turn
+			numTurns++;
+		} // End of While
+	} // End of Function
+		
+	
 	public void removeBridge(int x1, int y1, int x2, int y2, int playerNumber){
 		if(turnStage<2){
 			if(isMyGo(playerNumber)&&mRule.canRemoveBridge(x1, y1, x2, y2, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
@@ -156,4 +210,5 @@ public class Game extends Observable
 	public Bridge getBridge(int i){
 		return mBoard.getBridge(i);
 	}
+
 }
