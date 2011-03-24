@@ -15,6 +15,7 @@ public class Game extends Observable
 	private int player1ID=1;
 	private int player2ID=2;
 	//private boolean hasPlayedPiRule=false;
+	public Test test = new Test(true);
 	
 	public Game(Board board, RuleMaster ruleM)
 	{
@@ -102,7 +103,11 @@ public class Game extends Observable
 			{
 				mBoard.removeBridge(x1, y1, x2, y2, getRealID(playerNumber));
 				turnStage=1;
+			}else if(test.getDebugModeOn()){
+				System.out.println("Game: removeBridge(): illegal move");
 			}
+		}else if(test.getDebugModeOn()){
+		System.out.println("Game: removeBridge(): Wrong turnStage: ts "+turnStage);
 		}
 	}
 	/**
@@ -117,11 +122,11 @@ public class Game extends Observable
 			{
 				mBoard.placeTower(x, y, getRealID(playerNumber));
 				turnStage=3;
-			}else{
-				System.out.println("illegal move");
+			}else if(test.getDebugModeOn()){
+				System.out.println("Game: placeTower(): illegal move");
 			}
-		}else{
-		System.out.println("Wrong turnStage");
+		}else if(test.getDebugModeOn()){
+		System.out.println("Game: placeTower(): Wrong turnStage: ts "+turnStage);
 		}
 	}
 	/**
@@ -137,7 +142,11 @@ public class Game extends Observable
 			if(isMyGo(playerNumber)&&mRule.canPlaceBridge(x1, y1, x2, y2, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
 			{
 				mBoard.placeBridge(x1, y1, x2, y2, getRealID(playerNumber));
+			}else if(test.getDebugModeOn()){
+				System.out.println("Game: placeBridge(): illegal move");
 			}
+		}else if(test.getDebugModeOn()){
+			System.out.println("Game: placeBridge(): Wrong turnStage: ts "+turnStage);
 		}
 	}
 	/**
@@ -153,6 +162,8 @@ public class Game extends Observable
 				playerTurn=1;
 			}
 			numTurns++;
+		}else if(test.getDebugModeOn()){
+			System.out.println("Game: endTurn(): Wrong turnStage/Wrong Player: ts "+turnStage+" playerturn "+playerTurn+" playernumber "+playerNumber);
 		}
 	}
 	/**
@@ -165,6 +176,8 @@ public class Game extends Observable
 			player2ID=1;
 			turnStage=3;
 			endTurn(playerNumber);
+		}else if(test.getDebugModeOn()){
+			System.out.println("Game: piRule(): illegal pi rule: ts "+turnStage+" numturns "+numTurns);
 		}
 	}
 	/**
@@ -173,11 +186,11 @@ public class Game extends Observable
 	 * @return a boolean true if it is the specified payers turn
 	 */
 	public boolean isMyGo(int playerNumber){
-		if(playerNumber==1)
+		if(getRealID(playerNumber)==1)
 		{
 			return(playerTurn==player1ID);
 		}	
-		if(playerNumber==2)
+		if(getRealID(playerNumber)==2)
 		{
 			return(playerTurn==player2ID);
 		}

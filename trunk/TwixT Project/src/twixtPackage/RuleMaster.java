@@ -8,6 +8,7 @@ import java.util.Vector;
  *
  */
 public class RuleMaster {
+	Test test = new Test(false);
 	/**
 	 * Contructor
 	 * @param iBoard board to be tested on
@@ -46,16 +47,16 @@ public class RuleMaster {
 	public boolean canPlaceBridge(int x1, int y1, int x2, int y2, int playerNumber){
 		Tower tower1=mBoard.getTower(x1,y1);
 		Tower tower2=mBoard.getTower(x2,y2);
-		System.out.println("Testing bridge move...");
+		if(test.getDebugModeOn())System.out.println("Testing bridge move...");
 		if((tower1!=null)&&(tower2!=null)&&(tower1.getPlayerId()==playerNumber)&&(tower2.getPlayerId()==playerNumber)&&(mBoard.getBridge(x1,y1,x2,y2)==null))//checks to make sure the towers exist and are of the correct player, and that a bridge does not already exist at this position
 		{
-			System.out.println("the towers exist and are of the correct player, and that a bridge does not already exist at this position");
+			if(test.getDebugModeOn())System.out.println("the towers exist and are of the correct player, and that a bridge does not already exist at this position");
 			int dx = x1-x2;
 			int dy = y1-y2;
 			//Use dx and dy to work out the orientation of the bridge
 			if(Math.abs(dx)==1&&Math.abs(dy)==2)//Bridge is vertically oriented, ie two spaces high and one across
 			{
-				System.out.println("Bridge is vertical");
+				if(test.getDebugModeOn())System.out.println("Bridge is vertical");
 				dy=dy/2;//use dy/2 for computation purposes of co-ordinates
 				//now check for collisions in all the possible locations
 				if(mBoard.getBridge(x2,y1+dy,x1,y1-dy)==null){//1
@@ -78,35 +79,35 @@ public class RuleMaster {
 													//System.out.println("Test 9 failed -- Blocked by: "+(x2-dx)+" "+y2+" "+x1+" "+(y2+dy));
 													return true;//no bridges are colliding with the proposed bridge and return true
 												}else{
-													System.out.println("Test 9 failed -- Blocked by: "+(x2-dx)+" "+y2+" "+x1+" "+(y2+dy));
+													if(test.getDebugModeOn())System.out.println("Test 9 failed -- Blocked by: "+(x2-dx)+" "+y2+" "+x1+" "+(y2+dy));
 												}
 											}else{
-												System.out.println("Test 8 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1)+" "+(y2-dy));
+												if(test.getDebugModeOn())System.out.println("Test 8 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1)+" "+(y2-dy));
 											}	
 										}else{
-											System.out.println("Test 7 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1+dx)+" "+(y2));
+											if(test.getDebugModeOn())System.out.println("Test 7 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1+dx)+" "+(y2));
 										}	
 									}else{
-										System.out.println("Test 6 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1+dx)+" "+(y1));
+										if(test.getDebugModeOn())System.out.println("Test 6 failed -- Blocked by: "+(x2)+" "+(y2+dy)+" "+(x1+dx)+" "+(y1));
 									}	
 								}else{
-									System.out.println("Test 5 failed -- Blocked by: "+(x2-dx)+" "+(y2+dy)+" "+(x1)+" "+(y2));
+									if(test.getDebugModeOn())System.out.println("Test 5 failed -- Blocked by: "+(x2-dx)+" "+(y2+dy)+" "+(x1)+" "+(y2));
 								}		
 							}else{
-								System.out.println("Test 4 failed -- Blocked by: "+(x2)+" "+(y1)+" "+(x1)+" "+(y2));
+								if(test.getDebugModeOn())System.out.println("Test 4 failed -- Blocked by: "+(x2)+" "+(y1)+" "+(x1)+" "+(y2));
 							}	
 						}else{
-							System.out.println("Test 3 failed -- Blocked by: "+(x2)+" "+(y1)+" "+(x1+dx)+" "+(y1-dy));
+							if(test.getDebugModeOn())System.out.println("Test 3 failed -- Blocked by: "+(x2)+" "+(y1)+" "+(x1+dx)+" "+(y1-dy));
 						}	
 					}else{
-						System.out.println("Test 2 failed -- Blocked by: "+(x2-dx)+" "+(y1)+" "+(x1)+" "+(y1-dy));
+						if(test.getDebugModeOn())System.out.println("Test 2 failed -- Blocked by: "+(x2-dx)+" "+(y1)+" "+(x1)+" "+(y1-dy));
 					}
 				}else{
-					System.out.println("Test 1 failed -- Blocked by: "+(x2)+" "+(y1+dy)+" "+(x1)+" "+(y1-dy));
+					if(test.getDebugModeOn())System.out.println("Test 1 failed -- Blocked by: "+(x2)+" "+(y1+dy)+" "+(x1)+" "+(y1-dy));
 				}
 			}else if(Math.abs(dx)==2&&Math.abs(dy)==1)//Bridge is horizontally oriented, ie is two spaces across and one high
 			{
-				System.out.println("Bridge is horizontal");
+				if(test.getDebugModeOn())System.out.println("Bridge is horizontal");
 				dx=dx/2;//use dx/2 for computation purposes of co-ordinates
 				//now check for collisions in all the possible locations
 				if(mBoard.getBridge(x2,y1+dy,x2+dx,y2)==null){//1
@@ -120,46 +121,48 @@ public class RuleMaster {
 												if(mBoard.getBridge(x2+dx,y1,x1+dx,y2)==null){//9	
 													return true;//no bridges are colliding with the proposed bridge and return true
 												}else{
-													System.out.println("Test 9 failed:"+(x2+dx)+" "+(y1)+" "+(x1+dx)+" "+(y2));
+													if(test.getDebugModeOn())	System.out.println("Test 9 failed:"+(x2+dx)+" "+(y1)+" "+(x1+dx)+" "+(y2));
 												}
 											}else{
-												System.out.println("Test 8 failed :"+(x2+dx)+" "+(y1)+" "+(x1)+" "+(y2-dy));
+												if(test.getDebugModeOn())	System.out.println("Test 8 failed :"+(x2+dx)+" "+(y1)+" "+(x1)+" "+(y2-dy));
 											}
 										}else{
-											System.out.println("Test 7 failed :"+(x2+dx)+" "+(y1)+" "+(x2)+" "+(y2-dy));
+											if(test.getDebugModeOn())	System.out.println("Test 7 failed :"+(x2+dx)+" "+(y1)+" "+(x2)+" "+(y2-dy));
 										}
 									}else{
-										System.out.println("Test 6 failed :"+(x2)+" "+(y1)+" "+(x1)+" "+(y2));
+										if(test.getDebugModeOn())	System.out.println("Test 6 failed :"+(x2)+" "+(y1)+" "+(x1)+" "+(y2));
 									}
 								}else{
-									System.out.println("Test 5 failed :"+(x2)+" "+(y1)+" "+(x2+dx)+" "+(y2-dy));
+									if(test.getDebugModeOn())	System.out.println("Test 5 failed :"+(x2)+" "+(y1)+" "+(x2+dx)+" "+(y2-dy));
 								}
 							}else{
-								System.out.println("Test 4 failed :"+(x2-dx)+" "+(y1)+" "+(x2+dx)+" "+(y2));
+								if(test.getDebugModeOn())	System.out.println("Test 4 failed :"+(x2-dx)+" "+(y1)+" "+(x2+dx)+" "+(y2));
 							}
 						}else{
-							System.out.println("Test 3 failed :"+(x1)+" "+(y1+dy)+" "+(x2+dx)+" "+(y2));
+							if(test.getDebugModeOn())	System.out.println("Test 3 failed :"+(x1)+" "+(y1+dy)+" "+(x2+dx)+" "+(y2));
 						}
 					}else{
-						System.out.println("Test 2 failed:"+(x2+dx)+" "+(y1+dy)+" "+(x1)+" "+(y2));
+						if(test.getDebugModeOn())	System.out.println("Test 2 failed:"+(x2+dx)+" "+(y1+dy)+" "+(x1)+" "+(y2));
 					}
-					System.out.println("Test 1 failed :"+(x2)+" "+(y1+dy)+" "+(x2+dx)+" "+(y2));
+					if(test.getDebugModeOn())System.out.println("Test 1 failed :"+(x2)+" "+(y1+dy)+" "+(x2+dx)+" "+(y2));
 				}
 			}//if neither of the above statements are true then the bridge is not a knights move across, and is not a legal move.
 		}else{
-			System.out.println("Bridge failed due to");
-			if(tower1==null){
-				System.out.println("tower 1 does not exist");
-			}else if(tower1.getPlayerId()!=playerNumber){
-				System.out.println("tower one is wrong colour");
-			}
-			if(tower2==null){
-				System.out.println("tower 2 does not exist");
-			}else if(tower2.getPlayerId()!=playerNumber){
-				System.out.println("tower 2 is wrong colour");
-			}
-			if(mBoard.getBridge(x1,y1,x2,y2)!=null){
-				System.out.println("a bridge is already placed here");
+			if(test.getDebugModeOn()){
+				System.out.println("Bridge failed due to");
+				if(tower1==null){
+					System.out.println("tower 1 does not exist");
+				}else if(tower1.getPlayerId()!=playerNumber){
+					System.out.println("tower one is wrong colour");
+				}
+				if(tower2==null){
+					System.out.println("tower 2 does not exist");
+				}else if(tower2.getPlayerId()!=playerNumber){
+					System.out.println("tower 2 is wrong colour");
+				}
+				if(mBoard.getBridge(x1,y1,x2,y2)!=null){
+					System.out.println("a bridge is already placed here");
+				}
 			}
 		}
 		return false;
@@ -262,7 +265,7 @@ public class RuleMaster {
 		if(!bridgeList.isEmpty()){
 		for(int i=0;i<bridgeList.size();i++){//check all of the bridges
 			SIZEME=bridgeList.size();
-			System.out.println("i: "+i+"Size "+SIZEME);
+			if(test.getDebugModeOn())System.out.println("i: "+i+"Size "+SIZEME);
 			currentBridge = bridgeList.get(i);
 			if(currentBridge.getStart().compare(start)){//if the current bridge is connected to our source tower at one end
 				bridgeList.remove(i);//then remove it from the bridge List to avoid looping and redundancy
