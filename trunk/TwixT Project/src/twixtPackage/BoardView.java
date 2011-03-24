@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 
 public class BoardView extends JComponent
 {
-	Test test = new Test(true);
+	Test test = new Test(false);
 	
 	public int side = 400;
 	private static final int RADIUS = 10;
@@ -53,7 +53,7 @@ public class BoardView extends JComponent
 		
 		componentWidth = in.width;
 		componentHeight = in.height;
-		System.out.printf("%d", componentWidth);
+		if(test.getDebugModeOn())System.out.printf("%d", componentWidth);
 		this.setForeground(colourBackground);
 	}
 	
@@ -125,8 +125,9 @@ public class BoardView extends JComponent
 		            }
 		        }
 		        else
-		        {
-		        	System.out.println("No tower here to print.");
+		        {	
+		        	
+		        	if(test.getDebugModeOn())System.out.println("No tower here to print.");
 		       	}
 	        }
         }
