@@ -8,7 +8,7 @@ import java.awt.Dimension;
  *
  */
 public class TestMain {
-
+	static Test test = new Test(false);
 	/**
 	 * @param args
 	 */
@@ -54,30 +54,39 @@ public class TestMain {
 		testPlaceBridge(10,13,12,12,1,b);//loop bridge
 		
 		GameView gv = new GameView(b);
+		Game g = new Game(b, rm);
+		g.placeTower(12, 12, 1);
 		
 		System.out.println("Is over :"+rm.detectEnd());
 	}
 	private static void testCanPlaceBridge(int x1,int y1,int x2,int y2,int pID,RuleMaster rm){
-		System.out.println("---------------------------------------------");
-		System.out.println("Testing canPlaceBridge");
-		System.out.println("Can place "+pID+"bridge between "+x1+" "+y1+" "+x2+" "+y2+" :"+rm.canPlaceBridge(x1, y1, x2, y2, pID));
-		System.out.println("---------------------------------------------");
+		if(test.getDebugModeOn()){
+			System.out.println("---------------------------------------------");
+			System.out.println("Testing canPlaceBridge");
+			System.out.println("Can place "+pID+"bridge between "+x1+" "+y1+" "+x2+" "+y2+" :"+rm.canPlaceBridge(x1, y1, x2, y2, pID));
+			System.out.println("---------------------------------------------");
+		}
 	}
 	private static void testCanPlaceTower(int x, int y, int pID, RuleMaster rm){
-		System.out.println("Testing player "+pID+" canPlaceTower @:"+x+" "+y+" "+rm.canPlaceTower(x, y, pID));
+		if(test.getDebugModeOn()){	
+			System.out.println("Testing player "+pID+" canPlaceTower @:"+x+" "+y+" "+rm.canPlaceTower(x, y, pID));
+		}
 	}
 	private static void testPlaceTower(int x, int y, int pID, Board b){
 		b.placeTower(x, y, pID);
 		if(b.getTower(x, y)!=null){
-			System.out.println("Tower found placed at :"+b.getTower(x, y).getX()+", "+b.getTower(x, y).getY());
+			if(test.getDebugModeOn()){
+			System.out.println("Tower found placed at :"+b.getTower(x, y).getX()+", "+b.getTower(x, y).getY());}
 		}
 	}
 	private static void testPlaceBridge(int x1,int y1,int x2,int y2,int pID, Board b){
 		b.placeBridge(x1, y1, x2, y2, pID);
 		if(b.getBridge(x1, y1, x2, y2)!=null){
-			System.out.println("bridge found placed @ "+x1+" "+y1+" "+x2+" "+y2);
+			if(test.getDebugModeOn()){
+				System.out.println("bridge found placed @ "+x1+" "+y1+" "+x2+" "+y2);}
 		}else{
-			System.out.println("bridge NOT found placed @ "+x1+" "+y1+" "+x2+" "+y2);
+			if(test.getDebugModeOn()){
+			System.out.println("bridge NOT found placed @ "+x1+" "+y1+" "+x2+" "+y2);}
 		}
 	}
 

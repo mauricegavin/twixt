@@ -16,10 +16,12 @@ public class Game extends Observable
 	private int player2ID=2;
 	//private boolean hasPlayedPiRule=false;
 	
-	public Game()
+	public Game(Board board, RuleMaster ruleM)
 	{
+		mBoard = board;
+		mRule = ruleM;
 		//setupFrame = new SetupView(this);
-		createNewGame(true);
+		//createNewGame(true);
 	}
 
 	public void createNewGame(boolean state) 
@@ -28,20 +30,12 @@ public class Game extends Observable
 		{
 			mBoard = new Board();
 			mRule = new RuleMaster(mBoard);
-			gameFrame = new GameView(this, mBoard);
+			//gameFrame = new GameView(this, mBoard);
 			this.addObserver(gameFrame);
 		}
 		else
 			gameFrame = null;
 	}
-	/**
-	 * Method to remove a bridge
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @param playerNumber
-	 */
 	
 	/**
 	 * This function controls the mechanics of the current game.<br>
@@ -94,7 +88,14 @@ public class Game extends Observable
 		} // End of While
 	} // End of Function
 		
-	
+	/**
+	 * Method to remove a bridge
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @param playerNumber
+	 */
 	public void removeBridge(int x1, int y1, int x2, int y2, int playerNumber){
 		if(turnStage<2){
 			if(isMyGo(playerNumber)&&mRule.canRemoveBridge(x1, y1, x2, y2, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
@@ -116,7 +117,11 @@ public class Game extends Observable
 			{
 				mBoard.placeTower(x, y, getRealID(playerNumber));
 				turnStage=3;
+			}else{
+				System.out.println("illegal move");
 			}
+		}else{
+		System.out.println("Wrong turnStage");
 		}
 	}
 	/**
