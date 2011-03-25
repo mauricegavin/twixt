@@ -25,7 +25,7 @@ public class RuleMaster {
 	 */
 	//For now this method assumes p1 is always playing left to right, and p2 bottom to top//now attempting to switch so that p1 is up/down p2 is left right
 	public boolean canPlaceTower(int x, int y, int playerID){
-		if((playerID==1&&(y==0||y==23))||(playerID==2&&(x==0||x==23)))//the very top and bottom rows are reserved for the respective player, if the wrong player is trying to place a tower here return false; 
+		if((playerID==2&&(y==0||y==23))||(playerID==1&&(x==0||x==23)))//the very top and bottom rows are reserved for the respective player, if the wrong player is trying to place a tower here return false; 
 		{
 			return false;
 		}
@@ -180,10 +180,10 @@ public class RuleMaster {
 		return true;//as of now all the necessary checks i can think of already happen inside Board, we can update or remove this method later, i just added it to go with the design of the program
 	}
 	/**
-	 * Checks to see if the game is over. Returns 0 if it is not, 1 if player 1 has won and 2 if player 2 has won.
+	 * Checks to see if the game is over. Returns -1 if it is not, 1 if player 1 has won and 2 if player 2 has won.
 	 * @return an integer
 	 */
-	//For now this method assumes p1 is always playing left to right, and p2 bottom to top
+	//For now this method assumes p2 is always playing left to right, and p1 bottom to top
 	public int detectEnd(){//does nothing yet
 		Vector<Tower> topTowers = new Vector<Tower>();
 		Vector<Tower> bottomTowers = new Vector<Tower>();
@@ -227,7 +227,7 @@ public class RuleMaster {
 				bottomTowers.remove(0);
 				foundConnection = hasConnection(tempTower,topTowers,mBoard.getBridgeList());
 				if(foundConnection){
-					return 2;
+					return 1;
 				}
 			}
 		}
@@ -239,12 +239,12 @@ public class RuleMaster {
 				leftTowers.remove(0);//remove it form the list
 				foundConnection = hasConnection(tempTower,rightTowers,mBoard.getBridgeList());//returns true if tempTower is linked to any of the towrs in rightTower
 				if(foundConnection){
-					return 1;
+					return 2;
 				}
 			}
 		}
 		
-		return 0;
+		return -1;
 	}
 	/**
 	 * Recursive Method which returns true if the Tower start is connected to endList by the bridges listed in bridgeList
