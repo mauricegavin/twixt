@@ -15,38 +15,38 @@ public class TestMain {
 	public static void main(String[] args) {
 		Board b = new Board();
 		RuleMaster rm = new RuleMaster(b);
-		System.out.println("Is over :"+rm.detectEnd());
+		//System.out.println("Is over :"+rm.detectEnd());
 		
 		//the following section tests to see if the rulemaster can detect the vertical end of a game where a loop is present
-		//testPlaceTower(0,12,1,b);//1
-		//testPlaceTower(2,11,1,b);//2
-		//testPlaceTower(4,12,1,b);//3
-		//testPlaceTower(6,11,1,b);//4	
-		//testPlaceTower(8,12,1,b);//5
-		//testPlaceTower(10,11,1,b);//6
-		//testPlaceTower(12,12,1,b);//7
-		//testPlaceTower(14,11,1,b);//8
-		//testPlaceTower(16,12,1,b);//9
-		//testPlaceTower(18,11,1,b);//10
-		//testPlaceTower(20,12,1,b);//11
-		//testPlaceTower(22,11,1,b);//12
-		//testPlaceTower(23,12,1,b);//13
-		//testPlaceTower(10,13,1,b);//loop tower
+		testPlaceTower(0,12,2,b);//1
+		testPlaceTower(2,11,2,b);//2
+		testPlaceTower(4,12,2,b);//3
+		testPlaceTower(6,11,2,b);//4	
+		testPlaceTower(8,12,2,b);//5
+		testPlaceTower(10,11,2,b);//6
+		testPlaceTower(12,12,2,b);//7
+		testPlaceTower(14,11,2,b);//8
+		testPlaceTower(16,12,2,b);//9
+		testPlaceTower(18,11,2,b);//10
+		testPlaceTower(20,12,2,b);//11
+		testPlaceTower(22,11,2,b);//12
+		testPlaceTower(23,13,2,b);//13
+		testPlaceTower(10,13,2,b);//loop tower
 		
-		//testPlaceBridge(0,12,2,11,1,b);//1
-		//testPlaceBridge(2,11,4,12,1,b);//2
-		//testPlaceBridge(4,12,6,11,1,b);//3
-		//testPlaceBridge(6,11,8,12,1,b);//4
-		//testPlaceBridge(8,12,10,11,1,b);//5
-		//testPlaceBridge(10,11,12,12,1,b);//6
-		//testPlaceBridge(12,12,14,11,1,b);//7
-		//testPlaceBridge(14,11,16,12,1,b);//8
-		//testPlaceBridge(16,12,18,11,1,b);//9
-		//testPlaceBridge(18,11,20,12,1,b);//10
-		//testPlaceBridge(20,12,22,11,1,b);//11
-		//testPlaceBridge(22,11,23,12,1,b);//12
-		//testPlaceBridge(8,12,10,13,1,b);//loop bridge
-		//testPlaceBridge(10,13,12,12,1,b);//loop bridge
+		testPlaceBridge(0,12,2,11,2,b);//1
+		testPlaceBridge(2,11,4,12,2,b);//2
+		testPlaceBridge(4,12,6,11,2,b);//3
+		testPlaceBridge(6,11,8,12,2,b);//4
+		testPlaceBridge(8,12,10,11,2,b);//5
+		testPlaceBridge(10,11,12,12,2,b);//6
+		testPlaceBridge(12,12,14,11,2,b);//7
+		testPlaceBridge(14,11,16,12,2,b);//8
+		testPlaceBridge(16,12,18,11,2,b);//9
+		testPlaceBridge(18,11,20,12,2,b);//10
+		testPlaceBridge(20,12,22,11,2,b);//11
+		//testPlaceBridge(22,11,23,12,2,b);//12
+		//testPlaceBridge(8,12,10,13,2,b);//loop bridge
+		//testPlaceBridge(10,13,12,12,2,b);//loop bridge*/
 		
 		GameView gv = new GameView(b);
 		Game g = new Game(b, rm);

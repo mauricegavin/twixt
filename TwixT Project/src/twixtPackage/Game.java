@@ -39,56 +39,6 @@ public class Game extends Observable
 			gameFrame = null;
 	}
 	
-	/**
-	 * This function controls the mechanics of the current game.<br>
-	 * <p>
-	 *  It takes accepts moves from the current played and logs the end of turns.<br>
-	 */
-	public void gameInstance()
-	{
-		while(mRule.detectEnd() == 0)
-		{
-			if(playerTurn == 1) // Player 1's Turn
-			{
-				if(turnStage == 0) // PI Rule
-				{
-					
-				}
-				else if(turnStage == 1) // Remove Bridges
-				{
-					
-				}
-				else if(turnStage == 2) // Add Towers
-				{
-					
-				}
-				else if(turnStage == 3) // Add Bridges
-				{
-					
-				}
-			} // End of Player 1 Turn
-			else if(playerTurn == 2) // Player 2's Turn
-			{
-				if(turnStage == 0) // PI Rule
-				{
-					
-				}
-				else if(turnStage == 1) // Remove Bridges
-				{
-					
-				}
-				else if(turnStage == 2) // Add Towers
-				{
-					
-				}
-				else if(turnStage == 3) // Add Bridges
-				{
-					
-				}
-			} // End of Player 2 Turn
-			numTurns++;
-		} // End of While
-	} // End of Function
 		
 	/**
 	 * Method to remove a bridge
@@ -174,6 +124,9 @@ public class Game extends Observable
 			}
 			numTurns++;
 			gameIsOver=mRule.detectEnd();
+			if(gameIsOver>0){
+				turnStage=4;
+			}
 			if(test.getDebugModeOn()){
 				if(gameIsOver>0){
 					System.out.println("Player "+gameIsOver+" has won the game");
