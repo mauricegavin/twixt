@@ -8,6 +8,9 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -62,7 +65,14 @@ public class GameView implements Observer
 	HumanController player2;
 	
 	/**
+	 * The GameView Class is responsible for the game screen for the game.<br>
+	 * <p>
+	 * From here the user plays the game.<br>
+	 * They place and remove bridges and towers.<br>
+	 * Indicate the end of their turn.<br>
+	 * Play the PI Rule.<br>
 	 * 
+	 * @author Maurice
 	 */
 	GameView(Board _board) // Constructor
 	{
@@ -87,21 +97,26 @@ public class GameView implements Observer
 		
 		// Create JLabels. Fields which display text.
 		JLabel consoleLabel = new JLabel("Good luck!");
+		JLabel textualButtonInformation = new JLabel("Would you like to play the PI Rule?");
 		
 		// Text Fields
 		
 		// Buttons
+		JButton piButtonAffirm= new JButton("Gimme you Towers");
+		JButton piButtonRegect = new JButton("No");
 		JButton endTurnButton = new JButton("End Turn");
 		
 		// Component Initial Values
 		
 		// Component Initial States
+		piButtonAffirm.setVisible(true);
+		piButtonRegect.setVisible(true);
 		endTurnButton.setEnabled(false);
 
 		//
 		// Formatting 
 		//
-		
+			
 		// Variables
 		
 		// Apply Formatting
@@ -130,24 +145,17 @@ public class GameView implements Observer
 		gameViewPanel.add(boardGraphics, BorderLayout.CENTER);
 		
 		consolePanel.add(consoleLabel);
+		
+		endTurnPanel.add(textualButtonInformation);
+		endTurnPanel.add(piButtonAffirm);
+		endTurnPanel.add(piButtonRegect);
 		endTurnPanel.add(endTurnButton);
 		
 		//
 		// Listeners
 		//
-		endTurnButton.addActionListener(new ActionListener(){
+		endTurnButton.addActionListener( new buttonClickListener(1));
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(player1!=null){
-					player1.endTurn();
-				}
-				if(player2!=null){
-					player2.endTurn();
-				}
-			}
-			
-		});
 		//
 		// End of main GUI Interface Configuration
 		//
@@ -159,7 +167,9 @@ public class GameView implements Observer
 		gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		gameFrame.pack();
 		gameFrame.setVisible(true);
-	}
+		showPiRuleOption(endTurnButton, piButtonAffirm, piButtonRegect);
+	}	
+	
 	public void addPlayer1Controller(HumanController p1){
 		boardGraphics.addPlayer1Controller(p1);
 		player1=p1;
@@ -168,10 +178,55 @@ public class GameView implements Observer
 		boardGraphics.addPlayer2Controller(p2);
 		player2=p2;
 	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		boardGraphics.repaint();
 	}
 	
+	public void showPiRuleOption(JButton endTurnButton, JButton piButtonAffirm, JButton piButtonRegect)
+	{	
+		endTurnButton.setEnabled(false);
+		piButtonAffirm.setVisible(true);
+		piButtonRegect.setVisible(true);
+	}
+	
+	// Implementation of the Listeners
+	
+	/**
+	 * This Listener deals with 3 button cases.<br>
+	 * <p>
+	 * Case 1: End Turn. Ends the players turn.
+	 */
+	class buttonClickListener implements ActionListener
+	{
+		int mode = -1;
+		
+		public buttonClickListener(int _mode)
+		{
+			mode = _mode;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			switch(mode)
+			{
+			case 1:
+				if(player1 != null){
+					player1.endTurn();
+				}
+				if(player2 != null){
+					player2.endTurn();
+				}
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			}
+		
+		}
+	}
 }
 
