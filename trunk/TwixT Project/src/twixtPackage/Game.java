@@ -15,7 +15,7 @@ public class Game extends Observable
 	private int turnStage=0;//integer between 0 to 3 representing which stage of a turn we are at, 0: pi rule, 1: removing bridges, 2: placing a tower or 3: placing bridges and the turn is ready to finish
 	private int player1ID=1;
 	private int player2ID=2;
-	//private boolean hasPlayedPiRule=false;
+	private int gameIsOver=-1;//negative means game is not yet over, 1 means player 1, 2 means player 2
 	public Test test = new Test(true);
 	
 	public Game(Board board, RuleMaster ruleM)
@@ -173,6 +173,12 @@ public class Game extends Observable
 				playerTurn=1;
 			}
 			numTurns++;
+			gameIsOver=mRule.detectEnd();
+			if(test.getDebugModeOn()){
+				if(gameIsOver>0){
+					System.out.println("Player "+gameIsOver+" has won the game");
+				}
+			}
 			this.setChanged();
 			this.notifyObservers();
 		}else if(test.getDebugModeOn()){
@@ -242,6 +248,12 @@ public class Game extends Observable
 	 */
 	public Bridge getBridge(int i){
 		return mBoard.getBridge(i);
+	}
+	public int gameIsOver(){
+		return gameIsOver;
+	}
+	public boolean canPlayPiRule(){
+		return(this.numTurns==1&&this.turnStage==0);
 	}
 
 }
