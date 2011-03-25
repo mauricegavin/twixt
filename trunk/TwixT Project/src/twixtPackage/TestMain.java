@@ -50,12 +50,15 @@ public class TestMain {
 		
 		GameView gv = new GameView(b);
 		Game g = new Game(b, rm);
-		g.placeTower(9, 9, 1);
-		g.endTurn(1);
-		g.piRule(2);
+		g.addObserver(gv);
+		gv.addPlayer1Controller(new HumanController(1,g));
+		gv.addPlayer2Controller(new HumanController(2,g));
+		//g.placeTower(9, 9, 1);
+		//g.endTurn(1);
+		//g.piRule(2);
 		//g.placeTower(3, 1, 2);
 		//g.endTurn(2);
-		g.placeTower(10, 11, 1);
+		//g.placeTower(10, 11, 1);
 		//g.placeBridge(9, 9, 10, 11, 1);
 		
 		System.out.println("Is over :"+rm.detectEnd());

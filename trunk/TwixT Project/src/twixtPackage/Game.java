@@ -8,6 +8,7 @@ public class Game extends Observable
 	SetupView setupFrame;
 	GameView gameFrame;
 	private Board mBoard;
+	private Game mGame;
 	private RuleMaster mRule;
 	private int playerTurn=1;//integer representing whose turn it is 1 for player 1, 2 for player 2
 	private int numTurns=0;//integer representing the number of turns that have happened
@@ -103,6 +104,8 @@ public class Game extends Observable
 			{
 				mBoard.removeBridge(x1, y1, x2, y2, getRealID(playerNumber));
 				turnStage=1;
+				this.setChanged();
+				this.notifyObservers();
 			}else if(test.getDebugModeOn()){
 				System.out.println("Game: removeBridge(): illegal move");
 			}
@@ -116,18 +119,22 @@ public class Game extends Observable
 	 * @param y
 	 * @param playerNumber
 	 */
-	public void placeTower(int x, int y, int playerNumber){
+	public boolean placeTower(int x, int y, int playerNumber){
 		if(turnStage<3){
 			if(isMyGo(playerNumber)&&mRule.canPlaceTower(x, y, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
 			{
 				mBoard.placeTower(x, y, getRealID(playerNumber));
 				turnStage=3;
+				this.setChanged();
+				this.notifyObservers();
+				return true;
 			}else if(test.getDebugModeOn()){
 				System.out.println("Game: placeTower(): illegal move");
 			}
 		}else if(test.getDebugModeOn()){
 		System.out.println("Game: placeTower(): Wrong turnStage: ts "+turnStage);
 		}
+		return false;
 	}
 	/**
 	 * Method to place a bridge
@@ -137,17 +144,21 @@ public class Game extends Observable
 	 * @param y2
 	 * @param playerNumber
 	 */
-	public void placeBridge(int x1, int y1, int x2, int y2, int playerNumber){
+	public boolean placeBridge(int x1, int y1, int x2, int y2, int playerNumber){
 		if(turnStage==3){
 			if(isMyGo(playerNumber)&&mRule.canPlaceBridge(x1, y1, x2, y2, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
 			{
 				mBoard.placeBridge(x1, y1, x2, y2, getRealID(playerNumber));
+				this.setChanged();
+				this.notifyObservers();
+				return true;
 			}else if(test.getDebugModeOn()){
 				System.out.println("Game: placeBridge(): illegal move");
 			}
 		}else if(test.getDebugModeOn()){
 			System.out.println("Game: placeBridge(): Wrong turnStage: ts "+turnStage);
 		}
+		return false;
 	}
 	/**
 	 * Method to end your current turn
@@ -162,6 +173,8 @@ public class Game extends Observable
 				playerTurn=1;
 			}
 			numTurns++;
+			this.setChanged();
+			this.notifyObservers();
 		}else if(test.getDebugModeOn()){
 			System.out.println("Game: endTurn(): Wrong turnStage/Wrong Player: ts "+turnStage+" playerturn "+playerTurn+" playernumber "+playerNumber);
 		}
@@ -176,6 +189,8 @@ public class Game extends Observable
 			player2ID=1;
 			turnStage=3;
 			endTurn(playerNumber);
+			this.setChanged();
+			this.notifyObservers();
 		}else if(test.getDebugModeOn()){
 			System.out.println("Game: piRule(): illegal pi rule: ts "+turnStage+" numturns "+numTurns);
 		}

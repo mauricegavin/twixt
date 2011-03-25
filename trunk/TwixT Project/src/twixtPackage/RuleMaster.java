@@ -23,7 +23,7 @@ public class RuleMaster {
 	 * @param y y position of tower
 	 * @return a boolean, true if a tower can be placed here
 	 */
-	//For now this method assumes p1 is always playing left to right, and p2 bottom to top
+	//For now this method assumes p1 is always playing left to right, and p2 bottom to top//now attempting to switch so that p1 is up/down p2 is left right
 	public boolean canPlaceTower(int x, int y, int playerID){
 		if((playerID==1&&(y==0||y==23))||(playerID==2&&(x==0||x==23)))//the very top and bottom rows are reserved for the respective player, if the wrong player is trying to place a tower here return false; 
 		{

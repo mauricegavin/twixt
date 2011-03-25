@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -56,6 +58,8 @@ public class GameView implements Observer
     Dimension dimensionMin = new Dimension(540, 620); // Minimum window size
 	BoardView boardGraphics;
 	Board board;
+	HumanController player1;
+	HumanController player2;
 	
 	/**
 	 * 
@@ -131,7 +135,19 @@ public class GameView implements Observer
 		//
 		// Listeners
 		//
+		endTurnButton.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(player1!=null){
+					player1.endTurn();
+				}
+				if(player2!=null){
+					player2.endTurn();
+				}
+			}
+			
+		});
 		//
 		// End of main GUI Interface Configuration
 		//
@@ -139,13 +155,22 @@ public class GameView implements Observer
 		//
 		// Display Interface
 		//
+		endTurnButton.setEnabled(true);
 		gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		gameFrame.pack();
 		gameFrame.setVisible(true);
 	}
-
+	public void addPlayer1Controller(HumanController p1){
+		boardGraphics.addPlayer1Controller(p1);
+		player1=p1;
+	}
+	public void addPlayer2Controller(HumanController p2){
+		boardGraphics.addPlayer2Controller(p2);
+		player2=p2;
+	}
 	@Override
 	public void update(Observable o, Object arg) {
+		boardGraphics.repaint();
 	}
 	
 }
