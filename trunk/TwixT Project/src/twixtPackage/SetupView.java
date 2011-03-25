@@ -524,11 +524,23 @@ public class SetupView
 				case 8: // Case 8 is where the user has chosen to begin the game
 					// Any variables that need to be stored should be stored now.
 					System.out.println("Firing Start Button for Effect");
+					// 1 means Human, 2 means AI, 3 means Network
+					int player1Type = 0;
+					int player2Type = 0;
 					
-					Boolean localGame = gtpgRadio1.isSelected(); // True means Local Game, False means Netowrked Game
+					Boolean localGame = gtpgRadio1.isSelected(); // True means Local Game, False means Networked Game
 					
 					Boolean player1Human = ptp1bRadio1.isSelected(); // True means Player 1 is Human, False means AI
-					String player1Name = ptp1bTextField.getText(); // Get Player 1's Name
+					if(player1Human == false) // If Player 1 is AI
+					{
+						player1Type = 2;
+						int difficulty = ptp1bDifficultySlider.getValue();
+					}
+					else
+					{
+						player1Type = 1;
+						String player1Name = ptp1bTextField.getText(); // Get Player 1's Name
+					}
 					
 					if(localGame) // Then we need to retrieve Player 2 details also, may ignore the network
 					{
@@ -536,10 +548,12 @@ public class SetupView
 						
 						if(player2Human == false) // If Player 2 is AI
 						{
+							player2Type = 2;
 							int difficulty = ptp1bDifficultySlider.getValue();
 						}
 						else
 						{
+							player2Type = 1;
 							String player2Name = ptp2bTextField.getText(); // Get Player 2's Name
 						}
 					}
@@ -547,9 +561,10 @@ public class SetupView
 					{
 						String ipAddress = nspIpField.getText();
 						int portAddress = Integer.parseInt(nspPortField.getText());
+						player2Type = 3;
 					}
 					
-					parentObject.createNewGame(true);
+					parentObject.createNewGame(true, player1Type, player2Type);
 
 					setupFrame.dispose(); // Releases all of the screen resources used by this Window, any memory they consume will be returned to the OS. 
 					return;
