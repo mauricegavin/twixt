@@ -48,11 +48,11 @@ public class TestMain {
 		//testPlaceBridge(8,12,10,13,2,b);//loop bridge
 		//testPlaceBridge(10,13,12,12,2,b);//loop bridge*/
 		
-		GameView gv = new GameView(b);
-		Game g = new Game(b, rm);
-		g.addObserver(gv);
-		gv.addPlayer1Controller(new HumanController(1,g));
-		gv.addPlayer2Controller(new HumanController(2,g));
+		//GameView gv = new GameView(b);
+		//Game g = new Game(b, rm);
+		//g.addObserver(gv);
+		//gv.addPlayer1Controller(new HumanController(1,g));
+		//gv.addPlayer2Controller(new HumanController(2,g));
 		//g.placeTower(9, 9, 1);
 		//g.endTurn(1);
 		//g.piRule(2);
