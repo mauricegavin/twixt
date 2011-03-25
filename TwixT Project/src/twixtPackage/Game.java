@@ -22,14 +22,30 @@ public class Game extends Observable
 		//createNewGame(true);
 	}
 
-	public void createNewGame(boolean state) 
+	public void createNewGame(boolean state, int player1type, int player2type) 
 	{
 		if (state)
-		{
+		{	
 			mBoard = new Board();
 			mRule = new RuleMaster(mBoard);
-			gameFrame = new GameView(mBoard);
+			gameFrame = new GameView(this, mBoard);
 			this.addObserver(gameFrame);
+			switch(player1type)
+			{
+				case 1:
+					gameFrame.addPlayer1Controller(new HumanController(1,this));
+					break;
+				default:
+					break;
+			}
+			switch(player2type)
+			{
+				case 1:
+					gameFrame.addPlayer2Controller(new HumanController(2,this));
+					break;
+				default:
+					break;
+			}
 		}
 		else
 			gameFrame = null;

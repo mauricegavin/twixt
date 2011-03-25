@@ -48,4 +48,9 @@ public class HumanController implements Controller{
 				lastYClick=-1;
 			}
 		}
+		public void piRule() {
+			if(mGame.isMyGo(myID)){
+				mGame.piRule(myID);
+			}
+		}
 }
