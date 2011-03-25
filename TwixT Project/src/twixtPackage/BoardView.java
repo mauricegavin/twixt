@@ -10,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 
@@ -17,7 +18,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-public class BoardView extends JComponent
+public class BoardView extends JComponent implements MouseListener
 {
 	Test test = new Test(false);
 	
@@ -39,8 +40,12 @@ public class BoardView extends JComponent
 	int offsetY = 0;
 	int componentWidth = 0;
 	int componentHeight = 0;
+	private HumanController player1;
+	private HumanController player2;
 	
 	Board board;
+	Game game;
+	Circle[][] towerHoles = new Circle[BOARDSIZE][BOARDSIZE];
 	
 	public BoardView(Board _board, Dimension in)
 	{
@@ -53,8 +58,9 @@ public class BoardView extends JComponent
 		
 		componentWidth = in.width;
 		componentHeight = in.height;
-		if(test.getDebugModeOn())System.out.printf("%d", componentWidth);
+		System.out.printf("%d", componentWidth);
 		this.setForeground(colourBackground);
+		addMouseListener(this);
 	}
 	
 	public void paint(Graphics _g)
@@ -98,7 +104,8 @@ public class BoardView extends JComponent
         {
         	for(int j=0; j < BOARDSIZE; j++)
         	{
-        		g.drawOval(offsetX + i*SPACE, offsetY + j*SPACE, RADIUS, RADIUS);
+        		towerHoles[i][j] = new Circle(i, j, offsetX + i*SPACE, offsetY + j*SPACE, RADIUS);
+        		g.draw(towerHoles[i][j].circ);
             	offsetY += SPACE;
         	}
         	offsetY = startingOffsetY;
@@ -125,8 +132,7 @@ public class BoardView extends JComponent
 		            }
 		        }
 		        else
-		        {	
-		        	
+		        {
 		        	if(test.getDebugModeOn())System.out.println("No tower here to print.");
 		       	}
 	        }
@@ -156,6 +162,86 @@ public class BoardView extends JComponent
         	y2 = startingOffsetY + RADIUS/2 + end.getY()*(SPACE+RADIUS);
         	g.drawLine(x1, y1, x2, y2);
         }
-        	
+	}
+	public void addPlayer1Controller(HumanController p1){
+		player1=p1;
+	}
+	public void addPlayer2Controller(HumanController p2){
+		player2=p2;
+	}
+	@Override
+	public void mouseClicked(MouseEvent click) 
+	{
+		// Retrieve the pixel co-ords of the Mouse Click event.
+		int x = click.getX();
+		int y = click.getY();
+		
+		// Compute the array co-ordinate from the pixel values.
+		x = x - 20;
+		x = x/20;
+		y = y - 20;
+		y = y/20;
+		
+		//send to humanController(s)
+		if(this.player1!=null){
+			player1.doMove(x, y);
+		}
+		if(this.player2!=null){
+			player2.doMove(x, y);
+		}
+		// Print out the array co-ords.
+		if(test.getDebugModeOn() == true) System.out.println("x = " + x + "\ny = " + y);
+		
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
+
+class Circle extends JComponent{
+
+	Test test = new Test(true);
+	
+	Ellipse2D.Double circ;
+	Color colour;
+	int radius = 0;
+	int x = 0;
+	int y = 0;
+	int xOffset = 0;
+	int yOffset = 0;
+	
+	public Circle(int _x, int _y, int _xOffset, int _yOffset, int _radius)
+	{
+		radius = _radius;
+		x = _x;
+		y = _y;
+		xOffset = _xOffset;
+		yOffset = _yOffset;
+		circ = new Ellipse2D.Double(xOffset, yOffset, radius, radius);
+	}
+
+}
+
+
