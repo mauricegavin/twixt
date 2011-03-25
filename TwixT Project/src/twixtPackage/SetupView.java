@@ -375,31 +375,31 @@ public class SetupView
 		//
 		// Listeners
 		//
-		gtpgRadio1.addActionListener(new modeButtonListener(0, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		gtpgRadio1.addActionListener(new modeButtonListener(0, 	gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		gtpgRadio2.addActionListener(new modeButtonListener(1, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		gtpgRadio2.addActionListener(new modeButtonListener(1, 	gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		ptp1bRadio1.addActionListener(new modeButtonListener(2, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		ptp1bRadio1.addActionListener(new modeButtonListener(2, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		ptp1bRadio2.addActionListener(new modeButtonListener(3, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		ptp1bRadio2.addActionListener(new modeButtonListener(3, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		ptp2bRadio1.addActionListener(new modeButtonListener(4, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		ptp2bRadio1.addActionListener(new modeButtonListener(4, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		ptp2bRadio2.addActionListener(new modeButtonListener(5, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		ptp2bRadio2.addActionListener(new modeButtonListener(5, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		nspIpField.addKeyListener(new modeButtonListener(6, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		nspIpField.addKeyListener(new modeButtonListener(6, 	gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		nspPortField.addKeyListener(new modeButtonListener(7, 	ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		nspPortField.addKeyListener(new modeButtonListener(7, 	gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
-		startButton.addActionListener(new modeButtonListener(8, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+		startButton.addActionListener(new modeButtonListener(8, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
 																nspIpField, nspPortField, startButton));
 		
@@ -423,6 +423,7 @@ public class SetupView
 	class modeButtonListener implements ActionListener, KeyListener
 	{
 		int mode = -1;
+		JRadioButton gtpgRadio1;
 		JRadioButton ptp1bRadio1;
 		JRadioButton ptp1bRadio2;
 		JTextField ptp1bTextField;
@@ -435,10 +436,11 @@ public class SetupView
 		JTextField nspPortField;
 		JButton startButton;
 		
-		public modeButtonListener(int _mode,	JRadioButton _ptp1bRadio1, JRadioButton _ptp1bRadio2, JTextField _ptp1bTextField, JSlider _ptp1bDifficultySlider, 
+		public modeButtonListener(int _mode,	JRadioButton _gtpgRadio1, JRadioButton _ptp1bRadio1, JRadioButton _ptp1bRadio2, JTextField _ptp1bTextField, JSlider _ptp1bDifficultySlider, 
 												JRadioButton _ptp2bRadio1, JRadioButton _ptp2bRadio2, JTextField _ptp2bTextField, JSlider _ptp2bDifficultySlider,
 												JTextField _nspIpField, JTextField _nspPortField, JButton _startButton) {
 			mode = _mode;
+			gtpgRadio1 = _gtpgRadio1;
 			ptp1bRadio1 = _ptp1bRadio1;
 			ptp1bRadio2 = _ptp1bRadio2;
 			ptp1bTextField = _ptp1bTextField;
@@ -522,7 +524,31 @@ public class SetupView
 				case 8: // Case 8 is where the user has chosen to begin the game
 					// Any variables that need to be stored should be stored now.
 					System.out.println("Firing Start Button for Effect");
-
+					
+					Boolean localGame = gtpgRadio1.isSelected(); // True means Local Game, False means Netowrked Game
+					
+					Boolean player1Human = ptp1bRadio1.isSelected(); // True means Player 1 is Human, False means AI
+					String player1Name = ptp1bTextField.getText(); // Get Player 1's Name
+					
+					if(localGame) // Then we need to retrieve Player 2 details also, may ignore the network
+					{
+						Boolean player2Human = ptp2bRadio1.isSelected();  // True means Player 2 is Human, False means AI
+						
+						if(player2Human == false) // If Player 2 is AI
+						{
+							int difficulty = ptp1bDifficultySlider.getValue();
+						}
+						else
+						{
+							String player2Name = ptp2bTextField.getText(); // Get Player 2's Name
+						}
+					}
+					else
+					{
+						String ipAddress = nspIpField.getText();
+						int portAddress = Integer.parseInt(nspPortField.getText());
+					}
+					
 					parentObject.createNewGame(true);
 
 					setupFrame.dispose(); // Releases all of the screen resources used by this Window, any memory they consume will be returned to the OS. 

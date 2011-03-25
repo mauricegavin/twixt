@@ -1,14 +1,12 @@
 package twixtPackage;
 
 import java.util.Observable;
-import java.util.Observer;
 
 public class Game extends Observable
 {
 	SetupView setupFrame;
 	GameView gameFrame;
 	private Board mBoard;
-	private Game mGame;
 	private RuleMaster mRule;
 	private int playerTurn=1;//integer representing whose turn it is 1 for player 1, 2 for player 2
 	private int numTurns=0;//integer representing the number of turns that have happened
@@ -18,11 +16,9 @@ public class Game extends Observable
 	private int gameIsOver=-1;//negative means game is not yet over, 1 means player 1, 2 means player 2
 	public Test test = new Test(true);
 	
-	public Game(Board board, RuleMaster ruleM)
+	public Game()
 	{
-		mBoard = board;
-		mRule = ruleM;
-		//setupFrame = new SetupView(this);
+		setupFrame = new SetupView(this);
 		//createNewGame(true);
 	}
 
@@ -32,14 +28,13 @@ public class Game extends Observable
 		{
 			mBoard = new Board();
 			mRule = new RuleMaster(mBoard);
-			//gameFrame = new GameView(this, mBoard);
+			gameFrame = new GameView(mBoard);
 			this.addObserver(gameFrame);
 		}
 		else
 			gameFrame = null;
 	}
 	
-		
 	/**
 	 * Method to remove a bridge
 	 * @param x1
@@ -123,6 +118,16 @@ public class Game extends Observable
 				playerTurn=1;
 			}
 			numTurns++;
+			gameIsOver=mRule.detectEnd();
+			if(test.getDebugModeOn()){
+				if(gameIsOver>0){
+					System.out.println("Player "+gameIsOver+" has won the game");
+				}
+			}
+			this.setChanged();
+			this.notifyObservers();
+		}else if(test.getDebugModeOn()){
+			System.out.println("Game: endTurn(): Wrong turnStage/Wrong Player: ts "+turnStage+" playerturn "+playerTurn+" playernumber "+playerNumber);
 			gameIsOver=mRule.detectEnd();
 			if(gameIsOver>0){
 				turnStage=4;
