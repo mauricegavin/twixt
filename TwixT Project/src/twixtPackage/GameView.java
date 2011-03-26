@@ -8,9 +8,13 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,6 +22,8 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -52,6 +58,7 @@ import twixtPackage.SetupView.modeButtonListener;
 //Listeners for MenuBar
 public class GameView implements Observer
 {		
+	Test test = new Test(true);
 	/**
 	 * The main Gui Interface.<br>
 	 */
@@ -65,6 +72,9 @@ public class GameView implements Observer
 	HumanController player1;
 	HumanController player2;
 	
+	// Additional Frames
+	JFrame endGameFrame;
+	
 	// JLabels
 	JLabel textualButtonInformation = new JLabel("Would you like to play the PI Rule?");
 	
@@ -72,6 +82,7 @@ public class GameView implements Observer
 	JButton piButtonAffirm = new JButton("Gimme you Towers");
 	JButton piButtonRegect = new JButton("No");
 	JButton endTurnButton = new JButton("End Turn");
+	JButton newGameButton = new JButton("New Game");
 	
 	/**
 	 * The GameView Class is responsible for the game screen for the game.<br>
@@ -158,13 +169,16 @@ public class GameView implements Observer
 		endTurnPanel.add(piButtonAffirm);
 		endTurnPanel.add(piButtonRegect);
 		endTurnPanel.add(endTurnButton);
+		endTurnPanel.add(newGameButton);
 		
 		//
 		// Listeners
 		//
 		endTurnButton.addActionListener( new buttonClickListener(1));
+		endTurnButton.addKeyListener( new buttonClickListener(1));
 		piButtonAffirm.addActionListener( new buttonClickListener(2));
 		piButtonRegect.addActionListener( new buttonClickListener(3));
+		newGameButton.addActionListener(new buttonClickListener(4));
 
 		//
 		// End of main GUI Interface Configuration
@@ -177,6 +191,7 @@ public class GameView implements Observer
 		gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		gameFrame.pack();
 		gameFrame.setVisible(true);
+		showEndGame(1);
 	}	
 	
 	public void addPlayer1Controller(HumanController p1){
@@ -187,6 +202,7 @@ public class GameView implements Observer
 		boardGraphics.addPlayer2Controller(p2);
 		player2=p2;
 	}
+	
 	
 	@Override
 	public void update(Observable o, Object arg) {
@@ -200,8 +216,17 @@ public class GameView implements Observer
 		{
 			showPiRuleOption(false);
 		}
+		
+		if(game.gameIsOver() == 1)
+		{
+			showEndGame(1);
+		}
+		else if (game.gameIsOver() == 2)
+		{
+			showEndGame(2);
+		}
 	}
-	
+
 	public void showPiRuleOption(Boolean state)
 	{	
 		if(state)
@@ -219,6 +244,36 @@ public class GameView implements Observer
 			piButtonRegect.setVisible(false);
 		}
 	}
+
+	void showEndGame(int whoWon)
+	{
+		endTurnButton.setVisible(false);
+		newGameButton.setVisible(true);
+		URL url = null;
+		try {
+			int rand = (int) (Math.random() * (3) ); // Generates a random in the range 0 to 2
+			
+			if(rand == 0)
+				url = new URL("http://i246.photobucket.com/albums/gg100/vicgal/mz_4592812_bodyshot_300x400-39.gif");
+			else if(rand == 1)
+				url = new URL("http://i94.photobucket.com/albums/l108/diabolo_jo/125381shiningowned8gl9eqh9.gif");
+			else if(rand == 2)
+				url = new URL("http://www.threadbombing.com/data/media/2/winning.gif");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Icon icon = new ImageIcon(url);
+		JLabel label = new JLabel(icon);
+		 
+		endGameFrame = new JFrame("Game Over");
+		endGameFrame.setUndecorated(true);
+		endGameFrame.getContentPane().add(label);
+		endGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		endGameFrame.pack();
+		endGameFrame.setLocationRelativeTo(null);
+		endGameFrame.setVisible(true);
+	}
 	
 	// Implementation of the Listeners
 	
@@ -227,7 +282,7 @@ public class GameView implements Observer
 	 * <p>
 	 * Case 1: End Turn. Ends the players turn.
 	 */
-	class buttonClickListener implements ActionListener
+	class buttonClickListener implements ActionListener, KeyListener
 	{
 		int mode = -1;
 		
@@ -257,8 +312,41 @@ public class GameView implements Observer
 			case 3: // No, do not implement PI Rule
 				showPiRuleOption(false);
 				break;
+			case 4:
+				gameFrame.setVisible(false);
+				endGameFrame.setVisible(false);
+				game.startNewGame(true);
+				break;
+			default:
+				break;
 			}
 		
+		}
+
+		// Thinking of putting in an Undo Function
+		@Override
+		public void keyPressed(KeyEvent key)
+		{
+			if (key.getKeyCode() == 8)
+			{
+				if(test.getDebugModeOn())System.out.println("Detected Backspace Key press.");
+			}
+			else if((key.getKeyCode() == 17) || (key.getKeyCode() == 85))
+			{
+				if(test.getDebugModeOn())System.out.println("Detected U Key press.");
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 }

@@ -229,4 +229,12 @@ public class Game extends Observable
 		return mBoard.getBridge(x1, y1, x2, y2, playerID);
 	}
 
+	public void startNewGame(boolean state)
+	{
+		if(state)
+		{
+			setupFrame = new SetupView(this);
+		}
+	}
+
 }

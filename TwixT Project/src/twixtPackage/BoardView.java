@@ -65,15 +65,6 @@ public class BoardView extends JComponent implements MouseListener
 	
 	public void paint(Graphics _g)
 	{
-		/*
-		if(this.getWidth() > this.getHeight())
-			side = (int) (this.getHeight()*0.8);
-		else
-			side = (int) (this.getWidth()*0.8);
-		
-		componentWidth = this.getHeight();
-		componentHeight = this.getHeight();
-		*/
 		Graphics2D g = (Graphics2D) _g;
         
 		// Inner Player Lines
@@ -170,7 +161,7 @@ public class BoardView extends JComponent implements MouseListener
 		player2=p2;
 	}
 	@Override
-	public void mouseClicked(MouseEvent click) 
+	public void mouseClicked(MouseEvent click)
 	{
 		// Retrieve the pixel co-ords of the Mouse Click event.
 		int x = click.getX();
@@ -190,9 +181,7 @@ public class BoardView extends JComponent implements MouseListener
 			player2.doMove(x, y);
 		}
 		// Print out the array co-ords.
-		if(test.getDebugModeOn() == true) System.out.println("x = " + x + "\ny = " + y);
-		
-		
+		if(test.getDebugModeOn() == true) System.out.println("x = " + x + "\ny = " + y);		
 	}
 
 	@Override
