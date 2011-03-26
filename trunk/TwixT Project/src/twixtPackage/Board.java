@@ -8,7 +8,7 @@ public class Board {
 	//
 	// Test Module
 	//
-	Test test = new Test(true);
+	Test test = new Test(false);
 	
 	
 	static int BOARDSIZE = 24;
@@ -191,31 +191,31 @@ public class Board {
 	 */
 	public Bridge getBridge(int x1, int y1, int x2, int y2, int id)
 	{
-		int index = bridgeList.indexOf( new Bridge(getTower(x1,y1), getTower(x2,y2), id) );
-		if (index >= 0)
-		{
-			Bridge found = (Bridge) bridgeList.get(index);
-			return found;
-		}
-		else if (index == -1) {
-			
-			if(test.getDebugModeOn() == true){
-				System.out.printf("This Bridge doesn't exist, or it doesn't belong to player %d\n", id);
-				if(id == 1)
-					index = bridgeList.indexOf( new Bridge(getTower(x1,y1), getTower(x2,y2), 2) );
-				else
-					index = bridgeList.indexOf( new Bridge(getTower(x1,y1), getTower(x2,y2), 1) );
-				if (index == -1) // If it is still -1 then the bridge doesn't exist at all.
-					System.out.printf("This Bridge does not exist\n");
-				else
-					System.out.printf("This Bridge belongs to player %d\n", index);
+		int i = 0;//counter
+		Bridge currentBridge;
+		Tower start;//one end of the bridge
+		Tower end;//the other end of the bridge
+		Tower myStart = new Tower(x1, y1, id);
+		Tower myEnd = new Tower(x2,y2,id);
+		while(i!=bridgeList.size()){//iterate thru the list and check all the bridges against the one we're looking for
+			currentBridge=(Bridge) bridgeList.elementAt(i);
+			start = currentBridge.getStart();
+			if(currentBridge.getID()==id){
+				if(start.compare(myStart)){//if the start of the bridge matches one of the xy pairs...
+					end = currentBridge.getEnd();
+					if(end.compare(myEnd)){//...check the end of the bridge against the xy pair
+						return currentBridge;
+					}
+				}else if(start.compare(myEnd)){//if the start of the bridge matches one of the xy pairs...
+					end = currentBridge.getEnd();
+					if(end.compare(myStart)){//...check the end of the bridge against the xy pair
+						return currentBridge;
+					}
+				}
 			}
-			return null;
+			i++;
 		}
-		else {
-			System.err.printf("Error: Unexpected index=%d in getBridge function\n", index);
-			return null;
-		}
+		return null;
 	}
 	/**
 	 * Method to return a copy of the current vector of Bridges

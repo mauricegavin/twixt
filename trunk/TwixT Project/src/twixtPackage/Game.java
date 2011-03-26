@@ -58,8 +58,9 @@ public class Game extends Observable
 	 * @param x2
 	 * @param y2
 	 * @param playerNumber
+	 * @return True if the move was played, false otherwise
 	 */
-	public void removeBridge(int x1, int y1, int x2, int y2, int playerNumber){
+	public boolean removeBridge(int x1, int y1, int x2, int y2, int playerNumber){
 		if(turnStage<2){
 			if(isMyGo(playerNumber)&&mRule.canRemoveBridge(x1, y1, x2, y2, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
 			{
@@ -67,18 +68,21 @@ public class Game extends Observable
 				turnStage=1;
 				this.setChanged();
 				this.notifyObservers();
+				return true;
 			}else if(test.getDebugModeOn()){
 				System.out.println("Game: removeBridge(): illegal move");
 			}
 		}else if(test.getDebugModeOn()){
 		System.out.println("Game: removeBridge(): Wrong turnStage: ts "+turnStage);
 		}
+		return false;
 	}
 	/**
 	 * Method to place a tower
 	 * @param x
 	 * @param y
 	 * @param playerNumber
+	 * @return True if the move was played, false otherwise
 	 */
 	public boolean placeTower(int x, int y, int playerNumber){
 		if(turnStage<3){
@@ -104,6 +108,7 @@ public class Game extends Observable
 	 * @param x2
 	 * @param y2
 	 * @param playerNumber
+	 * @return A boolean, true if the move was played false otherwise.
 	 */
 	public boolean placeBridge(int x1, int y1, int x2, int y2, int playerNumber){
 		if(turnStage==3){
@@ -135,35 +140,23 @@ public class Game extends Observable
 			}
 			numTurns++;
 			gameIsOver=mRule.detectEnd();
-			if(test.getDebugModeOn()){
-				if(gameIsOver>0){
-					System.out.println("Player "+gameIsOver+" has won the game");
-				}
-			}
-			this.setChanged();
-			this.notifyObservers();
-		}else if(test.getDebugModeOn()){
-			System.out.println("Game: endTurn(): Wrong turnStage/Wrong Player: ts "+turnStage+" playerturn "+playerTurn+" playernumber "+playerNumber);
-			gameIsOver=mRule.detectEnd();
 			if(gameIsOver>0){
 				turnStage=4;
+				if(test.getDebugModeOn())System.out.println("Game: Game is Over, Player "+gameIsOver+" has won");
 			}
-			if(test.getDebugModeOn()){
-				if(gameIsOver>0){
-					System.out.println("Player "+gameIsOver+" has won the game");
-				}
-			}
+			if(test.getDebugModeOn())System.out.println("Game: Endturn(): Player "+playerNumber+" has ended their turn "+gameIsOver);
 			this.setChanged();
 			this.notifyObservers();
 		}else if(test.getDebugModeOn()){
-			System.out.println("Game: endTurn(): Wrong turnStage/Wrong Player: ts "+turnStage+" playerturn "+playerTurn+" playernumber "+playerNumber);
+			System.out.println("Game: endTurn(): Wrong turnStage/Wrong Player: ts "+turnStage+" playerturn "+playerTurn+" playernumber "+playerNumber);;
 		}
 	}
 	/**
 	 * Method to do the pi rule, will only apply if it is the players turn, if the player has made no other moves this turn and if it is the second turn
 	 * @param playerNumber
+	 * @return True if the move was played, false otherwise
 	 */
-	public void piRule(int playerNumber){
+	public boolean piRule(int playerNumber){
 		if(isMyGo(playerNumber)&&turnStage==0&&numTurns==1){
 			player1ID=2;
 			player2ID=1;
@@ -171,9 +164,11 @@ public class Game extends Observable
 			endTurn(playerNumber);
 			this.setChanged();
 			this.notifyObservers();
+			return true;
 		}else if(test.getDebugModeOn()){
 			System.out.println("Game: piRule(): illegal pi rule: ts "+turnStage+" numturns "+numTurns);
 		}
+		return false;
 	}
 	/**
 	 * Method to check and see if it is a players turn
@@ -210,7 +205,7 @@ public class Game extends Observable
 	 * Returns the tower specified by x and y, if no tower is present returns null
 	 * @param x
 	 * @param y
-	 * @return
+	 * @return The specified tower object
 	 */
 	public Tower getTower(int x, int y){
 		return mBoard.getTower(x, y);
@@ -218,7 +213,7 @@ public class Game extends Observable
 	/**
 	 * Returns the bridge at index i, if there is no bridge at i returns null
 	 * @param i
-	 * @return
+	 * @return the specified bridge object
 	 */
 	public Bridge getBridge(int i){
 		return mBoard.getBridge(i);
@@ -228,6 +223,10 @@ public class Game extends Observable
 	}
 	public boolean canPlayPiRule(){
 		return(this.numTurns==1&&this.turnStage==0);
+	}
+
+	public Bridge getBridge(int x1, int y1, int x2, int y2,int playerID) {
+		return mBoard.getBridge(x1, y1, x2, y2, playerID);
 	}
 
 }
