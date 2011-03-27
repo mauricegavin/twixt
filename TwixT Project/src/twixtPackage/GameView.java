@@ -131,6 +131,7 @@ public class GameView implements Observer
 		piButtonAffirm.setVisible(false);
 		piButtonRegect.setVisible(false);
 		endTurnButton.setEnabled(true);
+		newGameButton.setVisible(false);
 
 		//
 		// Formatting 
@@ -191,7 +192,6 @@ public class GameView implements Observer
 		gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		gameFrame.pack();
 		gameFrame.setVisible(true);
-		showEndGame(1);
 	}	
 	
 	public void addPlayer1Controller(HumanController p1){
