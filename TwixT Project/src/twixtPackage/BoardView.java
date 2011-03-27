@@ -58,7 +58,7 @@ public class BoardView extends JComponent implements MouseListener
 		
 		componentWidth = in.width;
 		componentHeight = in.height;
-		System.out.printf("%d", componentWidth);
+		if(test.getDebugModeOn())System.out.printf("%d", componentWidth);
 		this.setForeground(colourBackground);
 		addMouseListener(this);
 	}
