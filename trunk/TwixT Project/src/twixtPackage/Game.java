@@ -19,7 +19,7 @@ public class Game extends Observable
 	private Tower lastMoveTower = null;
 	private Bridge lastPlacedBridge = null;
 	private Bridge lastRemovedBridge = null;
-	public Test test = new Test(true);
+	public Test test = new Test(false);
 	
 	public Game()
 	{
@@ -72,6 +72,7 @@ public class Game extends Observable
 			{
 				mBoard.removeBridge(x1, y1, x2, y2, getRealID(playerNumber));
 				turnStage=1;
+				this.lastRemovedBridge=new Bridge(new Tower(x1,y1,getRealID(playerNumber)),new Tower(x2,y2,getRealID(playerNumber)), getRealID(playerNumber));
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -96,6 +97,7 @@ public class Game extends Observable
 			{
 				mBoard.placeTower(x, y, getRealID(playerNumber));
 				turnStage=3;
+				this.lastMoveTower=new Tower(x,y,getRealID(playerNumber));
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -122,6 +124,7 @@ public class Game extends Observable
 			{
 				mBoard.placeBridge(x1, y1, x2, y2, getRealID(playerNumber));
 				playSound(2);
+				this.lastPlacedBridge=new Bridge(new Tower(x1,y1,getRealID(playerNumber)),new Tower(x2,y2,getRealID(playerNumber)), getRealID(playerNumber));
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -153,6 +156,9 @@ public class Game extends Observable
 				if(test.getDebugModeOn())System.out.println("Game: Game is Over, Player "+gameIsOver+" has won");
 			}
 			if(test.getDebugModeOn())System.out.println("Game: Endturn(): Player "+playerNumber+" has ended their turn "+gameIsOver);
+			this.lastMoveTower=null;//Clear all the last move parameters
+			this.lastPlacedBridge=null;
+			this.lastRemovedBridge=null;
 			this.setChanged();
 			this.notifyObservers();
 		}else if(test.getDebugModeOn()){

@@ -5,7 +5,7 @@ public class HumanController implements Controller{
 		private int lastXClick=-1;
 		private int lastYClick=-1;
 		private Game mGame;
-		public Test test= new Test(true);
+		public Test test= new Test(false);
 		public HumanController(int playerID, Game game){
 			myID=playerID;
 			mGame=game;
