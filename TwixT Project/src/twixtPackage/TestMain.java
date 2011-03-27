@@ -1,6 +1,9 @@
 package twixtPackage;
 
 import java.awt.Dimension;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 /**
  * Just a little class for testing purposes so i can muck about with what we have so far
@@ -18,7 +21,7 @@ public class TestMain {
 		//System.out.println("Is over :"+rm.detectEnd());
 		
 		//the following section tests to see if the rulemaster can detect the vertical end of a game where a loop is present
-		testPlaceTower(0,12,2,b);//1
+		/*testPlaceTower(0,12,2,b);//1
 		testPlaceTower(2,11,2,b);//2
 		testPlaceTower(4,12,2,b);//3
 		testPlaceTower(6,11,2,b);//4	
@@ -61,7 +64,17 @@ public class TestMain {
 		//g.placeTower(10, 11, 1);
 		//g.placeBridge(9, 9, 10, 11, 1);
 		
-		System.out.println("Is over :"+rm.detectEnd());
+		//System.out.println("Is over :"+rm.detectEnd());
+		Game g =new Game();
+		/*try {
+			new NetView(new Socket("localHost",4444),new Game(),1);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 	}
 	private static void testCanPlaceBridge(int x1,int y1,int x2,int y2,int pID,RuleMaster rm){
 		if(test.getDebugModeOn()){

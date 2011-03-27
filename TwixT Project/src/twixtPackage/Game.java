@@ -1,6 +1,7 @@
 package twixtPackage;
 
 import java.util.Observable;
+import java.util.Vector;
 
 public class Game extends Observable
 {
@@ -14,6 +15,9 @@ public class Game extends Observable
 	private int player1ID=1;
 	private int player2ID=2;
 	private int gameIsOver=-1;//negative means game is not yet over, 1 means player 1, 2 means player 2
+	private Tower lastMoveTower = null;
+	private Bridge lastPlacedBridge = null;
+	private Bridge lastRemovedBridge = null;
 	public Test test = new Test(true);
 	
 	public Game()
@@ -161,7 +165,7 @@ public class Game extends Observable
 			player1ID=2;
 			player2ID=1;
 			turnStage=3;
-			endTurn(playerNumber);
+			//endTurn(playerNumber);
 			this.setChanged();
 			this.notifyObservers();
 			return true;
@@ -236,5 +240,22 @@ public class Game extends Observable
 			setupFrame = new SetupView(this);
 		}
 	}
-
+	public Tower getLastTower(){
+		Tower t = this.lastMoveTower;
+		lastMoveTower = null;
+		return t;
+	}
+	public Bridge getLastPlacedBridge(){
+		Bridge b = this.lastPlacedBridge;
+		lastPlacedBridge = null;
+		return b;
+	}
+	public Bridge getLastRemovedBridge(){
+		Bridge b = this.lastRemovedBridge;
+		lastRemovedBridge = null;
+		return b;
+	}
+	public int getNumTurns(){
+		return this.numTurns;
+	}
 }
