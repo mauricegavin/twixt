@@ -9,6 +9,7 @@ public class Game extends Observable
 	GameView gameFrame;
 	private Board mBoard;
 	private RuleMaster mRule;
+	private ResourceManager resource;
 	private int playerTurn=1;//integer representing whose turn it is 1 for player 1, 2 for player 2
 	private int numTurns=0;//integer representing the number of turns that have happened
 	private int turnStage=0;//integer between 0 to 3 representing which stage of a turn we are at, 0: pi rule, 1: removing bridges, 2: placing a tower or 3: placing bridges and the turn is ready to finish
@@ -23,6 +24,7 @@ public class Game extends Observable
 	public Game()
 	{
 		setupFrame = new SetupView(this);
+		resource = new ResourceManager();
 		//createNewGame(true);
 	}
 
@@ -119,6 +121,7 @@ public class Game extends Observable
 			if(isMyGo(playerNumber)&&mRule.canPlaceBridge(x1, y1, x2, y2, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
 			{
 				mBoard.placeBridge(x1, y1, x2, y2, getRealID(playerNumber));
+				playSound(2);
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -136,6 +139,7 @@ public class Game extends Observable
 	 */
 	public void endTurn(int playerNumber){
 		if(isMyGo(playerNumber)&&turnStage==3){
+			playSound(1);
 			turnStage=0;
 			if(playerTurn==1){
 				playerTurn=2;
@@ -238,6 +242,16 @@ public class Game extends Observable
 		if(state)
 		{
 			setupFrame = new SetupView(this);
+		}
+	}
+	
+	void playSound(int index)
+	{
+		try {
+			resource.getAudioObject().play(index);
+		} catch (Exception e) {
+			System.err.println("Failed to play sound file.");
+			e.printStackTrace();
 		}
 	}
 	public Tower getLastTower(){
