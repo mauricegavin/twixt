@@ -41,7 +41,7 @@ public class NetView implements Observer{
 			//check for PI rule
 				if(mGame.getNumTurns()==1&&mGame.getRealID(myID)!=myID){//if it is the second go and is my go and the player id's are switched then pi rule has been played by me
 					output="PI";
-					if(test.getDebugModeOn())System.out.println(output);
+					if(test.getDebugModeOn())System.out.println("NetView: "+output);
 					out.println(output);
 				}
 			//check to see if any bridges need to be removed,
@@ -49,7 +49,7 @@ public class NetView implements Observer{
 				if(tempBridge!=null){
 					output = "RB";//if so send RB moves
 					output = bridgeParser(output, tempBridge);
-					if(test.getDebugModeOn())System.out.println(output);
+					if(test.getDebugModeOn())System.out.println("NetView: "+output);
 					out.println(output);
 					tempBridge=null;
 				}
@@ -58,7 +58,7 @@ public class NetView implements Observer{
 				if(tempTower!=null){
 					output = "AP";//if so send AP
 					output = towerParser(output, tempTower);
-					if(test.getDebugModeOn())System.out.println(output);
+					if(test.getDebugModeOn())System.out.println("NetView: "+output);
 					out.println(output);
 				}
 			//check to see if any bridges have been placed
@@ -66,7 +66,7 @@ public class NetView implements Observer{
 				if(tempBridge!=null){
 					output="AB";//if so send AB
 					output = bridgeParser(output,tempBridge);
-					if(test.getDebugModeOn())System.out.println(output);
+					if(test.getDebugModeOn())System.out.println("NetView: "+output);
 					out.println(output);
 				}
 		}else if(endTurn){//if it is not my turn check to see if i need to end my turn
@@ -74,11 +74,11 @@ public class NetView implements Observer{
 			endTurn = false;//if end turn is true, then it means that i have taken a go recently but not yet sent the end turn string
 			if(mGame.gameIsOver()==myID){//if i have ended the game
 				output="FNP"+myID;//then send FN
-				if(test.getDebugModeOn())System.out.println(output);
+				if(test.getDebugModeOn())System.out.println("NetView: "+output);
 				out.println(output);
 			}
 			output = "EN"+myID;
-			if(test.getDebugModeOn())System.out.println(output);
+			if(test.getDebugModeOn())System.out.println("NetView: "+output);
 			out.println(output);//send the end turn string
 		}
 		//else do nothing

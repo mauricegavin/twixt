@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /**
  * Just a little class for testing purposes so i can muck about with what we have so far
@@ -16,10 +19,27 @@ public class TestMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		Game g = new Game();
 		try {
 			Socket sock = new Socket("localHost",4444);
-			NetController n =new NetController(new Game(),sock,1);
-			n.start();
+			System.out.println("I am accepted");
+			String thingy = new BufferedReader(new InputStreamReader(sock.getInputStream())).readLine();
+			System.out.println(thingy);
+			if(thingy.matches("PL1")){
+				NetController n = new NetController(g,sock,2);
+				g.addObserver(new NetView(sock,g,1));
+				n.start();
+				PrintWriter p = new PrintWriter(sock.getOutputStream(),true);
+				System.out.println("NMPLAYER1");
+				p.println("NMPLAYER1");
+			}else{
+				NetController n = new NetController(g,sock,1);
+				g.addObserver(new NetView(sock,g,2));
+				n.start();
+				PrintWriter p = new PrintWriter(sock.getOutputStream(),true);
+				System.out.println("NMPLAYER2");
+				p.println("NMPLAYER2");
+			}
 			
 		} catch (UnknownHostException e1) {
 			e1.printStackTrace();
