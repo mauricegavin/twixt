@@ -10,7 +10,7 @@ public class NetController extends Thread implements Controller{
 	private Game mGame;
 	private Socket mSocket;
 	private BufferedReader in;
-	public Test test = new Test(true);
+	public Test test = new Test(false);
 	public boolean connected=true;
 	public NetController(Game game,Socket sock, int playerID){
 		mGame= game;
@@ -28,7 +28,9 @@ public class NetController extends Thread implements Controller{
 			String input = "DEFAULT";
 			try {
 				input = in.readLine();
-				doMove(input);
+				if(input!=null){
+					doMove(input);
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
