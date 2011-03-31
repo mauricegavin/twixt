@@ -12,7 +12,7 @@ public class NetView implements Observer{
 	private int myID;
 	private Game mGame;
 	private boolean endTurn = false;//true if i have played a move but not yet sent an end turn string
-	public Test test = new Test(true);
+	public Test test = new Test(false);
 	
 	public NetView(Socket sock, Game game, int playerID){
 		mSocket = sock;

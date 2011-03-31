@@ -49,7 +49,7 @@ public class Game extends Observable
 					sock = new Socket(ip,port);
 					BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 					String playerNumber=in.readLine();
-					PrintWriter out = new PrintWriter(sock.getOutputStream());
+					PrintWriter out = new PrintWriter(sock.getOutputStream(),true);
 					out.println("NM"+player1Name);
 					if(playerNumber.matches("PL1")){
 						player2type=3;
