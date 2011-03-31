@@ -1,6 +1,7 @@
 package twixtPackage;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
@@ -147,6 +148,7 @@ public class SetupView
 		//ptp2bDifficultySlider.setPaintLabels(true);
 		
 		// Buttons
+		JButton hostButton = new JButton("Make Me The Host");
 		JButton startButton = new JButton("Start Game");
 		
 		// Button Groups
@@ -180,6 +182,7 @@ public class SetupView
 		ptp1bDifficultySlider.setEnabled(false);
 		ptp2bDifficultySlider.setEnabled(false);
 		
+		hostButton.setEnabled(false);
 		startButton.setEnabled(false);
 		//
 		// Formatting 
@@ -221,7 +224,6 @@ public class SetupView
 		// The panel which holds the start game button
 		JPanel startGamePanel = new JPanel();
 		startGamePanel.setLayout(new FlowLayout());
-		
 		// Game Type Panel (gtp)
 		JPanel gtpHeading = new JPanel();
 		gtpHeading.setLayout(new FlowLayout());
@@ -279,6 +281,8 @@ public class SetupView
 			
 		JPanel nspBody = new JPanel();
 		nspBody.setLayout(new BoxLayout(nspBody, BoxLayout.PAGE_AXIS));
+			JPanel nspbHost = new JPanel();
+			nspbHost.setLayout(new FlowLayout());
 			JPanel nspbIP = new JPanel();
 			nspbIP.setLayout(new FlowLayout());
 			JPanel nspbPort = new JPanel();
@@ -330,6 +334,7 @@ public class SetupView
 		//networkSettingsPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 		
 		networkSettingsPanel.add(nspBody);
+			nspBody.add(nspbHost);
 			nspBody.add(nspbIP);
 			nspBody.add(nspbPort);
 			
@@ -365,6 +370,7 @@ public class SetupView
 		// Network Settings Panel
 		nspHeading.add(headingLabel3);
 		
+		nspbHost.add(hostButton);
 		nspbIP.add(nspIpLabel);
 		nspbIP.add(nspIpField);
 		nspbPort.add(nspPortLabel);
@@ -378,31 +384,34 @@ public class SetupView
 		//
 		gtpgRadio1.addActionListener(new modeButtonListener(0, 	gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
+																nspIpField, nspPortField, hostButton, startButton));
 		gtpgRadio2.addActionListener(new modeButtonListener(1, 	gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
+																nspIpField, nspPortField, hostButton, startButton));
 		ptp1bRadio1.addActionListener(new modeButtonListener(2, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
+																nspIpField, nspPortField, hostButton, startButton));
 		ptp1bRadio2.addActionListener(new modeButtonListener(3, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
+																nspIpField, nspPortField, hostButton, startButton));
 		ptp2bRadio1.addActionListener(new modeButtonListener(4, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
+																nspIpField, nspPortField, hostButton, startButton));
 		ptp2bRadio2.addActionListener(new modeButtonListener(5, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
+																nspIpField, nspPortField, hostButton, startButton));
 		nspIpField.addKeyListener(new modeButtonListener(6, 	gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
+																nspIpField, nspPortField, hostButton, startButton));
 		nspPortField.addKeyListener(new modeButtonListener(7, 	gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
-		startButton.addActionListener(new modeButtonListener(8, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																nspIpField, nspPortField, hostButton, startButton));
+		hostButton.addActionListener(new modeButtonListener(8, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
 																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
-																nspIpField, nspPortField, startButton));
+																nspIpField, nspPortField, hostButton, startButton));
+		startButton.addActionListener(new modeButtonListener(9, gtpgRadio1, ptp1bRadio1, ptp1bRadio2, ptp1bTextField, ptp1bDifficultySlider, 
+																ptp2bRadio1, ptp2bRadio2, ptp2bTextField, ptp2bDifficultySlider,
+																nspIpField, nspPortField, hostButton, startButton));
 		
 		//
 		// End of main GUI Interface Configuration
@@ -435,11 +444,12 @@ public class SetupView
 		JSlider ptp2bDifficultySlider;
 		JTextField nspIpField;
 		JTextField nspPortField;
+		JButton hostButton;
 		JButton startButton;
 		
 		public modeButtonListener(int _mode,	JRadioButton _gtpgRadio1, JRadioButton _ptp1bRadio1, JRadioButton _ptp1bRadio2, JTextField _ptp1bTextField, JSlider _ptp1bDifficultySlider, 
 												JRadioButton _ptp2bRadio1, JRadioButton _ptp2bRadio2, JTextField _ptp2bTextField, JSlider _ptp2bDifficultySlider,
-												JTextField _nspIpField, JTextField _nspPortField, JButton _startButton) {
+												JTextField _nspIpField, JTextField _nspPortField, JButton _hostButton, JButton _startButton) {
 			mode = _mode;
 			gtpgRadio1 = _gtpgRadio1;
 			ptp1bRadio1 = _ptp1bRadio1;
@@ -452,6 +462,7 @@ public class SetupView
 			ptp2bDifficultySlider = _ptp2bDifficultySlider;
 			nspIpField = _nspIpField;
 			nspPortField = _nspPortField;
+			hostButton = _hostButton;
 			startButton = _startButton;
 		}
 
@@ -473,7 +484,8 @@ public class SetupView
 					if(ptp2bRadio2.isSelected())
 						ptp2bDifficultySlider.setEnabled(true);
 					
-					nspIpField.setEnabled(false); // These fields are never enabled in local play
+					hostButton.setEnabled(false); // These fields are never enabled in local play
+					nspIpField.setEnabled(false);
 					nspPortField.setEnabled(false);
 					break;
 			
@@ -491,7 +503,8 @@ public class SetupView
 						ptp1bDifficultySlider.setEnabled(true);
 					ptp2bTextField.setEnabled(false); // This will always be disabled in online mode
 					ptp2bDifficultySlider.setEnabled(false); // This will always be disabled in online mode
-					
+
+					hostButton.setEnabled(true);
 					nspIpField.setEnabled(true); // It is necessary to configure the network in online mode
 					nspPortField.setEnabled(true); // Therefore we must enable these input fields
 					break;
@@ -521,8 +534,26 @@ public class SetupView
 					
 				case 7: // Case 7 is on the Port field, it is used to check the correct start button status below
 					break;
+				
+				case 8:
+					hostButton.setEnabled(false);
+					nspIpField.setEnabled(false);
+					nspIpField.setText("localHost");
+					nspPortField.setEnabled(false);
+					if(nspPortField.getText().length() < 3)
+					{ // If no port is defined we choose to use a default port
+					// The 3 ensures that any port number under 99 is ignored.
+						nspPortField.setText("2500");
+					}
 					
-				case 8: // Case 8 is where the user has chosen to begin the game
+					// Create the Server
+					
+					//Server server = new Server();
+					//server.start();
+					
+					break;
+					
+				case 9: // Case 9 is where the user has chosen to begin the game
 					// Any variables that need to be stored should be stored now.
 					System.out.println("Firing Start Button for Effect");
 					// 1 means Human, 2 means AI, 3 means Network
@@ -540,7 +571,7 @@ public class SetupView
 					{
 						player1Type = 2;
 						int difficulty = ptp1bDifficultySlider.getValue();
-						player1Name="COMPUTER";
+						player1Name = "COMPUTER";
 					}
 					else
 					{
@@ -556,7 +587,7 @@ public class SetupView
 						{
 							player2Type = 2;
 							int difficulty = ptp1bDifficultySlider.getValue();
-							player2Name="COMPUTER";
+							player2Name = "COMPUTER";
 						}
 						else
 						{
