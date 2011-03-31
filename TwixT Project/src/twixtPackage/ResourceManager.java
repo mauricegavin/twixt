@@ -11,7 +11,7 @@ import javax.sound.sampled.Clip;
 public class ResourceManager {
 
 	private PlayMedia fx;
-	
+	private static OSValidator os; 
 	ResourceManager()
 	{
 		try {
@@ -20,6 +20,7 @@ public class ResourceManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		os = new OSValidator();
 	}
 	
 	PlayMedia getAudioObject()
@@ -41,9 +42,22 @@ public class ResourceManager {
 	      * this is not included. */
 	     public PlayMedia() throws Exception
 	     {
-	         // FILE - part of set-up 
-	    	towerFile = new File("src\\twixtPackage\\media\\placetower_succeed.wav");
-	    	bridgeFile = new File("src\\twixtPackage\\media\\placebridge_succeed.wav");
+	         // FILE - part of set-up
+	    	if(os.isWindows())
+	    	{
+	    		towerFile = new File("src\\twixtPackage\\media\\placetower_succeed.wav");
+	    		bridgeFile = new File("src\\twixtPackage\\media\\placebridge_succeed.wav");
+	    	}
+	    	else if(os.isMac())
+	    	{
+	    		towerFile = new File("src/twixtPackage/media/placetower_succeed.wav");
+	    		bridgeFile = new File("src/twixtPackage/media/placebridge_succeed.wav");
+	    	}
+	    	else if(os.isUnix())
+	    	{
+	    		towerFile = new File("src/twixtPackage/media/placetower_succeed.wav");
+	    		bridgeFile = new File("src/twixtPackage/media/placebridge_succeed.wav");
+	    	}
 	     }
 	     
 	     /* NOTE: "throws Exception" is important for starting. Your program will NOT compile if
@@ -73,4 +87,25 @@ public class ResourceManager {
 	     }
 	}
 	
+	private class OSValidator{
+		 
+		private boolean isWindows(){
+			String os = System.getProperty("os.name").toLowerCase();
+			//windows
+		    return (os.indexOf( "win" ) >= 0); 
+		}
+	 
+		private boolean isMac(){
+			String os = System.getProperty("os.name").toLowerCase();
+			//Mac
+		    return (os.indexOf( "mac" ) >= 0); 
+		}
+	 
+		private boolean isUnix(){
+			String os = System.getProperty("os.name").toLowerCase();
+			//linux or unix
+		    return (os.indexOf( "nix") >=0 || os.indexOf( "nux") >=0);
+		}
+	}
 }
+
