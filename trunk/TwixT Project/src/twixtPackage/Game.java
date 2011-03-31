@@ -1,5 +1,11 @@
 package twixtPackage;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Vector;
 
@@ -28,7 +34,7 @@ public class Game extends Observable
 		//createNewGame(true);
 	}
 
-	public void createNewGame(boolean state, int player1type, int player2type) 
+	public void createNewGame(boolean state, int player1type, int player2type, String player1Name, String player2Name, String ip, int port) 
 	{
 		if (state)
 		{	
@@ -36,11 +42,41 @@ public class Game extends Observable
 			mRule = new RuleMaster(mBoard);
 			gameFrame = new GameView(this, mBoard);
 			this.addObserver(gameFrame);
+			Socket sock = null;
+			
+			if(player2type==3){//then it is a network game
+				try {
+					sock = new Socket(ip,port);
+					BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+					String playerNumber=in.readLine();
+					PrintWriter out = new PrintWriter(sock.getOutputStream());
+					out.println("NM"+player1Name);
+					if(playerNumber.matches("PL1")){
+						player2type=3;
+					}else if(playerNumber.matches("PL2")){
+						player2type=player1type;
+						player1type=3;
+					}
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
 			switch(player1type)
 			{
 				case 1:
 					gameFrame.addPlayer1Controller(new HumanController(1,this));
 					break;
+				case 2:
+				case 3:
+					this.addObserver(new NetView(sock,this,2));//if player 1 is a networked player, then we need to send player2's move to the server
+					NetController n = new NetController(this, sock, 1);
+					n.start();
 				default:
 					break;
 			}
@@ -49,6 +85,11 @@ public class Game extends Observable
 				case 1:
 					gameFrame.addPlayer2Controller(new HumanController(2,this));
 					break;
+				case 2:
+				case 3:
+					this.addObserver(new NetView(sock,this,1));//if player 2 is a networked player, then we need to send player1's move to the server
+					NetController n = new NetController(this, sock, 2);
+					n.start();
 				default:
 					break;
 			}
