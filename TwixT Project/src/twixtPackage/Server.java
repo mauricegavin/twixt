@@ -25,9 +25,9 @@ public class Server {
 		try {
 			i = java.net.InetAddress.getLocalHost();
 		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		//Set up the window to display port and ip
 		JFrame frame = new JFrame("Server");
 		JLabel portLabel = new JLabel("Server is up on port "+port);
 		JLabel ipLabel = new JLabel("IP is "+i.getHostAddress());
@@ -39,6 +39,7 @@ public class Server {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
+		//initialise variables
 		ServerSocket servSock = null;
 		Socket player1=null;
 		PrintWriter p1Out = null;
@@ -89,7 +90,7 @@ public class Server {
 		while(online){
 			System.out.println("Online "+online);
 			move=p1In.readLine();
-			while(!move.matches("EN1")){
+			while(!move.matches("EN1")){//keep reading from player 1 until they end thier turn
 				if(test.getDebugModeOn())System.out.println("p1in:"+move);
 				//send to p2 & obs
 				if(test.getDebugModeOn())System.out.println("p2out:"+move);
@@ -102,9 +103,9 @@ public class Server {
 			if(test.getDebugModeOn())System.out.println("p2out:"+move);
 			p2Out.println(move);
 			oldMoves.add(move);
-			//wait for p2 to do mov
+			//wait for p2 to do move
 			move=p2In.readLine();
-			while(!move.matches("EN2")){
+			while(!move.matches("EN2")){//keep reading from player 2 until they end their turn
 				if(test.getDebugModeOn())System.out.println("p2in:"+move);
 				//send to p1 & obs
 				if(test.getDebugModeOn())System.out.println("p1out:"+move);

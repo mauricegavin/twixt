@@ -14,6 +14,7 @@ import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.Socket;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -527,6 +528,10 @@ public class SetupView
 					// 1 means Human, 2 means AI, 3 means Network
 					int player1Type = 0;
 					int player2Type = 0;
+					String player1Name=null;
+					String player2Name=null;
+					String ipAddress = null;
+					int portAddress = 0;
 					
 					Boolean localGame = gtpgRadio1.isSelected(); // True means Local Game, False means Networked Game
 					
@@ -535,11 +540,12 @@ public class SetupView
 					{
 						player1Type = 2;
 						int difficulty = ptp1bDifficultySlider.getValue();
+						player1Name="COMPUTER";
 					}
 					else
 					{
 						player1Type = 1;
-						String player1Name = ptp1bTextField.getText(); // Get Player 1's Name
+						player1Name = ptp1bTextField.getText(); // Get Player 1's Name
 					}
 					
 					if(localGame) // Then we need to retrieve Player 2 details also, may ignore the network
@@ -550,21 +556,23 @@ public class SetupView
 						{
 							player2Type = 2;
 							int difficulty = ptp1bDifficultySlider.getValue();
+							player2Name="COMPUTER";
 						}
 						else
 						{
 							player2Type = 1;
-							String player2Name = ptp2bTextField.getText(); // Get Player 2's Name
+							player2Name = ptp2bTextField.getText(); // Get Player 2's Name
 						}
 					}
 					else
 					{
-						String ipAddress = nspIpField.getText();
-						int portAddress = Integer.parseInt(nspPortField.getText());
+						ipAddress = nspIpField.getText();
+						portAddress = Integer.parseInt(nspPortField.getText());
 						player2Type = 3;
+						player1Name = ptp1bTextField.getText(); // Get Player 1's Name
 					}
 					
-					parentObject.createNewGame(true, player1Type, player2Type);
+					parentObject.createNewGame(true, player1Type, player2Type, player1Name, player2Name, ipAddress, portAddress);
 
 					setupFrame.dispose(); // Releases all of the screen resources used by this Window, any memory they consume will be returned to the OS. 
 					return;
