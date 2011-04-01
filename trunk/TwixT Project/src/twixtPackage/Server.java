@@ -44,7 +44,7 @@ public class Server extends Thread{
 		box.add(ipLabel);
 		box.add(portLabel);
 		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
 		//initialise variables
@@ -150,8 +150,10 @@ public class Server extends Thread{
 			return servSock.accept();
 	}
 	private void sendMoveToObs(String move){
-		for(int i = 0; i < Observers.capacity(); i++){
-			Observers.elementAt(i).println(move);
+		if(!Observers.isEmpty()){
+			for(int i = 0; i < Observers.capacity(); i++){
+				Observers.elementAt(i).println(move);
+			}
 		}
 	}
 
