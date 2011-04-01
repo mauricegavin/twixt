@@ -30,9 +30,24 @@ public class Board {
 				board[i][j] = null;
 			}
 		}
-		
 		bridgeList.clear();
 	}		
+	
+	/*
+	 * Copy constructor for Board Class
+	 */
+	public Board(Board boardIn)
+	{
+		board = new Tower[BOARDSIZE][BOARDSIZE];
+		for(int i = 0; i < BOARDSIZE; i++)
+		{
+			for(int j = 0; j < BOARDSIZE; j++)
+			{
+				board[i][j] = boardIn.board[i][j];
+			}
+		}
+		bridgeList = boardIn.bridgeList;
+	}
 	
 	public void placeTower(int x, int y, int owner)
 	{	
