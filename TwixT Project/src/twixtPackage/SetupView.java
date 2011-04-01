@@ -540,16 +540,19 @@ public class SetupView
 					nspIpField.setEnabled(false);
 					nspIpField.setText("localHost");
 					nspPortField.setEnabled(false);
+					int port = 2500;
 					if(nspPortField.getText().length() < 3)
 					{ // If no port is defined we choose to use a default port
 					// The 3 ensures that any port number under 99 is ignored.
 						nspPortField.setText("2500");
+					}else{
+						port = Integer.parseInt(nspPortField.getText());
 					}
 					
 					// Create the Server
 					
-					//Server server = new Server();
-					//server.start();
+					Server server = new Server(port);
+					server.start();
 					
 					break;
 					
