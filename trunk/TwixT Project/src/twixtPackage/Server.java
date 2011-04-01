@@ -1,6 +1,8 @@
 package twixtPackage;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -22,10 +24,10 @@ public class Server extends Thread{
 	Vector<String> oldMoves = new Vector<String>();
 	Vector<PrintWriter> Observers = new Vector<PrintWriter>();
 	ServerSocket servSock = null;
-	int port =4444;
+	int port;
 	//public static void main(String[] args) {
 	public Server(int newPort){
-		int port = newPort;
+		port = newPort;
 	}
 	public void run(){
 		Test test = new Test(true);
@@ -57,6 +59,14 @@ public class Server extends Thread{
 		String player1Name;
 		String player2Name;
 		String move;
+		File f = new File("src/twixtPackage/OldMoves.txt");
+		FileWriter fileOut = null;
+		try {
+			fileOut = new FileWriter(f);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
 		
 		String testString;
 		
@@ -104,6 +114,8 @@ public class Server extends Thread{
 				p2Out.println(move);
 				sendMoveToObs(move);
 				oldMoves.add(move);
+				fileOut.write(move+"\n");
+				fileOut.flush();
 				move=p1In.readLine();
 			}
 			if(test.getDebugModeOn())System.out.println("p1in:"+move);
@@ -112,6 +124,8 @@ public class Server extends Thread{
 			p2Out.println(move);
 			sendMoveToObs(move);
 			oldMoves.add(move);
+			fileOut.write(move+"\n");
+			fileOut.flush();
 			//wait for p2 to do move
 			move=p2In.readLine();
 			while(!move.matches("EN2")){//keep reading from player 2 until they end their turn
@@ -121,6 +135,8 @@ public class Server extends Thread{
 				p1Out.println(move);
 				sendMoveToObs(move);
 				oldMoves.add(move);
+				fileOut.write(move+"\n");
+				fileOut.flush();
 				move=p2In.readLine();
 			}
 			if(test.getDebugModeOn())System.out.println("p2in:"+move);
@@ -129,6 +145,8 @@ public class Server extends Thread{
 			p1Out.println(move);
 			sendMoveToObs(move);
 			oldMoves.add(move);
+			fileOut.write(move+"\n");
+			fileOut.flush();
 			//repeat from wait for p1 to do move until end of game or player disc
 		}
 		}
@@ -156,5 +174,4 @@ public class Server extends Thread{
 			}
 		}
 	}
-
 }
