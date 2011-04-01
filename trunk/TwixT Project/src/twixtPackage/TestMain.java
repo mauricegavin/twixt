@@ -19,44 +19,8 @@ public class TestMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Game g = new Game();
-		try {
-			Socket sock = new Socket("localHost",4444);
-			System.out.println("I am accepted");
-			String thingy = new BufferedReader(new InputStreamReader(sock.getInputStream())).readLine();
-			System.out.println(thingy);
-			if(thingy.matches("PL1")){
-				NetController n = new NetController(g,sock,2);
-				g.addObserver(new NetView(sock,g,1));
-				n.start();
-				PrintWriter p = new PrintWriter(sock.getOutputStream(),true);
-				System.out.println("NMPLAYER1");
-				p.println("NMPLAYER1");
-			}else{
-				NetController n = new NetController(g,sock,1);
-				g.addObserver(new NetView(sock,g,2));
-				n.start();
-				PrintWriter p = new PrintWriter(sock.getOutputStream(),true);
-				System.out.println("NMPLAYER2");
-				p.println("NMPLAYER2");
-			}
-			
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		/*try {
-			new NetView(new Socket("localHost",4444),new Game(),2);
-			
-			
-			
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
+		TestSever serv = new TestSever(4444);
+		serv.start();
 	}
 	private static void testCanPlaceBridge(int x1,int y1,int x2,int y2,int pID,RuleMaster rm){
 		if(test.getDebugModeOn()){
