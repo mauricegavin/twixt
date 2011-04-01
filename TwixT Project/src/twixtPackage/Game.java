@@ -44,6 +44,13 @@ public class Game extends Observable
 			gameFrame = new GameView(this, mBoard);
 			this.addObserver(gameFrame);
 			Socket sock = null;
+			//the following few lines should be uncommented to make use a file in the specified location to do moves
+			/*NetController n1 = new NetController(sock, this, 1);
+			NetController n2 = new NetController(sock, this, 2);
+			n1.switchToFile("src/twixtPackage/OldMoves.txt");
+			n2.switchToFile("src/twixtPackage/OldMoves.txt");
+			n1.start();
+			n2.start();*/
 			//this.testEnd();
 			if(player2type==3){//then it is a network game
 				try {
@@ -79,7 +86,7 @@ public class Game extends Observable
 				case 2:
 				case 3:
 					this.addObserver(new NetView(sock,this,2));//if player 1 is a networked player, then we need to send player2's move to the server
-					NetController n = new NetController(this, sock, 1);
+					NetController n = new NetController( sock,this, 1);
 					n.start();
 				default:
 					break;
@@ -92,7 +99,7 @@ public class Game extends Observable
 				case 2:
 				case 3:
 					this.addObserver(new NetView(sock,this,1));//if player 2 is a networked player, then we need to send player1's move to the server
-					NetController n = new NetController(this, sock, 2);
+					NetController n = new NetController( sock,this, 2);
 					n.start();
 				default:
 					break;
