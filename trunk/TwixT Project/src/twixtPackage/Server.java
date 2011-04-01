@@ -13,14 +13,22 @@ import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Server {
+public class Server extends Thread{
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	private boolean online = false;
+	Vector<String> oldMoves = new Vector<String>();
+	Vector<PrintWriter> Observers = new Vector<PrintWriter>();
+	ServerSocket servSock = null;
+	int port =4444;
+	//public static void main(String[] args) {
+	public Server(int newPort){
+		int port = newPort;
+	}
+	public void run(){
 		Test test = new Test(true);
-		int port =4444;
 		java.net.InetAddress i = null;
 		try {
 			i = java.net.InetAddress.getLocalHost();
@@ -40,7 +48,6 @@ public class Server {
 		frame.setVisible(true);
 		
 		//initialise variables
-		ServerSocket servSock = null;
 		Socket player1=null;
 		PrintWriter p1Out = null;
 		BufferedReader p1In = null;
@@ -55,7 +62,7 @@ public class Server {
 		
 		Vector<String> oldMoves = new Vector<String>();
 		Vector<Socket> Observers = new Vector<Socket>();
-		boolean online=true;
+		online=true;
 		try{
 		//wait for someone to connect
 		servSock = new ServerSocket(port);
@@ -95,6 +102,7 @@ public class Server {
 				//send to p2 & obs
 				if(test.getDebugModeOn())System.out.println("p2out:"+move);
 				p2Out.println(move);
+				sendMoveToObs(move);
 				oldMoves.add(move);
 				move=p1In.readLine();
 			}
@@ -102,6 +110,7 @@ public class Server {
 			//send to p2 & obs
 			if(test.getDebugModeOn())System.out.println("p2out:"+move);
 			p2Out.println(move);
+			sendMoveToObs(move);
 			oldMoves.add(move);
 			//wait for p2 to do move
 			move=p2In.readLine();
@@ -110,6 +119,7 @@ public class Server {
 				//send to p1 & obs
 				if(test.getDebugModeOn())System.out.println("p1out:"+move);
 				p1Out.println(move);
+				sendMoveToObs(move);
 				oldMoves.add(move);
 				move=p2In.readLine();
 			}
@@ -117,6 +127,7 @@ public class Server {
 			//send to p1 & obs
 			if(test.getDebugModeOn())System.out.println("p1out:"+move);
 			p1Out.println(move);
+			sendMoveToObs(move);
 			oldMoves.add(move);
 			//repeat from wait for p1 to do move until end of game or player disc
 		}
@@ -125,46 +136,23 @@ public class Server {
 			e.printStackTrace();
 		}
 		
-		/*try {
-			servSock = new ServerSocket(port);
-		} catch (IOException e) {
-			System.err.println("Server failed to host on port "+port);
-			e.printStackTrace();
+	}
+	public boolean isOnline(){
+		return online;
+	}
+	public String getMove(int i){
+		return oldMoves.elementAt(i);
+	}
+	public void addObserver(PrintWriter obs){
+		this.Observers.add(obs);
+	}
+	public Socket accept() throws IOException{
+			return servSock.accept();
+	}
+	private void sendMoveToObs(String move){
+		for(int i = 0; i < Observers.capacity(); i++){
+			Observers.elementAt(i).println(move);
 		}
-		try {
-			java.net.InetAddress i = java.net.InetAddress.getLocalHost();
-			JFrame frame = new JFrame("Server");
-			JLabel portLabel = new JLabel("Server is up on port "+port);
-			JLabel ipLabel = new JLabel("IP is "+i.getHostAddress());
-			Box box = Box.createVerticalBox();
-			frame.getContentPane().add(box);
-			box.add(ipLabel);
-			box.add(portLabel);
-			frame.pack();
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.setVisible(true);
-			PrintWriter out = new PrintWriter(servSock.accept().getOutputStream(),true);
-			System.out.println("Server accepted connection");
-			Thread.sleep(10000);
-			System.out.println("Beginning output");
-			out.println("APX12Y12P1");
-			out.println("ENP1");
-			out.println("APX13Y15P1");
-			out.println("ABX12Y12X13Y15P1");
-			out.println("RBX12Y12X13Y15P1");
-			out.println("PI");
-			out.println("FNP1");
-			out.println("ENP1");
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 
 }
