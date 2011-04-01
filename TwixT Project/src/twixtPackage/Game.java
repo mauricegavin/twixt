@@ -29,6 +29,7 @@ public class Game extends Observable
 	
 	public Game()
 	{
+		//Minimax ai = new Minimax(this);
 		setupFrame = new SetupView(this);
 		resource = new ResourceManager();
 		//createNewGame(true);
@@ -398,4 +399,14 @@ public class Game extends Observable
 		turnStage=3;
 		this.endTurn(1);
 	}
+	public RuleMaster getRulesMaster(){
+		return mRule;
+	}
+	/**
+	 * Returns the player whos turn it is.
+	 * @return
+	 */
+	public int getPlayerTurn(){
+		return playerTurn;
+	}	
 }
