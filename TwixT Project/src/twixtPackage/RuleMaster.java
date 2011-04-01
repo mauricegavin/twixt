@@ -334,7 +334,7 @@ public class RuleMaster {
 	 * @return an integer
 	 */
 	//For now this method assumes p2 is always playing left to right, and p1 bottom to top
-	public int detectEnd(){//does nothing yet
+	public int detectEnd(){
 		Vector<Tower> topTowers = new Vector<Tower>();
 		Vector<Tower> bottomTowers = new Vector<Tower>();
 		Vector<Tower> leftTowers = new Vector<Tower>();
@@ -373,7 +373,7 @@ public class RuleMaster {
 			//if(hasConnection(bottomTowers,topTowers))
 			//	return 2;
 			while(!bottomTowers.isEmpty()){
-				tempTower = bottomTowers.firstElement();
+				tempTower = bottomTowers.firstElement();//starting at this tower, try to work your way towards one of the towers at the top
 				bottomTowers.remove(0);
 				foundConnection = hasConnection(tempTower,topTowers,mBoard.getBridgeList());
 				if(foundConnection){

@@ -25,7 +25,7 @@ public class Game extends Observable
 	private Tower lastMoveTower = null;
 	private Bridge lastPlacedBridge = null;
 	private Bridge lastRemovedBridge = null;
-	public Test test = new Test(false);
+	public Test test = new Test(true);
 	
 	public Game()
 	{
@@ -43,7 +43,7 @@ public class Game extends Observable
 			gameFrame = new GameView(this, mBoard);
 			this.addObserver(gameFrame);
 			Socket sock = null;
-			
+			//this.testEnd();
 			if(player2type==3){//then it is a network game
 				try {
 					sock = new Socket(ip,port);
@@ -56,6 +56,9 @@ public class Game extends Observable
 					}else if(playerNumber.matches("PL2")){
 						player2type=player1type;
 						player1type=3;
+					}else if(playerNumber.matches("PL3")){
+						player2type=3;
+						player2type=3;
 					}
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
@@ -318,5 +321,81 @@ public class Game extends Observable
 	}
 	public int getNumTurns(){
 		return this.numTurns;
+	}
+	public int getTurnStage(){
+		return turnStage;
+	}
+	private void testEnd(){
+		this.mBoard.placeTower(14, 0, 1);
+		this.mBoard.placeTower(15, 2, 1);
+		this.mBoard.placeTower(14, 4, 1);
+		this.mBoard.placeTower(15, 6, 1);
+		this.mBoard.placeTower(14, 8, 1);
+		this.mBoard.placeTower(15, 10, 1);
+		this.mBoard.placeTower(14, 12, 1);
+		this.mBoard.placeTower(15, 14, 1);
+		this.mBoard.placeTower(14, 16, 1);
+		this.mBoard.placeTower(15, 18, 1);
+		this.mBoard.placeTower(14, 20, 1);
+		this.mBoard.placeTower(15, 22, 1);
+		this.mBoard.placeTower(13, 23, 1);
+		
+		this.mBoard.placeBridge(14, 0, 15, 2, 1);
+		this.mBoard.placeBridge(15, 2, 14, 4, 1);
+		this.mBoard.placeBridge(14, 4, 15, 6, 1);
+		this.mBoard.placeBridge(15, 6, 14, 8, 1);
+		this.mBoard.placeBridge(14, 8, 15, 10, 1);
+		this.mBoard.placeBridge(15, 10, 14, 12, 1);
+		this.mBoard.placeBridge(14, 12, 15, 14, 1);
+		this.mBoard.placeBridge(15, 14, 14, 16, 1);
+		this.mBoard.placeBridge(14, 16, 15, 18, 1);
+		this.mBoard.placeBridge(15, 18, 14, 20, 1);
+		this.mBoard.placeBridge(14, 20, 15, 22, 1);
+		this.mBoard.placeBridge(15, 22, 13, 23, 1);
+		//ok so thats the big red line that wins the game, it on its own is fine
+		//now start adding the rest of they crap, one of these assholes is screwing it up
+		
+		this.mBoard.placeTower(9, 18, 1);
+		this.mBoard.placeTower(2, 9, 1);
+		this.mBoard.placeTower(3,  7, 1);
+		this.mBoard.placeTower(4, 5, 1);
+		this.mBoard.placeTower(3, 3, 1);
+		this.mBoard.placeBridge(3, 3, 4, 5, 1);
+		this.mBoard.placeBridge(3, 7, 4, 5, 1);
+		
+		this.mBoard.placeTower(9, 21, 2);
+		this.mBoard.placeTower(11, 20, 2);
+		this.mBoard.placeTower(0, 14, 2);
+		this.mBoard.placeTower(2, 15, 2);
+		this.mBoard.placeTower(2, 13, 2);
+		this.mBoard.placeTower(4, 14, 2);
+		this.mBoard.placeTower(4, 12, 2);
+		this.mBoard.placeTower(6, 13, 2);
+		this.mBoard.placeTower(6, 11, 2);
+		this.mBoard.placeTower(8, 11, 2);
+		this.mBoard.placeTower(7, 9, 2);
+		this.mBoard.placeTower(7, 12, 2);
+		this.mBoard.placeTower(8, 13, 2);
+		this.mBoard.placeTower(10, 12, 2);
+		this.mBoard.placeTower(10, 14, 2);
+		this.mBoard.placeTower(12, 13, 2);
+		this.mBoard.placeTower(12, 15, 2);
+		
+		this.mBoard.placeBridge(0, 14, 2, 13, 2);
+		this.mBoard.placeBridge(0, 14, 2, 15, 2);
+		this.mBoard.placeBridge(2, 15, 4, 14, 2);
+		this.mBoard.placeBridge(2, 13, 4, 14, 2);
+		this.mBoard.placeBridge(2, 13, 4, 12, 2);
+		this.mBoard.placeBridge(4, 14, 6, 13, 2);
+		this.mBoard.placeBridge(4, 12, 6, 13, 2);
+		this.mBoard.placeBridge(4, 12, 6, 11, 2);
+		this.mBoard.placeBridge(6, 11, 7, 9, 2);
+		this.mBoard.placeBridge(7, 9, 8, 11, 2);
+		this.mBoard.placeBridge(8, 11, 10, 12, 2);
+		this.mBoard.placeBridge(12, 13, 10, 12, 2);
+		this.mBoard.placeBridge(12, 15, 10, 14, 2);
+		
+		turnStage=3;
+		this.endTurn(1);
 	}
 }

@@ -15,7 +15,7 @@ public class HumanController implements Controller{
 			//if there is a valid last click and you are clicking on a tower of your own then place a bridge/remove a bridge
 			if((mGame.getTower(x, y)!=null)&&(mGame.getRealID(mGame.getTower(x, y).getPlayerId())==myID)){
 				if(lastXClick>=0){
-					if(mGame.getBridge(x,y,lastXClick,lastYClick,myID)==null){//if there is not a bridge of mine already here
+					/*if(mGame.getBridge(x,y,lastXClick,lastYClick,myID)==null){//if there is not a bridge of mine already here
 						if(test.getDebugModeOn())System.out.println("HControler "+myID+" placing Bridge");
 						mGame.placeBridge(x, y, lastXClick, lastYClick, myID);//place a bridge
 						lastXClick=x;
@@ -23,6 +23,16 @@ public class HumanController implements Controller{
 					}else{//otherwise, there is a bridge of mine already here
 						if(test.getDebugModeOn())System.out.println("HControler "+myID+" removing bridge");
 						mGame.removeBridge(x, y, lastXClick, lastYClick, myID);//so remove a bridge
+						lastXClick=x;
+						lastYClick=y;*/
+					if(mGame.getTurnStage()<=1){//if it's equal to zero or one then try to remove towers
+						if(test.getDebugModeOn())System.out.println("HControler "+myID+" removing bridge");
+						mGame.removeBridge(x, y, lastXClick, lastYClick, myID);//so remove a bridge
+						lastXClick=x;
+						lastYClick=y;
+					}else{//try to add bridges
+						if(test.getDebugModeOn())System.out.println("HControler "+myID+" placing Bridge");
+						mGame.placeBridge(x, y, lastXClick, lastYClick, myID);//place a bridge
 						lastXClick=x;
 						lastYClick=y;
 					}
