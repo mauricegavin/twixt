@@ -27,13 +27,16 @@ public class RuleMaster {
 	public boolean canPlaceTower(int x, int y, int playerID){
 		if((playerID==2&&(y==0||y==23))||(playerID==1&&(x==0||x==23)))//the very top and bottom rows are reserved for the respective player, if the wrong player is trying to place a tower here return false; 
 		{
+			if(test.getDebugModeOn())System.out.println("Player " + playerID + " cannot play in slot ("+x+","+y+")");
 			return false;
 		}
 		if((mBoard.getTower(x, y)!=null))
 		{
+			if(test.getDebugModeOn())System.out.println("A tower is already at ("+x+","+y+")");
 			return false;
 		}else{
-		return true;
+			if(test.getDebugModeOn())System.out.println("A tower can be placed at ("+x+","+y+")");
+			return true;
 		}
 	}
 	/**
@@ -46,13 +49,16 @@ public class RuleMaster {
 	public boolean canPlaceTower(int x, int y, int playerID, Board board){
 		if((playerID==2&&(y==0||y==23))||(playerID==1&&(x==0||x==23)))//the very top and bottom rows are reserved for the respective player, if the wrong player is trying to place a tower here return false; 
 		{
+			if(test.getDebugModeOn())System.out.println("Player " + playerID + " cannot play in slot ("+x+","+y+")");
 			return false;
 		}
 		if((board.getTower(x, y)!=null))
 		{
+			if(test.getDebugModeOn())System.out.println("A tower is already at ("+x+","+y+")");
 			return false;
 		}else{
-		return true;
+			if(test.getDebugModeOn())System.out.println("A tower can be placed at ("+x+","+y+")");
+			return true;
 		}
 	}
 	/**
@@ -66,6 +72,7 @@ public class RuleMaster {
 	public boolean canPlaceBridge(int x1, int y1, int x2, int y2, int playerNumber){
 		Tower tower1=mBoard.getTower(x1,y1);
 		Tower tower2=mBoard.getTower(x2,y2);
+		
 		if(test.getDebugModeOn())System.out.println("Testing bridge move...");
 		if((tower1!=null)&&(tower2!=null)&&(tower1.getPlayerId()==playerNumber)&&(tower2.getPlayerId()==playerNumber)&&(mBoard.getBridge(x1,y1,x2,y2)==null))//checks to make sure the towers exist and are of the correct player, and that a bridge does not already exist at this position
 		{
