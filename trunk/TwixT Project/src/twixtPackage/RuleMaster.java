@@ -433,7 +433,7 @@ public class RuleMaster {
 			}else if(currentBridge.getEnd().compare(start)){//other wise check the other end to see if its connected to our source and start again
 				bridgeList.remove(i);
 				i--;
-				if(hasConnection(currentBridge.getEnd(),endList,bridgeList)){
+				if(hasConnection(currentBridge.getStart(),endList,bridgeList)){//This line may be incorrect, previous version: if(hasConnection(currentBridge.getEnd(),endList,bridgeList)){
 					return true;
 				}
 			}
