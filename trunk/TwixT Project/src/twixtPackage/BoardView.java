@@ -42,6 +42,8 @@ public class BoardView extends JComponent implements MouseListener
 	int componentHeight = 0;
 	private HumanController player1;
 	private HumanController player2;
+	private AiController computer1;
+	private AiController computer2;
 	
 	Board board;
 	Game game;
@@ -160,6 +162,12 @@ public class BoardView extends JComponent implements MouseListener
 	public void addPlayer2Controller(HumanController p2){
 		player2=p2;
 	}
+	public void addPlayer1Controller(AiController p1){
+		computer1 = p1;
+	}
+	public void addPlayer2Controller(AiController p2){
+		computer2 = p2;
+	}
 	@Override
 	public void mouseClicked(MouseEvent click)
 	{
@@ -177,9 +185,19 @@ public class BoardView extends JComponent implements MouseListener
 		if(this.player1!=null){
 			player1.doMove(x, y);
 		}
+		else if(this.computer1!=null)
+		{
+			computer1.doMove();
+		}
+		
 		if(this.player2!=null){
 			player2.doMove(x, y);
 		}
+		else if(this.computer2!=null)
+		{
+			computer2.doMove();
+		}
+		
 		// Print out the array co-ords.
 		if(test.getDebugModeOn() == true) System.out.println("x = " + x + "\ny = " + y);		
 	}

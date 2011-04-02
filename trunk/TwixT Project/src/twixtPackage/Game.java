@@ -31,20 +31,30 @@ public class Game extends Observable
 	{
 		setupFrame = new SetupView(this);
 		resource = new ResourceManager();
-		//createNewGame(true,1,1,"Hocho", "Mocho", null, 0);
+		//createNewGame(true,1,2,"Hocho", "Mocho", null, 0);
 		//Minimax ai = new Minimax(this);
 	}
 
 	public void createNewGame(boolean state, int player1type, int player2type, String player1Name, String player2Name, String ip, int port) 
 	{
 		if (state)
-		{	
+		{
 			mBoard = new Board();
 			mRule = new RuleMaster(mBoard);
 			gameFrame = new GameView(this, mBoard);
 			this.addObserver(gameFrame);
 			Socket sock = null;
-
+			
+			//the following few lines should be uncommented to make use a file in the specified location to do moves
+			//NetController n1 = new NetController(sock, this, 1);
+			//NetController n2 = new NetController(sock, this, 2);
+			//n1.switchToFile("src\\twixtPackage\\OldMoves.txt");
+			//n2.switchToFile("src\\twixtPackage\\OldMoves.txt");
+			//n1.start();
+			//n2.start();
+			//this.testEnd();
+			
+			//MAC Version 
 			//the following few lines should be uncommented to make use a file in the specified location to do moves
 			/*NetController n1 = new NetController(sock, this, 1);
 			NetController n2 = new NetController(sock, this, 2);
@@ -53,7 +63,7 @@ public class Game extends Observable
 			n1.start();
 			n2.start();*/
 
-			if(player2type==3){//then it is a network game
+			if(player2type == 3){ //then it is a network game
 				try {
 					sock = new Socket(ip,port);
 					BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
@@ -76,7 +86,6 @@ public class Game extends Observable
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
 			}
 			
 			switch(player1type)
@@ -85,10 +94,17 @@ public class Game extends Observable
 					gameFrame.addPlayer1Controller(new HumanController(1,this));
 					break;
 				case 2:
+					AiController computer1 = new AiController(this, 1);
+					gameFrame.addPlayer1Controller(computer1);
+					this.addObserver(computer1);
+					this.setChanged(); // Let player kick the game off with their first move.
+					this.notifyObservers();
+					break;
 				case 3:
 					this.addObserver(new NetView(sock,this,2));//if player 1 is a networked player, then we need to send player2's move to the server
 					NetController n = new NetController( sock,this, 1);
 					n.start();
+					break;
 				default:
 					break;
 			}
@@ -98,10 +114,15 @@ public class Game extends Observable
 					gameFrame.addPlayer2Controller(new HumanController(2,this));
 					break;
 				case 2:
+					AiController computer2 = new AiController(this, 2);
+					gameFrame.addPlayer1Controller(computer2);
+					this.addObserver(computer2);
+					break;
 				case 3:
 					this.addObserver(new NetView(sock,this,1));//if player 2 is a networked player, then we need to send player1's move to the server
 					NetController n = new NetController( sock,this, 2);
 					n.start();
+					break;
 				default:
 					break;
 			}

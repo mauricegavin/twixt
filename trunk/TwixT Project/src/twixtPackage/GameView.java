@@ -71,6 +71,8 @@ public class GameView implements Observer
 	Board board;
 	HumanController player1;
 	HumanController player2;
+	AiController computer1;
+	AiController computer2;
 	
 	// Additional Frames
 	JFrame endGameFrame;
@@ -202,7 +204,14 @@ public class GameView implements Observer
 		boardGraphics.addPlayer2Controller(p2);
 		player2=p2;
 	}
-	
+	public void addPlayer1Controller(AiController p1){
+		boardGraphics.addPlayer1Controller(p1);
+		computer1 = p1;
+	}
+	public void addPlayer2Controller(AiController p2){
+		boardGraphics.addPlayer2Controller(p2);
+		computer2 = p2;
+	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
