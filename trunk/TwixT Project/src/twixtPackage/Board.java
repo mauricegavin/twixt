@@ -2,7 +2,16 @@ package twixtPackage;
 
 import java.util.Vector;
 
-
+/**
+ * The Board on which a game is played.
+ * <p>
+ * Users include:<br>
+ * - Game: To actually play the game.<br>
+ * - RuleMaster: Assess validity of moves<br>
+ * - AI: To test sample moves<br>
+ * - BoardView: Printing to the screen<br>
+ * @author Maurice
+ */
 public class Board {
 
 	//
@@ -33,8 +42,11 @@ public class Board {
 		bridgeList.clear();
 	}		
 	
-	/*
-	 * Copy constructor for Board Class
+	/**
+	 * Copy constructor for Board Class<br>
+	 * <p>
+	 * Creates a shallow copy of boardIn<br>
+	 * @param boardIn The board to be copied
 	 */
 	public Board(Board boardIn)
 	{
@@ -49,6 +61,13 @@ public class Board {
 		bridgeList = boardIn.bridgeList;
 	}
 	
+	/**
+	 * Places a new Tower on the board
+	 * <p>
+	 * @param x x coord
+	 * @param y y coord
+	 * @param owner The player's ID
+	 */
 	public void placeTower(int x, int y, int owner)
 	{	
 		if(x<0||x>23||y<0||y>23||owner<1||owner>2){
@@ -58,7 +77,7 @@ public class Board {
 			board[x][y] = tower;
 		}
 	}
-	
+
 	public Boolean placeBridge(int x1, int y1, int x2, int y2, int owner)//TODO Board should not ask rulemaster, game object should
 	{
 //		if ( boss.canPlaceBridge(x1, y1, x2, y2, owner) )
