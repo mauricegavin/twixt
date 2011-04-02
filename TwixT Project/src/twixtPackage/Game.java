@@ -46,13 +46,12 @@ public class Game extends Observable
 			Socket sock = null;
 
 			//the following few lines should be uncommented to make use a file in the specified location to do moves
-			//NetController n1 = new NetController(sock, this, 1);
-			//NetController n2 = new NetController(sock, this, 2);
-			//n1.switchToFile("src\\twixtPackage\\OldMoves.txt");
-			//n2.switchToFile("src\\twixtPackage\\OldMoves.txt");
-			//n1.start();
-			//n2.start();
-			//this.testEnd();
+			/*NetController n1 = new NetController(sock, this, 1);
+			NetController n2 = new NetController(sock, this, 2);
+			n1.switchToFile("src/twixtPackage/OldMoves.txt");
+			n2.switchToFile("src/twixtPackage/OldMoves.txt");
+			n1.start();
+			n2.start();*/
 
 			if(player2type==3){//then it is a network game
 				try {
