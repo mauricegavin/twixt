@@ -76,13 +76,14 @@ public class GameView implements Observer
 	JFrame endGameFrame;
 	
 	// JLabels
-	JLabel textualButtonInformation = new JLabel("Would you like to play the PI Rule?");
+	public JLabel consoleLabel = new JLabel("Good luck!");
+	private JLabel textualButtonInformation = new JLabel("Would you like to play the PI Rule?");
 	
 	// Buttons
-	JButton piButtonAffirm = new JButton("Gimme you Towers");
-	JButton piButtonRegect = new JButton("No");
-	JButton endTurnButton = new JButton("End Turn");
-	JButton newGameButton = new JButton("New Game");
+	private JButton piButtonAffirm = new JButton("Gimme you Towers");
+	private JButton piButtonRegect = new JButton("No");
+	private JButton endTurnButton = new JButton("End Turn");
+	private JButton newGameButton = new JButton("New Game");
 	
 	/**
 	 * The GameView Class is responsible for the game screen for the game.<br>
@@ -117,7 +118,6 @@ public class GameView implements Observer
 		//
 		
 		// Create JLabels. Fields which display text.
-		JLabel consoleLabel = new JLabel("Good luck!");
 		
 		// Text Fields
 		
@@ -225,6 +225,16 @@ public class GameView implements Observer
 		{
 			showEndGame(2);
 		}
+		
+		// Update console window with meaningful messages
+		if(game.getPlayerTurn() == 1)
+		{
+			consoleLabel.setText("Player 1's Turn");
+		}
+		else if(game.getPlayerTurn() == 2)
+		{
+			consoleLabel.setText("Player 2's Turn");
+		}
 	}
 
 	public void showPiRuleOption(Boolean state)
@@ -312,7 +322,7 @@ public class GameView implements Observer
 			case 3: // No, do not implement PI Rule
 				showPiRuleOption(false);
 				break;
-			case 4:
+			case 4: // Start New Game
 				gameFrame.setVisible(false);
 				endGameFrame.setVisible(false);
 				game.startNewGame(true);
@@ -331,9 +341,19 @@ public class GameView implements Observer
 			{
 				if(test.getDebugModeOn())System.out.println("Detected Backspace Key press.");
 			}
-			else if((key.getKeyCode() == 17) || (key.getKeyCode() == 85))
+			else if((key.getKeyCode() == 117) || (key.getKeyCode() == 85))
 			{
 				if(test.getDebugModeOn())System.out.println("Detected U Key press.");
+			}
+			else if((key.getKeyChar() == ' ') || (key.getKeyChar() == '\n'))
+			{
+				if(player1 != null){
+					player1.endTurn();
+				}
+				if(player2 != null){
+					player2.endTurn();
+				}
+				if(test.getDebugModeOn())System.out.println("Detected Return Key press.");
 			}
 		}
 
