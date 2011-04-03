@@ -25,7 +25,7 @@ public class Game extends Observable
 	private Tower lastMoveTower = null;
 	private Bridge lastPlacedBridge = null;
 	private Bridge lastRemovedBridge = null;
-	public Test test = new Test(true);
+	public Test test = new Test(false);
 	
 	public Game()
 	{
@@ -44,7 +44,8 @@ public class Game extends Observable
 			gameFrame = new GameView(this, mBoard);
 			this.addObserver(gameFrame);
 			Socket sock = null;
-			
+			BufferedReader in = null;
+			PrintWriter out =  null;
 			//the following few lines should be uncommented to make use a file in the specified location to do moves
 			//NetController n1 = new NetController(sock, this, 1);
 			//NetController n2 = new NetController(sock, this, 2);
@@ -66,18 +67,22 @@ public class Game extends Observable
 			if(player2type == 3){ //then it is a network game
 				try {
 					sock = new Socket(ip,port);
-					BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+					in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 					String playerNumber=in.readLine();
-					PrintWriter out = new PrintWriter(sock.getOutputStream(),true);
+					out = new PrintWriter(sock.getOutputStream(),true);
 					out.println("NM"+player1Name);
 					if(playerNumber.matches("PL1")){
 						player2type=3;
 					}else if(playerNumber.matches("PL2")){
 						player2type=player1type;
 						player1type=3;
-					}else if(playerNumber.matches("PL3")){
+					}else if(playerNumber.matches("PL3")){//then we are an observer
+						player1type=3;
 						player2type=3;
-						player2type=3;
+						NetController n = new NetController(in, this, 1);
+						n.setAsObserver(true);
+						n.start();
+						return;
 					}
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
@@ -87,7 +92,6 @@ public class Game extends Observable
 					e.printStackTrace();
 				}
 			}
-			
 			switch(player1type)
 			{
 				case 1:
@@ -101,8 +105,10 @@ public class Game extends Observable
 					this.notifyObservers();
 					break;
 				case 3:
-					this.addObserver(new NetView(sock,this,2));//if player 1 is a networked player, then we need to send player2's move to the server
-					NetController n = new NetController( sock,this, 1);
+					//if(player2type!=3){
+					this.addObserver(new NetView(out,this,2));//if player 1 is a networked player, then we need to send player2's move to the server
+					//}
+					NetController n = new NetController(in, this, 1);
 					n.start();
 					break;
 				default:
@@ -119,8 +125,10 @@ public class Game extends Observable
 					this.addObserver(computer2);
 					break;
 				case 3:
-					this.addObserver(new NetView(sock,this,1));//if player 2 is a networked player, then we need to send player1's move to the server
-					NetController n = new NetController( sock,this, 2);
+					//if(player1type!=3){
+					this.addObserver(new NetView(out,this,1));//if player 2 is a networked player, then we need to send player1's move to the server
+					//}
+					NetController n = new NetController(in, this, 2);
 					n.start();
 					break;
 				default:

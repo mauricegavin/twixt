@@ -25,6 +25,9 @@ public class RuleMaster {
 	 */
 	//For now this method assumes p1 is always playing left to right, and p2 bottom to top//now attempting to switch so that p1 is up/down p2 is left right
 	public boolean canPlaceTower(int x, int y, int playerID){
+		if(x>23||x<0||y>23||y<0){//if the player is trying to play off the edge of the board
+			return false;
+		}
 		if((playerID==2&&(y==0||y==23))||(playerID==1&&(x==0||x==23)))//the very top and bottom rows are reserved for the respective player, if the wrong player is trying to place a tower here return false; 
 		{
 			if(test.getDebugModeOn())System.out.println("Player " + playerID + " cannot play in slot ("+x+","+y+")");
@@ -47,6 +50,9 @@ public class RuleMaster {
 	 */
 	//For now this method assumes p1 is always playing left to right, and p2 bottom to top//now attempting to switch so that p1 is up/down p2 is left right
 	public boolean canPlaceTower(int x, int y, int playerID, Board board){
+		if(x>23||x<0||y>23||y<0){//if the player is trying to play off the edge of the board
+			return false;
+		}
 		if((playerID==2&&(y==0||y==23))||(playerID==1&&(x==0||x==23)))//the very top and bottom rows are reserved for the respective player, if the wrong player is trying to place a tower here return false; 
 		{
 			if(test.getDebugModeOn())System.out.println("Player " + playerID + " cannot play in slot ("+x+","+y+")");
