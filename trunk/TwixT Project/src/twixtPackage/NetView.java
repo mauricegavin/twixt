@@ -7,24 +7,17 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class NetView implements Observer{
-	private Socket mSocket;
 	private PrintWriter out;
 	private int myID;
 	private Game mGame;
 	private boolean endTurn = false;//true if i have played a move but not yet sent an end turn string
 	public Test test = new Test(false);
 	
-	public NetView(Socket sock, Game game, int playerID){
-		mSocket = sock;
+	public NetView(PrintWriter writer, Game game, int playerID){
 		mGame = game;
 		myID = playerID;
 		mGame.addObserver(this);
-		try {
-			out = new PrintWriter(mSocket.getOutputStream(), true);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		out = writer;
 	}
 
 	@Override

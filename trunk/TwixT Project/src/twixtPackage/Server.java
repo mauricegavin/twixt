@@ -25,12 +25,13 @@ public class Server extends Thread{
 	Vector<PrintWriter> Observers = new Vector<PrintWriter>();
 	ServerSocket servSock = null;
 	int port;
-	//public static void main(String[] args) {
+	Test test = new Test(false);
+	
 	public Server(int newPort){
 		port = newPort;
 	}
 	public void run(){
-		Test test = new Test(true);
+		
 		java.net.InetAddress i = null;
 		try {
 			i = java.net.InetAddress.getLocalHost();
@@ -67,11 +68,7 @@ public class Server extends Thread{
 			e1.printStackTrace();
 		}
 		
-		
-		String testString;
-		
-		Vector<String> oldMoves = new Vector<String>();
-		Vector<Socket> Observers = new Vector<Socket>();
+
 		online=true;
 		try{
 		//wait for someone to connect
@@ -83,8 +80,8 @@ public class Server extends Thread{
 		p1Out=new PrintWriter(player1.getOutputStream(),true);
 		if(test.getDebugModeOn())System.out.println("p1out: PL1");
 		p1Out.println("PL1");
+		
 		//wait for someone else to connect
-		//servSock = new ServerSocket(port);
 		player2 = servSock.accept();
 		if(test.getDebugModeOn())System.out.println("p2 accepted connection");
 		//tell them they are player 2
@@ -92,11 +89,15 @@ public class Server extends Thread{
 		p2Out=new PrintWriter(player2.getOutputStream(),true);
 		if(test.getDebugModeOn())System.out.println("p2out: PL2");
 		p2Out.println("PL2");
+		
+		//Read in player1s name
 		player1Name = p1In.readLine();
 		if(test.getDebugModeOn())System.out.println("p1in:"+player1Name);
+		//Read in player2s name
 		player2Name = p2In.readLine();
 		if(test.getDebugModeOn())System.out.println("p2in:"+player2Name);
 		//start the acceptor waiting for observers
+		new Acceptor(this).start();
 		//tell p1 about p2
 		if(test.getDebugModeOn())System.out.println("p1out:"+player2Name);
 		p1Out.println(player2Name);
@@ -152,6 +153,7 @@ public class Server extends Thread{
 		}
 		catch(IOException e){
 			e.printStackTrace();
+			online=false;
 		}
 		
 	}
@@ -159,7 +161,10 @@ public class Server extends Thread{
 		return online;
 	}
 	public String getMove(int i){
-		return oldMoves.elementAt(i);
+		if(i<oldMoves.size()){
+			return oldMoves.elementAt(i);
+		}
+		else return null;
 	}
 	public void addObserver(PrintWriter obs){
 		this.Observers.add(obs);
@@ -169,8 +174,9 @@ public class Server extends Thread{
 	}
 	private void sendMoveToObs(String move){
 		if(!Observers.isEmpty()){
-			for(int i = 0; i < Observers.capacity(); i++){
+			for(int i = 0; i < Observers.size(); i++){
 				Observers.elementAt(i).println(move);
+				if(test.getDebugModeOn())System.out.println("Observer number "+i+" out: "+move);
 			}
 		}
 	}
