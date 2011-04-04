@@ -70,7 +70,7 @@ public class NetView implements Observer{
 				if(test.getDebugModeOn())System.out.println("NetView: "+output);
 				out.println(output);
 			}
-			output = "EN"+myID;
+			output = "ENP"+myID;
 			if(test.getDebugModeOn())System.out.println("NetView: "+output);
 			out.println(output);//send the end turn string
 		}

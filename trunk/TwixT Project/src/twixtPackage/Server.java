@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Server extends Thread{
-
+//TODO currently is case sensitive, must be made case insesitive
 	/**
 	 * @param args
 	 */
@@ -108,7 +108,7 @@ public class Server extends Thread{
 		while(online){
 			System.out.println("Online "+online);
 			move=p1In.readLine();
-			while(!move.matches("EN1")){//keep reading from player 1 until they end thier turn
+			while(!move.matches("ENP1")){//keep reading from player 1 until they end thier turn
 				if(test.getDebugModeOn())System.out.println("p1in:"+move);
 				//send to p2 & obs
 				if(test.getDebugModeOn())System.out.println("p2out:"+move);
@@ -129,7 +129,7 @@ public class Server extends Thread{
 			fileOut.flush();
 			//wait for p2 to do move
 			move=p2In.readLine();
-			while(!move.matches("EN2")){//keep reading from player 2 until they end their turn
+			while(!move.matches("ENP2")){//keep reading from player 2 until they end their turn
 				if(test.getDebugModeOn())System.out.println("p2in:"+move);
 				//send to p1 & obs
 				if(test.getDebugModeOn())System.out.println("p1out:"+move);
