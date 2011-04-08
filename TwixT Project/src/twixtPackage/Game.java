@@ -152,10 +152,10 @@ public class Game extends Observable
 		if(turnStage<2){
 			if(isMyGo(playerNumber)&&mRule.canRemoveBridge(x1, y1, x2, y2, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
 			{
-				mBoard.removeBridge(x1, y1, x2, y2, getRealID(playerNumber));
+				mBoard.removeBridge(x1, y1, x2, y2, getRealID(playerNumber));//remove the bridge on the current board object
 				turnStage=1;
-				this.lastRemovedBridge=new Bridge(new Tower(x1,y1,getRealID(playerNumber)),new Tower(x2,y2,getRealID(playerNumber)), getRealID(playerNumber));
-				this.setChanged();
+				this.lastRemovedBridge=new Bridge(new Tower(x1,y1,getRealID(playerNumber)),new Tower(x2,y2,getRealID(playerNumber)), getRealID(playerNumber));//Update the parameters that tore the last played move
+				this.setChanged();//update observers
 				this.notifyObservers();
 				return true;
 			}else if(test.getDebugModeOn()){
@@ -177,10 +177,10 @@ public class Game extends Observable
 		if(turnStage<3){
 			if(isMyGo(playerNumber)&&mRule.canPlaceTower(x, y, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
 			{
-				mBoard.placeTower(x, y, getRealID(playerNumber));
+				mBoard.placeTower(x, y, getRealID(playerNumber));//place the tower on the current board object
 				turnStage=3;
-				this.lastMoveTower=new Tower(x,y,getRealID(playerNumber));
-				this.setChanged();
+				this.lastMoveTower=new Tower(x,y,getRealID(playerNumber));//Update the parameters that tore the last played move
+				this.setChanged();//Update observers
 				this.notifyObservers();
 				return true;
 			}else if(test.getDebugModeOn()){
@@ -204,10 +204,10 @@ public class Game extends Observable
 		if(turnStage==3){
 			if(isMyGo(playerNumber)&&mRule.canPlaceBridge(x1, y1, x2, y2, getRealID(playerNumber)))//if it is the correct players turn and if the move is legal
 			{
-				mBoard.placeBridge(x1, y1, x2, y2, getRealID(playerNumber));
+				mBoard.placeBridge(x1, y1, x2, y2, getRealID(playerNumber));//Place the Bridge on the cirrent board object
 				playSound(2);
-				this.lastPlacedBridge=new Bridge(new Tower(x1,y1,getRealID(playerNumber)),new Tower(x2,y2,getRealID(playerNumber)), getRealID(playerNumber));
-				this.setChanged();
+				this.lastPlacedBridge=new Bridge(new Tower(x1,y1,getRealID(playerNumber)),new Tower(x2,y2,getRealID(playerNumber)), getRealID(playerNumber));//Update the parameters that tore the last played move
+				this.setChanged();//Update the observers
 				this.notifyObservers();
 				return true;
 			}else if(test.getDebugModeOn()){
@@ -223,7 +223,7 @@ public class Game extends Observable
 	 * @param playerNumber
 	 */
 	public void endTurn(int playerNumber){
-		if(isMyGo(playerNumber)&&turnStage==3){
+		if(isMyGo(playerNumber)&&turnStage==3){//if it is my go, and i have at least placed a tower, then it is legal to end my turn
 			playSound(1);
 			turnStage=0;
 			if(playerTurn==1){
@@ -253,11 +253,10 @@ public class Game extends Observable
 	 * @return True if the move was played, false otherwise
 	 */
 	public boolean piRule(int playerNumber){
-		if(isMyGo(playerNumber)&&turnStage==0&&numTurns==1){
-			player1ID=2;
-			player2ID=1;
-			turnStage=3;
-			//endTurn(playerNumber);
+		if(isMyGo(playerNumber)&&turnStage==0&&numTurns==1){//if it is my turn, and there is only 1 turn taken, and it is turnStage zero than it is legal to play the pi rule
+			player1ID=2;//switch the player ids
+			player2ID=1;//switch the player ids
+			turnStage=3;//set the turnstage
 			this.setChanged();
 			this.notifyObservers();
 			return true;
@@ -314,13 +313,29 @@ public class Game extends Observable
 	public Bridge getBridge(int i){
 		return mBoard.getBridge(i);
 	}
+	/**
+	 * Returns an integr greater than zero if the game has ended, 1 if player 1 has won, 2 if player 2 has won. 
+	 * @return
+	 */
 	public int gameIsOver(){
 		return gameIsOver;
 	}
+	/**
+	 * Returns true if the pi rule has been played
+	 * @return
+	 */
 	public boolean canPlayPiRule(){
 		return(this.numTurns==1&&this.turnStage==0);
 	}
-
+	/**
+	 * Returns a refernece to the specified bridge, null if it does not exist
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @param playerID
+	 * @return
+	 */
 	public Bridge getBridge(int x1, int y1, int x2, int y2,int playerID) {
 		return mBoard.getBridge(x1, y1, x2, y2, playerID);
 	}
@@ -342,28 +357,51 @@ public class Game extends Observable
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Return the last placed tower
+	 * @return
+	 */
 	public Tower getLastTower(){
 		Tower t = this.lastMoveTower;
 		lastMoveTower = null;
 		return t;
 	}
+	/**
+	 * Returns the last bridge that has been placed
+	 * @return
+	 */
 	public Bridge getLastPlacedBridge(){
 		Bridge b = this.lastPlacedBridge;
 		lastPlacedBridge = null;
 		return b;
 	}
+	/**
+	 * Returns the last bridge that has been removed
+	 * @return
+	 */
 	public Bridge getLastRemovedBridge(){
 		Bridge b = this.lastRemovedBridge;
 		lastRemovedBridge = null;
 		return b;
 	}
+	/**
+	 * Returns the number of turns that have been played in the game so far
+	 * @return
+	 */
 	public int getNumTurns(){
 		return this.numTurns;
 	}
+	/**
+	 * Returns an integer representing what stage of the turn it is: 0: pi rule, 1: removing bridges, 2: placing a tower or 3: placing bridges and the turn is ready to finish
+	 * @return
+	 */
 	public int getTurnStage(){
 		return turnStage;
 	}
-	
+	/**
+	 * Returns a reference to the current ruleMaster object
+	 * @return
+	 */
 	public RuleMaster getRuleMaster(){
 		return mRule;
 	}
@@ -374,6 +412,10 @@ public class Game extends Observable
 	public int getPlayerTurn(){
 		return playerTurn;
 	}	
+	/**
+	 * Returns a reference to the current board
+	 * @return
+	 */
 	public Board getBoard(){
 		return mBoard;
 	}
