@@ -15,7 +15,11 @@ import java.util.Vector;
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+/**
+ * Server made to test bug cases, se up to play moves out of a file
+ * @author Jack
+ *
+ */
 public class TestSever extends Thread{
 
 	/**

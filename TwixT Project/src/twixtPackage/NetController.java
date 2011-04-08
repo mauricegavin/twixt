@@ -13,7 +13,7 @@ public class NetController extends Thread implements Controller{
 	private Game mGame;
 	private BufferedReader in;
 	private boolean observer=false;
-	public Test test = new Test(true);
+	public Test test = new Test(false);
 	public boolean connected=true;
 	public NetController(BufferedReader reader,Game game, int playerID){
 		mGame= game;

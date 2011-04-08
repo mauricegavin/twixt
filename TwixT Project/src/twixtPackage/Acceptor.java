@@ -10,7 +10,7 @@ import java.net.Socket;
  */
 public class Acceptor extends Thread{
 	private Server mServ;
-	Test test = new Test(true);
+	Test test = new Test(false);
 	public Acceptor(Server server){
 		mServ=server;
 	}

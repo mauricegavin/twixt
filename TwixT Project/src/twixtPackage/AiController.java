@@ -11,7 +11,7 @@ import java.util.Observer;
 
 public class AiController implements Controller, Observer
 {
-	public Test test = new Test(true);
+	public Test test = new Test(false);
 	private int myID;
 	private Game mGame;
 	private Minimax ai;
