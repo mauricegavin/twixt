@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class Minimax
 {
-	static Test test = new Test(true);
+	static Test test = new Test(false);
 	private Game game;
 	private Board testingBoard; // As opposed to the Game's mBoard (Master Board)
 	private RuleMaster rules;
