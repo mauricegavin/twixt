@@ -47,7 +47,6 @@ public class Server extends Thread{
 		box.add(ipLabel);
 		box.add(portLabel);
 		frame.pack();
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
 		//initialise variables
@@ -60,7 +59,7 @@ public class Server extends Thread{
 		String player1Name;
 		String player2Name;
 		String move;
-		File f = new File("src/twixtPackage/OldMoves.txt");
+		File f = new File("src/twixtPackage/OldMoves.txt");//Create file to store the played moves in, can be replayed to check for bugs
 		FileWriter fileOut = null;
 		try {
 			fileOut = new FileWriter(f);
@@ -157,18 +156,36 @@ public class Server extends Thread{
 		}
 		
 	}
+	/**
+	 * Returns true if the server is online
+	 * @return
+	 */
 	public boolean isOnline(){
 		return online;
 	}
+	/**
+	 * Returns the ith move played in the current game
+	 * @param i
+	 * @return
+	 */
 	public String getMove(int i){
 		if(i<oldMoves.size()){
 			return oldMoves.elementAt(i);
 		}
 		else return null;
 	}
+	/**
+	 * Adds an PrintWriter object to the current list of observers
+	 * @param obs
+	 */
 	public void addObserver(PrintWriter obs){
 		this.Observers.add(obs);
 	}
+	/**
+	 * Returns a socket if the connection was made correctly, null otherwise
+	 * @return
+	 * @throws IOException
+	 */
 	public Socket accept() throws IOException{
 			return servSock.accept();
 	}
